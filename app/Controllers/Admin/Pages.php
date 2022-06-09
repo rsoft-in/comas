@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Controllers;
-
+namespace App\Controllers\Admin;
+use App\Controllers\BaseController;
 use App\Models\PagesModel;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
@@ -14,16 +14,14 @@ class Pages extends BaseController
     public function __construct()
     {
         date_default_timezone_set('Asia/Kolkata');
-        if (isset($_SERVER['HTTP_ORIGIN'])) {
-            header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-            header('Access-Control-Allow-Credentials: true');
-            header('Access-Control-Max-Age: 86400');    // cache for 1 day
-        }
     }
 
     public function index()
     {
-        return view('unauthorized_access');
+        $params = [
+            'page_title' => lang('App.pages'),
+        ];
+        return view('admin/admin_pages', $params);
     }
 
     public function getPages()

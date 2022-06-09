@@ -1,5 +1,6 @@
 <?php $this->extend('layouts/admin_template') ?>
 <?php $this->section('content') ?>
+
 <div class="row">
     <div class="col">
         <div class="card">

@@ -38,13 +38,13 @@
                 <div class="position-sticky pt-1">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link active" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
                                 <i class="bi bi-grid"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
                                 <i class="bi bi-file-earmark-richtext"></i>
                                 Pages
                             </a>
@@ -82,7 +82,7 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
+                    <h1 class="h2"><?php echo $page_title ?></h1>
                 </div>
                 <div class="container">
                     <?php $this->renderSection('content') ?>
