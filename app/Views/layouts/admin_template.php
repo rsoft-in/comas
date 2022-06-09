@@ -38,31 +38,31 @@
                 <div class="position-sticky pt-1">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
+                            <a class="nav-link <?php echo ($menu_id == 'dashboard' ? 'active' : '')?>" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
                                 <i class="bi bi-grid"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
+                            <a class="nav-link <?php echo ($menu_id == 'pages' ? 'active' : '')?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
                                 <i class="bi bi-file-earmark-richtext"></i>
                                 Pages
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'posts' ? 'active' : '')?>" href="#">
                                 <i class="bi bi-chat-right-text"></i>
                                 Posts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'users' ? 'active' : '')?>" href="#">
                                 <i class="bi bi-person"></i>
                                 Users
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '')?>" href="#">
                                 <i class="bi bi-gear"></i>
                                 Settings
                             </a>
@@ -73,10 +73,7 @@
                                 Sign Out
                             </a>
                         </li>
-
                     </ul>
-
-
                 </div>
             </nav>
 

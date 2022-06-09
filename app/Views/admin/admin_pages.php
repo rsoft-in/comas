@@ -1,5 +1,6 @@
 <?php $this->extend('layouts/admin_template') ?>
 <?php $this->section('content') ?>
+
 <table class="table">
   <thead>
     <tr>

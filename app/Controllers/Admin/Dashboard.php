@@ -10,6 +10,7 @@ class Dashboard extends BaseController
     {
         $params = [
             'page_title' => lang('App.dashboard'),
+            'menu_id' => 'dashboard'
         ];
         return view('admin/admin_home', $params);
     }
