@@ -19,7 +19,7 @@ class Pages extends BaseController
     public function index()
     {
         $params = [
-            'page_title' => lang('App.pages'),
+            'page_title' => lang('Default.pages'),
             'menu_id' => 'pages'
         ];
         return view('admin/admin_pages', $params);
