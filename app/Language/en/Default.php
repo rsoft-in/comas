@@ -8,5 +8,11 @@ return [
     'page_order' => 'Page Order',
     'published' => 'Published',
     'add' => 'Add',
-    'edit' => 'Edit'
+    'edit' => 'Edit',
+    'close' => 'Close',
+    'save' => 'Save',
+    'published' => 'Published',
+    'category' => 'Category',
+    'feature_image' => 'Feature Image',
+
 ];
