@@ -66,6 +66,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link <?php echo ($menu_id == 'categories' ? 'active' : '')?>" href="#">
+                                <i class="bi bi-person"></i>
+                                Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '')?>" href="#">
                                 <i class="bi bi-gear"></i>
                                 Settings

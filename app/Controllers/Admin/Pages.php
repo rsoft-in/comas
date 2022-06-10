@@ -55,7 +55,7 @@ class Pages extends BaseController
             'page_feat_image' => $json->p_fimage,
             'page_published' => $json->p_published,
             'page_author_id' => 'admin',
-            'page_cg_id' => $json->p_cgid,
+            'page_cg_id' => $json->p_cgid ?? '',
             'page_modified' => $today->toDateTimeString()
         ];
         $pagesModel->addPages($data);

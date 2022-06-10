@@ -4,6 +4,10 @@
 <script>
   $(document).ready(function() {
     getPages();
+
+    $('#f_ptitle').change(function() {
+      $('#f_purlslug').val($(this).val().toLowerCase().replace(/ /g, '_').replace(/[^\w\s]/gi, ''));
+    });
   });
   let sortby = 'page_title';
   let pn = 0;
@@ -25,6 +29,7 @@
       data: "postdata=" + postdata,
       success: function(result) {
         data = result;
+        $('#pages-table tbody').empty();
         $('#pages-table').append(generatePagesTable(data));
         // $(document).updatenav();
       },
@@ -34,13 +39,30 @@
     });
   }
 
+  function generatePagesTable(data) {
+    var _html = "";
+    for (let i = 0; i < data.pages.length; i++) {
+      _html += "<tr>\n" +
+        "<td>" + data.pages[i].page_title + "</td>\n" +
+        "<td>" + data.pages[i].page_url_slug + "</td>\n" +
+        "<td>" + data.pages[i].page_order + "</td>\n" +
+        "<td>" + (data.pages[i].page_published == 1 ? "<i class=\"bi bi-check2\"></i>" : "") + "</td>\n" +
+        "<td class=\"text-end\">" +
+        "<a class=\"ms-3\" href=\"#\" title='Edit' onclick=\"edit('" + data.pages[i].page_id + "')\"><i class=\"bi bi-pencil\"></i></a>" +
+        "<a class=\"ms-3\" href=\"#\" title='Delete' onclick=\"delete('" + data.pages[i].page_id + "')\"><i class=\"bi bi-trash\"></i></a>" +
+        "</td>" +
+        "</tr>";
+    }
+    return _html;
+  }
+
   function add() {
 
     $('#f_pid').val('');
     $('#f_ptitle').val('');
     tinymce.get('f-page-editor').setContent('');
     $('#f_purlslug').val('');
-    $('#f_porder').val('');
+    $('#f_porder').val('0');
     $('#f_pfeatimage').val('');
     $('#f_pcgid').val('');
     $('#f_ppublished').prop('checked', true);
@@ -51,7 +73,7 @@
     var row = data.pages.find((e) => {
       return e.page_id == id;
     });
-    
+
     $('#f_pid').val(row.page_id);
     $('#f_ptitle').val(row.page_title);
 
@@ -65,7 +87,6 @@
   }
 
   function save() {
-   
     var ed = tinymce.get('f-page-editor').getContent();
     var postdata = {
       'p_id': $('#f_pid').val(),
@@ -82,7 +103,10 @@
       url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/" + ($('#f_pid').val() == '' ? 'addPages' : 'updatePages'),
       data: "postdata=" + postdata + "&ed=" + encodeURIComponent(ed),
       success: function(result) {
-        alert(result);
+        if (result.indexOf('SUCCESS') >= 0) {
+          editModal.hide();
+          getPages();
+        }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert(errorThrown);
