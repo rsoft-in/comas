@@ -45,6 +45,7 @@ class Pages extends BaseController
         $data = [
             'page_id' => $json->page_id,
             'page_title' => $json->page_title,
+            'page_content' => $json->page_content,
             'page_url_slug' => $json->page_url_slug,
             'page_order' => $json->page_order,
             'page_feat_image' => $json->page_feat_image,
