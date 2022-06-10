@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 use App\Models\PagesModel;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
-
+use App\Libraries\Utility;
 
 class Pages extends BaseController
 {
@@ -31,6 +32,7 @@ class Pages extends BaseController
         $postdata = json_decode($post);
         $pagesModel = new PagesModel();
         $filt = "";
+
         $data['pages'] = $pagesModel->getPages($filt, $postdata->sort, $postdata->ps, $postdata->pn * $postdata->ps);
         $data['records'] = $pagesModel->getPagesCount($filt);
         return $this->respond($data);
@@ -39,19 +41,21 @@ class Pages extends BaseController
     public function addPages()
     {
         $post = $this->request->getPost('postdata');
+        $html = $this->request->getPost('ed');
         $json = json_decode($post);
         $today = new Time('now');
         $pagesModel = new PagesModel();
+        $utility = new Utility();
         $data = [
-            'page_id' => $json->page_id,
-            'page_title' => $json->page_title,
-            'page_content' => $json->page_content,
-            'page_url_slug' => $json->page_url_slug,
-            'page_order' => $json->page_order,
-            'page_feat_image' => $json->page_feat_image,
-            'page_published' => $json->page_published,
-            'page_author_id' => $json->page_author_id,
-            'page_cg_id' => $json->page_cg_id,
+            'page_id' => $utility->guid(),
+            'page_title' => $json->p_title,
+            'page_content' => $html,
+            'page_url_slug' => $json->p_urlslug,
+            'page_order' => $json->p_order,
+            'page_feat_image' => $json->p_fimage,
+            'page_published' => $json->p_published,
+            'page_author_id' => 'admin',
+            'page_cg_id' => $json->p_cgid,
             'page_modified' => $today->toDateTimeString()
         ];
         $pagesModel->addPages($data);
@@ -60,18 +64,20 @@ class Pages extends BaseController
     public function updatePages()
     {
         $post = $this->request->getPost('postdata');
+        $html = $this->request->getPost('ed');
         $json = json_decode($post);
         $today = new Time('now');
         $pagesModel = new PagesModel;
         $data = [
-            'page_id' => $json->page_id,
-            'page_title' => $json->page_title,
-            'page_url_slug' => $json->page_url_slug,
-            'page_order' => $json->page_order,
-            'page_feat_image' => $json->page_feat_image,
-            'page_published' => $json->page_published,
-            'page_author_id' => $json->page_author_id,
-            'page_cg_id' => $json->page_cg_id,
+            'page_id' => $json->p_id,
+            'page_title' => $json->p_title,
+            'page_content' => $html,
+            'page_url_slug' => $json->p_urlslug,
+            'page_order' => $json->p_order,
+            'page_feat_image' => $json->p_fimage,
+            'page_published' => $json->p_published,
+            'page_author_id' => 'admin',
+            'page_cg_id' => $json->p_cgid,
             'page_modified' => $today->toDateTimeString()
         ];
         $pagesModel->updatePages($data);
