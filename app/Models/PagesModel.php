@@ -10,7 +10,7 @@ class PagesModel extends Model
     protected $table = 'pages';
     protected $primaryKey = 'page_id';
 
-    public function getPages($filter, $sortBy, $pageNo, $pageSize)
+    public function getData($filter, $sortBy, $pageNo, $pageSize)
     {
         $result = $this->builder()->select('*')
             ->where('(1=1) ' . $filter)
@@ -19,7 +19,7 @@ class PagesModel extends Model
             ->get()->getResult();
         return $result;
     }
-    public function getPagesCount($filter)
+    public function getDataCount($filter)
     {
         $result = $this->builder()->select('pages.*')
             ->where('(1=1) ' . $filter)           
@@ -27,15 +27,15 @@ class PagesModel extends Model
         return $result;
     }
 
-    public function addPages($data)
+    public function addData($data)
     {
         $this->builder()->insert($data);
     }
-    public function updatePages($data)
+    public function updateData($data)
     {
         $this->builder()->where('page_id', $data['page_id'])->update($data);
     }
-    public function deletePages($page_id)
+    public function deleteData($page_id)
     {
         $this->builder()->where('page_id', $page_id)->delete();
     }

@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'categories' ? 'active' : '')?>" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'categories' ? 'active' : '')?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
                                 <i class="bi bi-person"></i>
                                 Categories
                             </a>

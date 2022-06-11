@@ -14,5 +14,9 @@ return [
     'published' => 'Published',
     'category' => 'Category',
     'feature_image' => 'Feature Image',
-
+    'categories' => 'Categories',
+    'id' => 'ID',
+    'name' => 'Name',
+    'description' => 'Description',
+    'confirm_delete' => 'Are you sure you want to delete?'
 ];

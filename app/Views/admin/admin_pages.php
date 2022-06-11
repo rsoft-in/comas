@@ -11,16 +11,13 @@
   });
   let sortby = 'page_title';
   let pn = 0;
-  let data = [{
-    'page_id': 1
-  }];
+  let data = [];
 
   function getPages() {
     var postdata = {
       'sort': sortby,
       'qry': '',
-      'pn': pn,
-      'ps': <?php echo PAGE_SIZE ?>
+      'pn': pn
     }
     postdata = JSON.stringify(postdata);
     $.ajax({
@@ -30,7 +27,7 @@
       success: function(result) {
         data = result;
         $('#pages-table tbody').empty();
-        $('#pages-table').append(generatePagesTable(data));
+        $('#pages-table').append(generateTable(data));
         // $(document).updatenav();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -39,7 +36,7 @@
     });
   }
 
-  function generatePagesTable(data) {
+  function generateTable(data) {
     var _html = "";
     for (let i = 0; i < data.pages.length; i++) {
       _html += "<tr>\n" +

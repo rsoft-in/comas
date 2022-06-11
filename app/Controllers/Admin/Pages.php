@@ -12,10 +12,6 @@ use App\Libraries\Utility;
 class Pages extends BaseController
 {
     use ResponseTrait;
-    public function __construct()
-    {
-        date_default_timezone_set('Asia/Kolkata');
-    }
 
     public function index()
     {
@@ -33,8 +29,8 @@ class Pages extends BaseController
         $pagesModel = new PagesModel();
         $filt = "";
 
-        $data['pages'] = $pagesModel->getPages($filt, $postdata->sort, $postdata->ps, $postdata->pn * $postdata->ps);
-        $data['records'] = $pagesModel->getPagesCount($filt);
+        $data['pages'] = $pagesModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
+        $data['records'] = $pagesModel->getDataCount($filt);
         return $this->respond($data);
     }
 
@@ -58,7 +54,7 @@ class Pages extends BaseController
             'page_cg_id' => $json->p_cgid ?? '',
             'page_modified' => $today->toDateTimeString()
         ];
-        $pagesModel->addPages($data);
+        $pagesModel->addData($data);
         echo 'SUCCESS';
     }
     public function updatePages()
@@ -80,7 +76,7 @@ class Pages extends BaseController
             'page_cg_id' => $json->p_cgid,
             'page_modified' => $today->toDateTimeString()
         ];
-        $pagesModel->updatePages($data);
+        $pagesModel->updateData($data);
         echo 'SUCCESS';
     }
     public function deletePages()
@@ -88,7 +84,7 @@ class Pages extends BaseController
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $pagesModel = new PagesModel;
-        $pagesModel->deletePages($json->page_id);
+        $pagesModel->deleteData($json->page_id);
         echo 'SUCCESS';
     }
 }

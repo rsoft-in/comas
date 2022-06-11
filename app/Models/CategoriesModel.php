@@ -10,7 +10,7 @@ class CategoriesModel extends Model
     protected $table = 'categories';
     protected $primaryKey = 'cg_id';
 
-    public function getCategories($filter, $sortBy, $pageNo, $pageSize)
+    public function getData($filter, $sortBy, $pageNo, $pageSize)
     {
         $result = $this->builder()->select('*')
             ->where('(1=1) ' . $filter)
@@ -19,7 +19,7 @@ class CategoriesModel extends Model
             ->get()->getResult();
         return $result;
     }
-    public function getCategoriesCount($filter)
+    public function getDataCount($filter)
     {
         $result = $this->builder()->select('*')
             ->where('(1=1) ' . $filter)           
@@ -27,15 +27,15 @@ class CategoriesModel extends Model
         return $result;
     }
 
-    public function addCategories($data)
+    public function addData($data)
     {
         $this->builder()->insert($data);
     }
-    public function updateCategories($data)
+    public function updateData($data)
     {
         $this->builder()->where('cg_id', $data['cg_id'])->update($data);
     }
-    public function deleteCategories($cg_id)
+    public function deleteData($cg_id)
     {
         $this->builder()->where('cg_id', $cg_id)->delete();
     }
