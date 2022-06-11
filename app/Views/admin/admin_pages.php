@@ -205,6 +205,30 @@
   });
 
   const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
+
+   function onDelete(p_id) {
+    if (confirm('<?php echo lang('Default.confirm_delete')?>')) {
+      var postdata = {
+        'p_id': p_id
+      }
+      postdata = JSON.stringify(postdata);
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/deletePage",
+        data: "postdata=" + postdata,
+        success: function(result) {
+          if (result.indexOf('SUCCESS') >= 0) {
+            getPages();
+          } else {
+            console.log(result);
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    }
+  }
 </script>
 
 <?php $this->endSection() ?>
