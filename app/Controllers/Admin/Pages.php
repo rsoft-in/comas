@@ -34,7 +34,7 @@ class Pages extends BaseController
         return $this->respond($data);
     }
 
-    public function addPages()
+    public function addPage()
     {
         $post = $this->request->getPost('postdata');
         $html = $this->request->getPost('ed');
@@ -57,7 +57,7 @@ class Pages extends BaseController
         $pagesModel->addData($data);
         echo 'SUCCESS';
     }
-    public function updatePages()
+    public function updatePage()
     {
         $post = $this->request->getPost('postdata');
         $html = $this->request->getPost('ed');
@@ -79,12 +79,12 @@ class Pages extends BaseController
         $pagesModel->updateData($data);
         echo 'SUCCESS';
     }
-    public function deletePages()
+    public function deletePage()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $pagesModel = new PagesModel;
-        $pagesModel->deleteData($json->page_id);
+        $pagesModel->deleteData($json->id);
         echo 'SUCCESS';
     }
 }

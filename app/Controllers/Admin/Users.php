@@ -19,7 +19,7 @@ class Users extends BaseController
             'page_title' => lang('Default.users'),
             'menu_id' => 'users'
         ];
-        return view('admin/admin_categories', $params);
+        return view('admin/admin_users', $params);
     }
 
     public function getUsers()
@@ -33,7 +33,7 @@ class Users extends BaseController
         return $this->respond($data);
     }
 
-    public function addUsers()
+    public function addUser()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
@@ -42,33 +42,37 @@ class Users extends BaseController
         $utility = new Utility();
         $data = [
             'user_id' => $utility->guid(),
-            'user_name' => $json->p_title,
-            'user_fullname' => $json->p_content,
-            'user_email' => $json->p_published,
-            'user_inactive' => $json->p_cg_id,
+            'user_name' => $json->u_name,
+            'user_pwd' => $json->u_pwd,
+            'user_fullname' => $json->u_fullname,
+            'user_email' => $json->u_email,
+            'user_inactive' => $json->u_inactive,
             'user_modified' => $today->toDateTimeString()
         ];
         $usersModel->addData($data);
         echo 'SUCCESS';
     }
-    public function updateUsers()
+
+    public function updateUser()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
         $usersModel = new UsersModel;
         $data = [
-            'user_id' =>  $json->id,
-            'user_name' => $json->p_title,
-            'user_fullname' => $json->p_content,
-            'user_email' => $json->p_published,
-            'user_inactive' => $json->p_cg_id,
+            'user_id' =>  $json->u_id,
+            'user_name' => $json->u_name,
+            'user_pwd' => $json->u_pwd,
+            'user_fullname' => $json->u_fullname,
+            'user_email' => $json->u_email,
+            'user_inactive' => $json->u_inactive,
             'user_modified' => $today->toDateTimeString()
         ];
         $usersModel->updateData($data);
         echo 'SUCCESS';
     }
-    public function deleteUsers()
+
+    public function deleteUser()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);

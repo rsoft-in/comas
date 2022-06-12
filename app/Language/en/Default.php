@@ -20,5 +20,12 @@ return [
     'id' => 'ID',
     'name' => 'Name',
     'description' => 'Description',
-    'confirm_delete' => 'Are you sure you want to delete?'
+    'confirm_delete' => 'Are you sure you want to delete?',
+    'posted_on' => 'Posted on',
+    'author' => 'Author',
+    'username' => 'Username',
+    'password' => 'Password',
+    'fullname' => 'Full Name',
+    'email' => 'Email',
+    'inactive' => 'In-active'
 ];

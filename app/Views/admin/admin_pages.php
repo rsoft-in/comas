@@ -4,7 +4,7 @@
 <script>
   $(document).ready(function() {
     getPages();
-
+    getCategories();
     $('#f_ptitle').change(function() {
       $('#f_purlslug').val($(this).val().toLowerCase().replace(/ /g, '_').replace(/[^\w\s]/gi, ''));
     });
@@ -12,6 +12,28 @@
   let sortby = 'page_title';
   let pn = 0;
   let data = [];
+
+  function getCategories() {
+    var postdata = {
+      'sort': 'cg_name',
+      'qry': '',
+      'pn': pn
+    }
+    postdata = JSON.stringify(postdata);
+    $.ajax({
+      type: "POST",
+      url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/getCategories",
+      data: "postdata=" + postdata,
+      success: function(cat) {
+        for (let i = 0; i < cat.categories.length; i++) {
+          $('#f_pcgid').append("<option value=\"" + cat.categories[i].cg_id + "\">" + cat.categories[i].cg_name + "</option>");
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  }
 
   function getPages() {
     var postdata = {
@@ -26,8 +48,8 @@
       data: "postdata=" + postdata,
       success: function(result) {
         data = result;
-        $('#pages-table tbody').empty();
-        $('#pages-table').append(generateTable(data));
+        $('#pages-list').empty();
+        $('#pages-list').append(generateTable(data));
         // $(document).updatenav();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -39,16 +61,17 @@
   function generateTable(data) {
     var _html = "";
     for (let i = 0; i < data.pages.length; i++) {
-      _html += "<tr>\n" +
-        "<td>" + data.pages[i].page_title + "</td>\n" +
-        "<td>" + data.pages[i].page_url_slug + "</td>\n" +
-        "<td>" + data.pages[i].page_order + "</td>\n" +
-        "<td>" + (data.pages[i].page_published == 1 ? "<i class=\"bi bi-check2\"></i>" : "") + "</td>\n" +
-        "<td class=\"text-end\">" +
-        "<a class=\"ms-3\" href=\"#\" title='Edit' onclick=\"edit('" + data.pages[i].page_id + "')\"><i class=\"bi bi-pencil\"></i></a>" +
-        "<a class=\"ms-3\" href=\"#\" title='Delete' onclick=\"delete('" + data.pages[i].page_id + "')\"><i class=\"bi bi-trash\"></i></a>" +
-        "</td>" +
-        "</tr>";
+      _html += "<div class=\"card mb-3\">\n" +
+        "<div class=\"card-body\">\n" +
+        "<h5 class=\"card-title\">" + data.pages[i].page_title + "</h5>\n" +
+        "<h6 class=\"card-subtitle mb-2 text-muted\">" + data.pages[i].cg_name + "&nbsp;|&nbsp;" + data.pages[i].page_modified + "&nbsp;|&nbsp;#" + data.pages[i].page_order + "</h6>\n" +
+        "<p class=\"card-text\">" + data.pages[i].page_author_id + "</p>\n" +
+        "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.pages[i].page_id + "')\">Edit</a>\n" +
+        "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.pages[i].page_id + "')\">Delete</a>\n" +
+        "<div class=\"float-end\">" + (data.pages[i].page_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
+        "</div>\n" +
+        "</div>\n" +
+        "</div>\n";
     }
     return _html;
   }
@@ -66,7 +89,7 @@
 
   }
 
-  function edit(id) {
+  function onEdit(id) {
     var row = data.pages.find((e) => {
       return e.page_id == id;
     });
@@ -97,7 +120,7 @@
     postdata = JSON.stringify(postdata);
     $.ajax({
       type: "POST",
-      url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/" + ($('#f_pid').val() == '' ? 'addPages' : 'updatePages'),
+      url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/" + ($('#f_pid').val() == '' ? 'addPage' : 'updatePage'),
       data: "postdata=" + postdata + "&ed=" + encodeURIComponent(ed),
       success: function(result) {
         if (result.indexOf('SUCCESS') >= 0) {
@@ -110,25 +133,38 @@
       }
     });
   }
+
+  function onDelete(id) {
+    if (confirm('<?php echo lang('Default.confirm_delete') ?>')) {
+      var postdata = {
+        'id': id
+      }
+      postdata = JSON.stringify(postdata);
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/deletePage",
+        data: "postdata=" + postdata,
+        success: function(result) {
+          if (result.indexOf('SUCCESS') >= 0) {
+            getPages();
+          } else {
+            console.log(result);
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    }
+  }
 </script>
 
 
-<div class="p-2 text-end">
+<div class="mb-3">
   <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal">Add</button>
 </div>
-<table class="table" id="pages-table">
-  <thead>
-    <tr>
-      <th scope="col"><?php echo lang('Default.title') ?></th>
-      <th scope="col"><?php echo lang('Default.url_slug') ?></th>
-      <th scope="col"><?php echo lang('Default.page_order') ?></th>
-      <th scope="col"><?php echo lang('Default.published') ?></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+
+<div class="" id="pages-list"></div>
 
 <div class="modal" id="edit-modal" tabindex="-1">
   <div class="modal-dialog modal-xl">
@@ -174,7 +210,7 @@
             <div class="mb-4">
               <label for="f_pcgid" class="form-label"><?php echo lang('Default.category') ?></label>
               <select id="f_pcgid" class="form-select">
-                <option>Disabled select</option>
+                <option value="">Select a Category</option>
               </select>
             </div>
           </div>
@@ -205,30 +241,6 @@
   });
 
   const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
-
-   function onDelete(p_id) {
-    if (confirm('<?php echo lang('Default.confirm_delete')?>')) {
-      var postdata = {
-        'p_id': p_id
-      }
-      postdata = JSON.stringify(postdata);
-      $.ajax({
-        type: "POST",
-        url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/deletePage",
-        data: "postdata=" + postdata,
-        success: function(result) {
-          if (result.indexOf('SUCCESS') >= 0) {
-            getPages();
-          } else {
-            console.log(result);
-          }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-          alert(errorThrown);
-        }
-      });
-    }
-  }
 </script>
 
 <?php $this->endSection() ?>

@@ -22,8 +22,8 @@
       data: "postdata=" + postdata,
       success: function(result) {
         data = result;
-        $('#pages-table tbody').empty();
-        $('#pages-table').append(generateTable(data));
+        $('#cat-table tbody').empty();
+        $('#cat-table').append(generateTable(data));
         // $(document).updatenav();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -115,11 +115,10 @@
   }
 </script>
 
-
-<div class="p-2 text-end">
+<div class="mb-3">
   <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='onAdd()' data-bs-target="#edit-modal">Add</button>
 </div>
-<table class="table" id="pages-table">
+<table class="table" id="cat-table">
   <thead>
     <tr>
       <th scope="col"><?php echo lang('Default.name') ?></th>

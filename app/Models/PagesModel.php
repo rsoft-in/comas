@@ -12,7 +12,8 @@ class PagesModel extends Model
 
     public function getData($filter, $sortBy, $pageNo, $pageSize)
     {
-        $result = $this->builder()->select('*')
+        $result = $this->builder()->select('pages.*, categories.cg_name')
+            ->join('categories', 'categories.cg_id = pages.page_cg_id', 'left')
             ->where('(1=1) ' . $filter)
             ->orderBy($sortBy)
             ->limit($pageNo, $pageSize)
@@ -22,7 +23,7 @@ class PagesModel extends Model
     public function getDataCount($filter)
     {
         $result = $this->builder()->select('pages.*')
-            ->where('(1=1) ' . $filter)           
+            ->where('(1=1) ' . $filter)
             ->countAllResults();
         return $result;
     }

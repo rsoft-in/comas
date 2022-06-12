@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="<?php echo base_url()?>/scripts/helper.js"></script>
+    <script src="<?php echo base_url() ?>/scripts/helper.js"></script>
 
     <title><?php echo SITE_NAME . ' ' . $page_title ?></title>
 
@@ -42,37 +42,43 @@
                 <div class="position-sticky pt-1">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'dashboard' ? 'active' : '')?>" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
+                            <a class="nav-link" aria-current="page" href="<?php echo base_url() ?>">
+                                <i class="bi bi-house"></i>
+                                Website
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo ($menu_id == 'dashboard' ? 'active' : '') ?>" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
                                 <i class="bi bi-grid"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'pages' ? 'active' : '')?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
+                            <a class="nav-link <?php echo ($menu_id == 'pages' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
                                 <i class="bi bi-file-earmark-richtext"></i>
                                 Pages
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'posts' ? 'active' : '')?>" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'posts' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/posts">
                                 <i class="bi bi-chat-right-text"></i>
                                 Posts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'users' ? 'active' : '')?>" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'users' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/users">
                                 <i class="bi bi-person"></i>
                                 Users
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'categories' ? 'active' : '')?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
+                            <a class="nav-link <?php echo ($menu_id == 'categories' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
                                 <i class="bi bi-person"></i>
                                 Categories
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '')?>" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '') ?>" href="#">
                                 <i class="bi bi-gear"></i>
                                 Settings
                             </a>

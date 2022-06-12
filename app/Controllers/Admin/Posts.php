@@ -16,10 +16,10 @@ class Posts extends BaseController
     public function index()
     {
         $params = [
-            'page_title' => lang('Default.Posts'),
+            'page_title' => lang('Default.posts'),
             'menu_id' => 'posts'
         ];
-        return view('admin/admin_categories', $params);
+        return view('admin/admin_posts', $params);
     }
 
     public function getPosts()
@@ -36,6 +36,7 @@ class Posts extends BaseController
     public function addPost()
     {
         $post = $this->request->getPost('postdata');
+        $html = $this->request->getPost('ed');
         $json = json_decode($post);
         $today = new Time('now');
         $postsModel = new PostsModel();
@@ -43,33 +44,38 @@ class Posts extends BaseController
         $data = [
             'post_id' => $utility->guid(),
             'post_title' => $json->p_title,
-            'post_content' => $json->p_content,
+            'post_content' => $html,
             'post_published' => $json->p_published,
-            'post_cg_id' => $json->p_cg_id,
-            'post_author_id' => $json->p_author_id,
+            'post_feature_img' => $json->p_fimage,
+            'post_cg_id' => $json->p_cgid,
+            'post_author_id' => 'admin',
             'post_modified' => $today->toDateTimeString()
         ];
         $postsModel->addData($data);
         echo 'SUCCESS';
     }
+    
     public function updatePost()
     {
         $post = $this->request->getPost('postdata');
+        $html = $this->request->getPost('ed');
         $json = json_decode($post);
         $today = new Time('now');
         $postsModel = new PostsModel;
         $data = [
-            'post_id' =>  $json->id,
+            'post_id' =>  $json->p_id,
             'post_title' => $json->p_title,
-            'post_content' => $json->p_content,
+            'post_content' => $html,
             'post_published' => $json->p_published,
-            'post_cg_id' => $json->p_cg_id,
-            'post_author_id' => $json->p_author_id,
+            'post_feature_img' => $json->p_fimage,
+            'post_cg_id' => $json->p_cgid,
+            'post_author_id' => 'admin',
             'post_modified' => $today->toDateTimeString()
         ];
         $postsModel->updateData($data);
         echo 'SUCCESS';
     }
+    
     public function deletePost()
     {
         $post = $this->request->getPost('postdata');
