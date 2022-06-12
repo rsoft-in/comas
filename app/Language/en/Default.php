@@ -16,6 +16,7 @@ return [
     'feature_image' => 'Feature Image',
     'categories' => 'Categories',
     'posts' => 'Posts',
+    'users'=>'Users',
     'id' => 'ID',
     'name' => 'Name',
     'description' => 'Description',

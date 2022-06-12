@@ -4,33 +4,39 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsersModel extends Model {
-    protected $table = 'users';
+class UsersModel extends Model
+{
 
-    public function getUsers($filter, $sortBy, $pageOffset, $pageSize)
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
+
+    public function getData($filter, $sortBy, $pageNo, $pageSize)
     {
         $result = $this->builder()->select('*')
             ->where('(1=1) ' . $filter)
             ->orderBy($sortBy)
-            ->limit($pageOffset, $pageSize)
+            ->limit($pageNo, $pageSize)
             ->get()->getResult();
         return $result;
     }
-
-    public function getUserByEmail($user_email)
+    public function getDataCount($filter)
     {
         $result = $this->builder()->select('*')
-            ->where('user_email', $user_email)
-            ->get()->getResult();
+            ->where('(1=1) ' . $filter)           
+            ->countAllResults();
         return $result;
     }
 
-    public function getUserByEmailMobile($user_email, $user_mobile)
+    public function addData($data)
     {
-        $result = $this->builder()->select('*')
-            ->where('user_email', $user_email)
-            ->orWhere('user_mobile', $user_mobile)
-            ->get()->getResult();
-        return $result;
+        $this->builder()->insert($data);
+    }
+    public function updateData($data)
+    {
+        $this->builder()->where('user_id', $data['user_id'])->update($data);
+    }
+    public function deleteData($user_id)
+    {
+        $this->builder()->where('user_id', $user_id)->delete();
     }
 }

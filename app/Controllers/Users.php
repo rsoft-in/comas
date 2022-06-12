@@ -1,76 +1,79 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
+use App\Controllers\BaseController;
 use App\Models\UsersModel;
-use App\Libraries\Utility;
 use CodeIgniter\I18n\Time;
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Libraries\Utility;
 
 class Users extends BaseController
 {
-    public function __construct()
-    {
-        date_default_timezone_set('Asia/Kolkata');
-        if (isset($_SERVER['HTTP_ORIGIN'])) {
-            header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-            header('Access-Control-Allow-Credentials: true');
-            header('Access-Control-Max-Age: 86400');    // cache for 1 day
-        }
-    }
+    use ResponseTrait;
 
     public function index()
     {
-        return view('welcome_message');
+        $params = [
+            'page_title' => lang('Default.users'),
+            'menu_id' => 'users'
+        ];
+        return view('admin/admin_categories', $params);
     }
 
-    /**
-     * FOR BUSINESS LOGIN
-     * @param String email Email Address
-     * @return json user entity 
-     */
-    public function getUserByEmail()
+    public function getUsers()
+    {
+        $post = $this->request->getPost('postdata');
+        $postdata = json_decode($post);
+        $usersModel = new UsersModel();
+        $filt = "";
+        $data['users'] = $usersModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
+        $data['records'] = $usersModel->getDataCount($filt);
+        return $this->respond($data);
+    }
+
+    public function addUsers()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
-        $userItem = array();
         $today = new Time('now');
-        $userModel = new UsersModel;
-        $users = $userModel->getUserByEmail($json->email);
-        if (sizeof($users) > 0) {
-            $user = $users[0];
-            $userItem = array(
-                'user_id' => $user->user_id,
-                'user_email' => $user->user_email,
-                'user_mobile' => $user->user_mobile,
-                'user_name' => $user->user_name,
-                'user_pwd' => $user->user_pwd,
-                'user_otp' => $user->user_otp,
-                'user_active' => $user->user_active,
-                'user_modified' => $today->toDateTimeString()
-            );
-            echo json_encode($userItem);
-        } else {
-            echo 'INVALID USER';
-        }
+        $usersModel = new UsersModel();
+        $utility = new Utility();
+        $data = [
+            'user_id' => $utility->guid(),
+            'user_name' => $json->p_title,
+            'user_fullname' => $json->p_content,
+            'user_email' => $json->p_published,
+            'user_inactive' => $json->p_cg_id,
+            'user_modified' => $today->toDateTimeString()
+        ];
+        $usersModel->addData($data);
+        echo 'SUCCESS';
     }
-    /**
-     * FOR BUSINESS CREATE USER
-     * @param String email Email Address
-     * @param String mobile Mobile Number
-     * @param String name Full Name
-     * @param String pwd Encrypted password
-     */
-    public function createUser()
+    public function updateUsers()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
-        $vcode = mt_rand(100000, 999999);
-        $userModel = new UsersModel;
-        $users = $userModel->getUserByEmail($json->email);
-        if (sizeof($users) == 1) {
-            echo 'USER ALREADY EXISTS';
-        } else {
-
-        }
+        $today = new Time('now');
+        $usersModel = new UsersModel;
+        $data = [
+            'user_id' =>  $json->id,
+            'user_name' => $json->p_title,
+            'user_fullname' => $json->p_content,
+            'user_email' => $json->p_published,
+            'user_inactive' => $json->p_cg_id,
+            'user_modified' => $today->toDateTimeString()
+        ];
+        $usersModel->updateData($data);
+        echo 'SUCCESS';
+    }
+    public function deleteUsers()
+    {
+        $post = $this->request->getPost('postdata');
+        $json = json_decode($post);
+        $usersModel = new UsersModel;
+        $usersModel->deleteData($json->id);
+        echo 'SUCCESS';
     }
 }
