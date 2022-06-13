@@ -9,7 +9,7 @@
       $('#f_purlslug').val($(this).val().toLowerCase().replace(/ /g, '_').replace(/[^\w\s]/gi, ''));
     });
   });
-  let sortby = 'page_title';
+  let sortby = 'page_modified DESC';
   let pn = 0;
   let data = [];
 
@@ -77,7 +77,7 @@
   }
 
   function add() {
-
+    $(document).resetError();
     $('#f_pid').val('');
     $('#f_ptitle').val('');
     tinymce.get('f-page-editor').setContent('');
@@ -93,7 +93,7 @@
     var row = data.pages.find((e) => {
       return e.page_id == id;
     });
-
+    $(document).resetError();
     $('#f_pid').val(row.page_id);
     $('#f_ptitle').val(row.page_title);
 
@@ -107,12 +107,13 @@
   }
 
   function save() {
-    if ( $('#f_ptitle').val() == '') {
+    var valid = $(document).validate();
+    if (!valid) return;
+
+    if ($('#f_ptitle').val() == '') {
       alert('Invalid title');
       return;
     }
-  
-  
     var ed = tinymce.get('f-page-editor').getContent();
     var postdata = {
       'p_id': $('#f_pid').val(),
@@ -186,13 +187,15 @@
           <div class="col">
             <div class="mb-2">
               <label for="f_ptitle" class="form-label"><?php echo lang('Default.title') ?></label>
-              <input type="text" id="f_ptitle" class="form-control" aria-describedby="passwordHelpBlock" maxlength="250">
+              <input type="text" id="f_ptitle" class="form-control required" aria-describedby="passwordHelpBlock" maxlength="250">
+              <div class="required_input">Please enter some text</div>
             </div>
           </div>
           <div class="col">
             <div class="mb-2">
               <label for="f_purlslug" class="form-label"><?php echo lang('Default.url_slug') ?></label>
-              <input type="text" id="f_purlslug" class="form-control" aria-describedby="passwordHelpBlock" maxlength="250">
+              <input type="text" id="f_purlslug" class="form-control required" aria-describedby="passwordHelpBlock" maxlength="250">
+              <div class="required_input">Please enter some text</div>
             </div>
           </div>
         </div>
@@ -200,9 +203,9 @@
           <div class="col">
             <div class="mb-2">
               <label for="f_porder" class="form-label"><?php echo lang('Default.page_order') ?></label>
-              <input type="number" id="f_porder" class="form-control" aria-describedby="passwordHelpBlock" max="99" min="0">
+              <input type="number" id="f_porder" class="form-control required" aria-describedby="passwordHelpBlock" max="99" min="0">
+              <div class="required_input">Please enter some text</div>
             </div>
-
           </div>
           <div class="col">
             <div class="mb-2">

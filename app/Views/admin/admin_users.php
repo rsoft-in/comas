@@ -48,6 +48,7 @@
     }
 
     function add() {
+        $(document).resetError();
         $('#f_uid').val('');
         $('#f_uname').val('');
         $('#f_uname').prop('disabled', false);
@@ -58,6 +59,7 @@
     }
 
     function onEdit(id) {
+        $(document).resetError();
         var row = data.users.find((e) => {
             return e.user_id == id;
         });
@@ -72,22 +74,9 @@
     }
 
     function save() {
-        if ( $('#f_uname').val() == ''){
-      alert('Invalid Name');
-      return;
-    }
-    if ( $('#f_upwd').val() == ''){
-      alert('Invalid Password');
-      return;
-    }
-    if ( $('#f_ufullname').val() == ''){
-      alert('Invalid FullName');
-      return;
-    }
-    if ( $('#f_uemail').val() == ''){
-      alert('Invalid Email');
-      return;
-    }
+        var valid = $(document).validate();        
+        if (!valid) return;
+
         var postdata = {
             'u_id': $('#f_uid').val(),
             'u_name': $('#f_uname').val(),
@@ -167,7 +156,8 @@
                 </div>
                 <div class="mb-2">
                     <label for="f_uemail" class="form-label"><?php echo lang('Default.email') ?></label>
-                    <input type="text" id="f_uemail" class="form-control">
+                    <input type="text" id="f_uemail" class="form-control email">
+                    <div class="invalid_email">Invalid Email</div>
                 </div>
                 <div class="mt-3 form-check">
                     <input type="checkbox" class="form-check-input" id="f_uinactive">
