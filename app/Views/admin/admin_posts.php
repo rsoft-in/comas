@@ -96,6 +96,10 @@
     }
 
     function save() {
+        if ( $('#f_ptitle').val() == '') {
+      alert('Invalid title');
+      return;
+    }
         var ed = tinymce.get('f-pcontent').getContent();
         var postdata = {
             'p_id': $('#f_pid').val(),

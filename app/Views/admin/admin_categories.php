@@ -66,6 +66,12 @@
   }
 
   function save() {
+  
+    if ( $('#f_cgname').val() == '') {
+      alert('Invalid name');
+      return;
+    }
+    
     var postdata = {
       'id': $('#f_cgid').val(),
       'name': $('#f_cgname').val(),

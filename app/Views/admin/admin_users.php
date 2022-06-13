@@ -72,6 +72,22 @@
     }
 
     function save() {
+        if ( $('#f_uname').val() == ''){
+      alert('Invalid Name');
+      return;
+    }
+    if ( $('#f_upwd').val() == ''){
+      alert('Invalid Password');
+      return;
+    }
+    if ( $('#f_ufullname').val() == ''){
+      alert('Invalid FullName');
+      return;
+    }
+    if ( $('#f_uemail').val() == ''){
+      alert('Invalid Email');
+      return;
+    }
         var postdata = {
             'u_id': $('#f_uid').val(),
             'u_name': $('#f_uname').val(),
