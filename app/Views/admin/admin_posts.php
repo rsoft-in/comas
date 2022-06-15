@@ -5,6 +5,7 @@
     $(document).ready(function() {
         getPosts();
         getCategories();
+        
     });
     let sortby = 'post_modified DESC';
     let pn = 0;
@@ -65,6 +66,7 @@
                 "<p class=\"card-text\">" + data.posts[i].post_author_id + "</p>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n" +
+                "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">Comments</a>\n" +
                 "<div class=\"float-end\">" + (data.posts[i].post_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
                 "</div>\n" +
                 "</div>\n" +
@@ -72,6 +74,8 @@
         }
         return _html;
     }
+
+
 
     function add() {
         $(document).resetError();
@@ -99,8 +103,8 @@
 
     function save() {
         var valid = $(document).validate();
-    if (!valid) return;
-     var ed = tinymce.get('f-pcontent').getContent();
+        if (!valid) return;
+        var ed = tinymce.get('f-pcontent').getContent();
         var postdata = {
             'p_id': $('#f_pid').val(),
             'p_title': $('#f_ptitle').val(),
@@ -147,6 +151,47 @@
                 }
             });
         }
+    }
+
+    function onComments(id) {
+        var postdata = {
+            'sort': 'cmt_date DESC',
+            'qry': '',
+            'pn': 0
+        }
+        postdata = JSON.stringify(postdata);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() . '/' . index_page() ?>/admin/comments/getComments",
+            data: "postdata=" + postdata,
+            success: function(result) {
+                data = result;
+                $('#comments-list').empty();
+                $('#comments-list').append(generateCommentsTable(data));
+                commentsModal.show();
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+
+    }
+
+    function generateCommentsTable(data) {
+        var _html = "";
+        for (let i = 0; i < data.comments.length; i++) {
+            _html += "<div class=\"card mb-3\">\n" +
+                "<div class=\"card-body\">\n" +
+                "<h5 class=\"card-title\">" + data.comments[i].cmt_user_id + "</h5>\n" +
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" + data.comments[i].cmt_date + "</h6>\n" +
+                "<p class=\"card-text\">" + data.comments[i].cmt_text + "</p>\n" +
+
+                "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
+                "</div>\n" +
+                "</div>\n" +
+                "</div>\n";
+        }
+        return _html;
     }
 </script>
 
@@ -216,6 +261,29 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="comments-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?php echo lang('Default.comments') ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="" id="comments-list"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
+                <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script>
     tinymce.init({
         selector: 'textarea#f-pcontent',
@@ -225,6 +293,11 @@
     });
 
     const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
+    const commentsModal = new bootstrap.Modal(document.getElementById('comments-modal'), {});
 </script>
+
+
+
+
 
 <?php $this->endSection() ?>

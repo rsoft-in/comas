@@ -45,6 +45,7 @@ class Comments extends BaseController
             'cmt_post_id' => $json->post_id,
             'cmt_date' => $today->toDateTimeString(),
             'cmt_user_id' => $json->user_id,
+            'cmt_text'=> $json->text,
             'cmt_published' =>  $json->published
         ];
         $commentsModel->addData($data);
@@ -61,6 +62,7 @@ class Comments extends BaseController
             'cmt_post_id' => $json->post_id,
             'cmt_date' =>$today->toDateTimeString(),
             'cmt_user_id' => $json->user_id,
+            'cmt_text'=> $json->text,
             'cmt_published' =>  $json->published
         ];
         $commentsModel->updateData($data);

@@ -16,7 +16,6 @@ return [
     'feature_image' => 'Feature Image',
     'categories' => 'Categories',
     'posts' => 'Posts',
-    'comments' => 'Comments',
     'users'=>'Users',
     'id' => 'ID',
     'name' => 'Name',
@@ -28,5 +27,6 @@ return [
     'password' => 'Password',
     'fullname' => 'Full Name',
     'email' => 'Email',
-    'inactive' => 'In-active'
+    'inactive' => 'In-active',
+    'comments' => 'Comments',
 ];

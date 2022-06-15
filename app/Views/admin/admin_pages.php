@@ -109,6 +109,7 @@
     $('#f_pfeatimage').val('');
     $('#f_pcgid').val('');
     $('#f_ppublished').prop('checked', true);
+    $('#f_preview').attr('src', '');
 
   }
 
