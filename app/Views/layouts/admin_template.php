@@ -78,7 +78,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '') ?>" href="#">
+                            <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/settings">
                                 <i class="bi bi-gear"></i>
                                 Settings
                             </a>
