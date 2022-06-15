@@ -5,7 +5,28 @@
     $(document).ready(function() {
         getPosts();
         getCategories();
-        
+        $('#f_image').change(function() {
+            var inputFile = $('input[name=f_image]');
+            var fileToUpload = inputFile[0].files[0];
+            var formData = new FormData();
+            formData.append("userfile", fileToUpload);
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/uploadImage",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('#f_pfeatimage').val(data);
+                    $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    hideProgress();
+                    alert(errorThrown);
+                }
+            });
+        });
+
     });
     let sortby = 'post_modified DESC';
     let pn = 0;
@@ -85,6 +106,8 @@
         $('#f_pfeatimage').val('');
         $('#f_pcgid').val('');
         $('#f_ppublished').prop('checked', false);
+        $('#f_preview').attr('src', '');
+      
     }
 
     function onEdit(id) {
@@ -98,6 +121,8 @@
         $('#f_pfeatimage').val(row.post_feature_img);
         $('#f_pcgid').val(row.post_cg_id);
         $('#f_ppublished').prop('checked', row.post_published == '1');
+        if (row.post_feature_img != '')
+      $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + row.post_feature_img);
         editModal.show();
     }
 
@@ -211,6 +236,7 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="f_pid">
+                <input type="hidden" id="f_pfeatimage">
                 <div class="row">
                     <div class="col">
                         <div class="mb-2">
@@ -229,12 +255,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <div class="mb-2">
-                            <label for="f_pfeatimage" class="form-label"><?php echo lang('Default.feature_image') ?></label>
-                            <input type="text" id="f_pfeatimage" class="form-control" aria-describedby="passwordHelpBlock">
-                        </div>
-                    </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="f_image" class="form-label"><?php echo lang('Default.feature_image') ?></label>
+              <input class="form-control" type="file" name="f_image" id="f_image">
+            </div>
+          </div>
+          <div class="col-3">
+            <img src="" id="f_preview" alt="" style="width: 100%; max-width: 200px;">
+          </div>
                     <div class="col">
                         <div class="mt-5 form-check">
                             <input type="checkbox" class="form-check-input" id="f_ppublished">
