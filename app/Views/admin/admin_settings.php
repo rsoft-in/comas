@@ -12,14 +12,14 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_uname" class="form-label">site_name</label>
+            <label for="f_uname" class="form-label"><?php echo lang('Default.name') ?></label>
             <input type="text" id="f_uname" class="form-control required" maxlength="50">
             <div class="required_input">Please enter some text</div>
         </div>
     </div>
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_upwd" class="form-label">site_desciption</label>
+            <label for="f_upwd" class="form-label"><?php echo lang('Default.desciption') ?></label>
             <input type="password" id="f_upwd" class="form-control required" maxlength="250">
             <div class="required_input">Please enter some text</div>
         </div>
@@ -28,14 +28,14 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_ufullname" class="form-label">site_keywords</label>
+            <label for="f_ufullname" class="form-label"><?php echo lang('Default.keywords') ?></label>
             <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
             <div class="required_input">Please enter some text</div>
         </div>
     </div>
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_uemail" class="form-label">site_theme</label>
+            <label for="f_uemail" class="form-label"><?php echo lang('Default.theme') ?></label>
             <input type="text" id="f_uemail" class="form-control email">
             <div class="invalid_email">Invalid Email</div>
         </div>
@@ -44,7 +44,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_ufullname" class="form-label">site_logo</label>
+            <label for="f_ufullname" class="form-label"><?php echo lang('Default.logo') ?></label>
             <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
             <div class="required_input">Please enter some text</div>
         </div>
@@ -52,7 +52,7 @@
 
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_ufullname" class="form-label">site_contact_email</label>
+            <label for="f_ufullname" class="form-label"><?php echo lang('Default.contact_email') ?></label>
             <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
             <div class="required_input">Please enter some text</div>
         </div>
@@ -60,7 +60,7 @@
 </div>
 
 <div class="col-xs-12 col-sm-6">
-    <label for="f_ufullname" class="form-label">site_contact_mobile</label>
+    <label for="f_ufullname" class="form-label"><?php echo lang('Default.contact_mobile') ?></label>
     <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
     <div class="required_input">Please enter some text</div>
 </div>
@@ -68,40 +68,19 @@
     <div class="col-xs-12 col-sm-4">
         <div class="mt-3 form-check">
             <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_show_logo_only</label>
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.show_logo_only') ?></label>
         </div>
     </div>
     <div class="col-xs-12 col-sm-4">
         <div class="mt-3 form-check">
             <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_show_name_only</label>
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.show_name_only') ?></label>
         </div>
     </div>
     <div class="col-xs-12 col-sm-4">
         <div class="mt-3 form-check">
             <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_isblog</label>
-        </div>
-    </div>
-</div>
-<div class="row">
-
-    <div class="col-xs-12 col-sm-4">
-        <div class="mt-3 form-check">
-            <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_allow_comments</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4">
-        <div class="mt-3 form-check">
-            <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_allow_comments_moderation</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4">
-        <div class="mt-3 form-check">
-            <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_show_archive</label>
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.isblog') ?></label>
         </div>
     </div>
 </div>
@@ -110,34 +89,55 @@
     <div class="col-xs-12 col-sm-4">
         <div class="mt-3 form-check">
             <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_show_categories</label>
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.allow_comments') ?></label>
         </div>
     </div>
     <div class="col-xs-12 col-sm-4">
         <div class="mt-3 form-check">
             <input type="checkbox" class="form-check-input" id="f_uinactive">
-            <label class="form-check-label" for="f_uinactive">site_show_social_links</label>
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.allow_comments_moderation') ?></label>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <div class="mt-3 form-check">
+            <input type="checkbox" class="form-check-input" id="f_uinactive">
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.show_archive') ?></label>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-xs-12 col-sm-4">
+        <div class="mt-3 form-check">
+            <input type="checkbox" class="form-check-input" id="f_uinactive">
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.show_categories') ?></label>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <div class="mt-3 form-check">
+            <input type="checkbox" class="form-check-input" id="f_uinactive">
+            <label class="form-check-label" for="f_uinactive"><?php echo lang('Default.show_social_links') ?></label>
         </div>
     </div>
 </div>
 <div class="row mt-3">
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_ufullname" class="form-label">site_social_fb_url</label>
+            <label for="f_ufullname" class="form-label"><?php echo lang('Default.social_fb_url') ?></label>
             <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
             <div class="required_input">Please enter some text</div>
         </div>
     </div>
     <div class="col-xs-12 col-sm-6">
         <div class="mb-2">
-            <label for="f_ufullname" class="form-label">site_social_tw_url</label>
+            <label for="f_ufullname" class="form-label"><?php echo lang('Default.social_tw_url') ?></label>
             <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
             <div class="required_input">Please enter some text</div>
         </div>
     </div>
 </div>
 <div class="col-xs-12 col-sm-6">
-    <label for="f_ufullname" class="form-label">site_social_ig_url</label>
+    <label for="f_ufullname" class="form-label"><?php echo lang('Default.social_ig_url') ?></label>
     <input type="text" id="f_ufullname" class="form-control required" maxlength="250">
     <div class="required_input">Please enter some text</div>
 </div>

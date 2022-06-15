@@ -42,8 +42,8 @@ return [
     'show_archive' => 'Show Archive',
     'show_categories' => 'Show Categories',
     'show_social_links' => 'Show Social Links',
-    'social_fb_url' => 'Social Fb url',
-    'site_social_tw_url' => 'Social Tw url',
-    'social_ig_url' => 'Social Ig url',
+    'social_fb_url' => 'Facebook url',
+    'social_tw_url' => 'Twitter url',
+    'social_ig_url' => 'Instagram url',
   
 ];
