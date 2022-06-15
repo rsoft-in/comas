@@ -6,7 +6,7 @@
         getPosts();
         getCategories();
     });
-    let sortby = 'post_title';
+    let sortby = 'post_modified DESC';
     let pn = 0;
     let data = [];
 
@@ -74,6 +74,7 @@
     }
 
     function add() {
+        $(document).resetError();
         $('#f_pid').val('');
         $('#f_ptitle').val('');
         tinymce.get('f-pcontent').setContent('');
@@ -86,6 +87,7 @@
         var row = data.posts.find((e) => {
             return e.post_id == id;
         });
+        $(document).resetError();
         $('#f_pid').val(row.post_id);
         $('#f_ptitle').val(row.post_title);
         tinymce.get('f-pcontent').setContent(row.post_content);
@@ -96,11 +98,9 @@
     }
 
     function save() {
-        if ( $('#f_ptitle').val() == '') {
-      alert('Invalid title');
-      return;
-    }
-        var ed = tinymce.get('f-pcontent').getContent();
+        var valid = $(document).validate();
+    if (!valid) return;
+     var ed = tinymce.get('f-pcontent').getContent();
         var postdata = {
             'p_id': $('#f_pid').val(),
             'p_title': $('#f_ptitle').val(),
@@ -170,7 +170,8 @@
                     <div class="col">
                         <div class="mb-2">
                             <label for="f_ptitle" class="form-label"><?php echo lang('Default.title') ?></label>
-                            <input type="text" id="f_ptitle" class="form-control" aria-describedby="passwordHelpBlock" maxlength="250">
+                            <input type="text" id="f_ptitle" class="form-control required" aria-describedby="passwordHelpBlock" maxlength="250">
+                            <div class="required_input">Please enter some text</div>
                         </div>
                     </div>
                     <div class="col">

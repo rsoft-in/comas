@@ -5,7 +5,7 @@
     getCategories();
 
   });
-  let sortby = 'cg_name';
+  let sortby = 'cg_modified DESC';
   let pn = 0;
   let data = [];
 
@@ -48,6 +48,7 @@
   }
 
   function onAdd() {
+    $(document).resetError();
     $('#f_cgid').val('');
     $('#f_cgname').val('');
     $('#f_cgdesc').val('');
@@ -58,6 +59,7 @@
     var row = data.categories.find((e) => {
       return e.cg_id == id;
     });
+    $(document).resetError();
     $('#f_cgid').val(row.cg_id);
     $('#f_cgname').val(row.cg_name);
     $('#f_cgdesc').val(row.cg_desc);
@@ -66,12 +68,8 @@
   }
 
   function save() {
-  
-    if ( $('#f_cgname').val() == '') {
-      alert('Invalid name');
-      return;
-    }
-    
+    var valid = $(document).validate();
+    if (!valid) return;
     var postdata = {
       'id': $('#f_cgid').val(),
       'name': $('#f_cgname').val(),
@@ -147,11 +145,13 @@
         <input type="hidden" id="f_cgid">
         <div class="mb-2">
           <label for="f_cgname" class="form-label"><?php echo lang('Default.name') ?></label>
-          <input type="text" id="f_cgname" class="form-control" maxlength="50">
+          <input type="text" id="f_cgname" class="form-control required" maxlength="50">
+          <div class="required_input">Please enter some text</div>
         </div>
         <div class="mb-2">
           <label for="f_cgdesc" class="form-label"><?php echo lang('Default.description') ?></label>
-          <textarea id="f_cgdesc" class="form-control" rows="3" maxlength="250"></textarea>
+          <textarea id="f_cgdesc" class="form-control required" rows="3" maxlength="250"></textarea>
+          <div class="required_input">Please enter some text</div>
         </div>
       </div>
       <div class="modal-footer">

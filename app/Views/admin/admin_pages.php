@@ -109,11 +109,6 @@
   function save() {
     var valid = $(document).validate();
     if (!valid) return;
-
-    if ($('#f_ptitle').val() == '') {
-      alert('Invalid title');
-      return;
-    }
     var ed = tinymce.get('f-page-editor').getContent();
     var postdata = {
       'p_id': $('#f_pid').val(),

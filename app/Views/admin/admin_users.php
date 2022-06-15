@@ -4,7 +4,7 @@
     $(document).ready(function() {
         getUsers();
     });
-    let sortby = 'user_name';
+    let sortby = 'user_modified DESC';
     let pn = 0;
     let data = [];
 
@@ -144,15 +144,18 @@
                 <input type="hidden" id="f_uid">
                 <div class="mb-2">
                     <label for="f_uname" class="form-label"><?php echo lang('Default.username') ?></label>
-                    <input type="text" id="f_uname" class="form-control" maxlength="20">
+                    <input type="text" id="f_uname" class="form-control required" maxlength="20">
+                    <div class="required_input">Please enter some text</div>
                 </div>
                 <div class="mb-2">
                     <label for="f_upwd" class="form-label"><?php echo lang('Default.password') ?></label>
-                    <input type="password" id="f_upwd" class="form-control" maxlength="15">
+                    <input type="password" id="f_upwd" class="form-control required" maxlength="15">
+                    <div class="required_input">Please enter some text</div>
                 </div>
                 <div class="mb-2">
                     <label for="f_ufullname" class="form-label"><?php echo lang('Default.fullname') ?></label>
-                    <input type="text" id="f_ufullname" class="form-control" maxlength="50">
+                    <input type="text" id="f_ufullname" class="form-control required" maxlength="50">
+                    <div class="required_input">Please enter some text</div>
                 </div>
                 <div class="mb-2">
                     <label for="f_uemail" class="form-label"><?php echo lang('Default.email') ?></label>
