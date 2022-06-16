@@ -45,5 +45,5 @@ return [
     'social_fb_url' => 'Facebook url',
     'social_tw_url' => 'Twitter url',
     'social_ig_url' => 'Instagram url',
-  
+    'settings' => 'Settings',
 ];
