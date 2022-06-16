@@ -110,8 +110,8 @@
         <div class="col-sm-6">
             <div class="mb-2">
                 <label for="site_keywords" class="form-label"><?php echo lang('Default.site_keywords') ?></label>
-                <input type="text" id="site_keywords" class="form-control required" maxlength="250">
-                <div class="required_input">Please enter some text</div>
+                <input type="text" id="site_keywords" class="form-control" maxlength="250">
+
             </div>
         </div>
         <div class="col">
@@ -130,27 +130,28 @@
         <div class="col-sm-6">
             <div class="mb-2">
                 <label for="site_logo" class="form-label"><?php echo lang('Default.logo') ?></label>
-                <input type="text" id="site_logo" class="form-control required" maxlength="250">
-                <div class="required_input">Please enter some text</div>
+                <input type="text" id="site_logo" class="form-control" maxlength="250">
+
             </div>
         </div>
+
         <div class="col-sm-6">
             <div class="mb-2">
                 <label for="site_contact_email" class="form-label"><?php echo lang('Default.contact_email') ?></label>
-                <input type="text" id="site_contact_email" class="form-control required" maxlength="250">
-                <div class="required_input">Please enter some text</div>
+                <input type="text" id="site_contact_email" class="form-control email">
+                <div class="invalid_email">Invalid Email</div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <label for="site_contact_phone" class="form-label"><?php echo lang('Default.contact_phone') ?></label>
-            <input type="text" id="site_contact_phone" class="form-control required" maxlength="15">
-            <div class="required_input">Please enter some text</div>
+            <input type="number" id="site_contact_phone" class="form-control" maxlength="15">
+
         </div>
         <div class="col-sm-6">
             <label for="site_contact_mobile" class="form-label"><?php echo lang('Default.contact_mobile') ?></label>
-            <input type="text" id="site_contact_mobile" class="form-control required" maxlength="15">
+            <input type="number" id="site_contact_mobile" class="form-control required" maxlength="15">
             <div class="required_input">Please enter some text</div>
         </div>
     </div>
@@ -212,22 +213,22 @@
         <div class="col-sm-6">
             <div class="mb-2">
                 <label for="site_social_fb_url" class="form-label"><?php echo lang('Default.social_fb_url') ?></label>
-                <input type="text" id="site_social_fb_url" class="form-control required" maxlength="250">
-                <div class="required_input">Please enter some text</div>
+                <input type="text" id="site_social_fb_url" class="form-control" maxlength="250">
+
             </div>
         </div>
         <div class="col-sm-6">
             <div class="mb-2">
                 <label for="site_social_tw_url" class="form-label"><?php echo lang('Default.social_tw_url') ?></label>
-                <input type="text" id="site_social_tw_url" class="form-control required" maxlength="250">
-                <div class="required_input">Please enter some text</div>
+                <input type="text" id="site_social_tw_url" class="form-control" maxlength="250">
+
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <label for="site_social_ig_url" class="form-label"><?php echo lang('Default.social_ig_url') ?></label>
-        <input type="text" id="site_social_ig_url" class="form-control required" maxlength="250">
-        <div class="required_input">Please enter some text</div>
+        <input type="text" id="site_social_ig_url" class="form-control" maxlength="250">
+
     </div>
     <div class="mt-3 mb-2 text-end">
         <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
