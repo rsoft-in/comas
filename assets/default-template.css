@@ -87,3 +87,10 @@ div.required_input, div.invalid_email {
     color: red;
     display: none;
 }
+
+.card-subtitle .bi {
+    margin-right: 3px;
+}
+.card-subtitle span {
+    margin-right: 15px;
+}

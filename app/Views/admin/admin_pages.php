@@ -32,7 +32,7 @@
       });
     });
   });
-  let sortby = 'page_modified DESC';
+  let sortby = 'page_title';
   let pn = 0;
   let data = [];
 
@@ -87,7 +87,10 @@
       _html += "<div class=\"card mb-3\">\n" +
         "<div class=\"card-body\">\n" +
         "<h5 class=\"card-title\">" + data.pages[i].page_title + "</h5>\n" +
-        "<h6 class=\"card-subtitle mb-2 text-muted\">" + data.pages[i].cg_name + "&nbsp;|&nbsp;" + data.pages[i].page_modified + "&nbsp;|&nbsp;#" + data.pages[i].page_order + "</h6>\n" +
+        "<h6 class=\"card-subtitle mb-2 text-muted\">" +
+        "<i class=\"bi bi-collection\"></i><span>" + data.pages[i].cg_name + "</span>" +
+        "<i class=\"bi bi-calendar4\"></i><span>" + data.pages[i].page_modified + "</span>" +
+        "<i class=\"bi bi-sort-up\"></i><span>" + data.pages[i].page_order + "</span></h6>\n" +
         "<p class=\"card-text\">" + data.pages[i].page_author_id + "</p>\n" +
         "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.pages[i].page_id + "')\">Edit</a>\n" +
         "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.pages[i].page_id + "')\">Delete</a>\n" +
@@ -185,10 +188,26 @@
       });
     }
   }
+
+  function onSort(fld) {
+    sortby = fld;
+    getPages();
+  }
 </script>
 
-
 <div class="mb-3">
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary btn-sm">Sort by</button>
+    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" onclick="onSort('page_title')">Sort by Title</a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('cg_name')">Sorty by Category</a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('page_modified DESC')">Latest first</a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('page_order')">Sort by Page order</a></li>
+    </ul>
+  </div>
   <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal">Add</button>
 </div>
 
