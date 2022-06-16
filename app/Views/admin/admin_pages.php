@@ -71,6 +71,11 @@
       data: "postdata=" + postdata,
       success: function(result) {
         data = result;
+        if (data.pages.length > 0)
+          $('.no-result').hide();
+        else
+          $('.no-result').show();
+
         $('#pages-list').empty();
         $('#pages-list').append(generateTable(data));
         // $(document).updatenav();
@@ -212,6 +217,10 @@
 </div>
 
 <div class="" id="pages-list"></div>
+<div class="text-center no-result">
+  <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
+  <p class="fs-5">No Data</p>
+</div>
 
 <div class="modal" id="edit-modal" tabindex="-1">
   <div class="modal-dialog modal-xl">
