@@ -202,24 +202,24 @@
 
 <div class="mb-3">
   <div class="btn-group">
-    <button type="button" class="btn btn-secondary btn-sm">Sort by</button>
+    <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
       <span class="visually-hidden">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" onclick="onSort('page_title')">Sort by Title</a></li>
-      <li><a class="dropdown-item" href="#" onclick="onSort('cg_name')">Sorty by Category</a></li>
-      <li><a class="dropdown-item" href="#" onclick="onSort('page_modified DESC')">Latest first</a></li>
-      <li><a class="dropdown-item" href="#" onclick="onSort('page_order')">Sort by Page order</a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('page_title')"><?php echo lang('Default.sort_by_title') ?></a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('cg_name')"><?php echo lang('Default.sort_by_category') ?></a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('page_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('page_order')"><?php echo lang('Default.sort_by_page_order') ?></a></li>
     </ul>
   </div>
-  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal">Add</button>
+  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
 
 <div class="" id="pages-list"></div>
 <div class="text-center no-result">
   <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
-  <p class="fs-5">No Data</p>
+  <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
 </div>
 
 <div class="modal" id="edit-modal" tabindex="-1">

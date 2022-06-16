@@ -28,7 +28,7 @@
         });
 
     });
-    let sortby = 'post_modified DESC';
+    let sortby = 'post_title';
     let pn = 0;
     let data = [];
 
@@ -67,6 +67,11 @@
             data: "postdata=" + postdata,
             success: function(result) {
                 data = result;
+                if (data.posts.length > 0)
+                    $('.no-result').hide();
+                else
+                    $('.no-result').show();
+
                 $('#posts-list').empty();
                 $('#posts-list').append(generateTable(data));
                 // $(document).updatenav();
@@ -83,7 +88,10 @@
             _html += "<div class=\"card mb-3\">\n" +
                 "<div class=\"card-body\">\n" +
                 "<h5 class=\"card-title\">" + data.posts[i].post_title + "</h5>\n" +
-                "<h6 class=\"card-subtitle mb-2 text-muted\">" + data.posts[i].cg_name + "&nbsp;|&nbsp;" + data.posts[i].post_modified + "&nbsp;|&nbsp;" + data.posts[i].post_visited + " visits</h6>\n" +
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" +
+                "<i class=\"bi bi-collection\"></i><span>" + data.posts[i].cg_name + "</span>" +
+                "<i class=\"bi bi-calendar4\"></i><span>" + data.posts[i].post_modified + "</span>" +
+                "<i class=\"bi bi-eye\"></i><span>" + data.posts[i].post_visited + "</span></h6>\n" +
                 "<p class=\"card-text\">" + data.posts[i].post_author_id + "</p>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n" +
@@ -107,7 +115,7 @@
         $('#f_pcgid').val('');
         $('#f_ppublished').prop('checked', false);
         $('#f_preview').attr('src', '');
-      
+
     }
 
     function onEdit(id) {
@@ -122,7 +130,7 @@
         $('#f_pcgid').val(row.post_cg_id);
         $('#f_ppublished').prop('checked', row.post_published == '1');
         if (row.post_feature_img != '')
-      $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + row.post_feature_img);
+            $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + row.post_feature_img);
         editModal.show();
     }
 
@@ -208,7 +216,7 @@
             _html += "<div class=\"card mb-3\">\n" +
                 "<div class=\"card-body\">\n" +
                 "<h5 class=\"card-title\">" + data.comments[i].cmt_user_id + "</h5>\n" +
-                "<h6 class=\"card-subtitle mb-2 text-muted\">" + data.comments[i].cmt_date + "</h6>\n" +
+                "<h6 class=\"card-subtitle mb-2 text-muted\"><i class=\"bi bi-calendar4\"></i><span>" + data.comments[i].cmt_date + "</h6>\n" +
                 "<p class=\"card-text\">" + data.comments[i].cmt_text + "</p>\n" +
 
                 "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
@@ -218,14 +226,39 @@
         }
         return _html;
     }
+
+
+
+    function onSort(fld) {
+        sortby = fld;
+        getPosts();
+    }
 </script>
 
 
 <div class="mb-3">
-    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal">Add</button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
+        <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="onSort('post_title')"><?php echo lang('Default.sort_by_title') ?></a></li>
+            <li><a class="dropdown-item" href="#" onclick="onSort('post_content')"><?php echo lang('Default.sort_by_content') ?></a></li>
+            <li><a class="dropdown-item" href="#" onclick="onSort('post_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
+
+        </ul>
+    </div>
+    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
 
+
 <div class="" id="posts-list"></div>
+<div class="text-center no-result">
+    <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
+    <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
+</div>
+
 
 <div class="modal" id="edit-modal" tabindex="-1">
     <div class="modal-dialog modal-xl">
@@ -242,28 +275,28 @@
                         <div class="mb-2">
                             <label for="f_ptitle" class="form-label"><?php echo lang('Default.title') ?></label>
                             <input type="text" id="f_ptitle" class="form-control required" aria-describedby="passwordHelpBlock" maxlength="250">
-                            <div class="required_input">Please enter some text</div>
+                            <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-2">
                             <label for="f_pcgid" class="form-label"><?php echo lang('Default.category') ?></label>
                             <select id="f_pcgid" class="form-select">
-                                <option value="">Select a Category</option>
+                                <option value=""><?php echo lang('Default.select_a_category') ?></option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-          <div class="col-6">
-            <div class="mb-3">
-              <label for="f_image" class="form-label"><?php echo lang('Default.feature_image') ?></label>
-              <input class="form-control" type="file" name="f_image" id="f_image">
-            </div>
-          </div>
-          <div class="col-3">
-            <img src="" id="f_preview" alt="" style="width: 100%; max-width: 200px;">
-          </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="f_image" class="form-label"><?php echo lang('Default.feature_image') ?></label>
+                            <input class="form-control" type="file" name="f_image" id="f_image">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <img src="" id="f_preview" alt="" style="width: 100%; max-width: 200px;">
+                    </div>
                     <div class="col">
                         <div class="mt-5 form-check">
                             <input type="checkbox" class="form-check-input" id="f_ppublished">

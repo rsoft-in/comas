@@ -22,8 +22,14 @@
       data: "postdata=" + postdata,
       success: function(result) {
         data = result;
-        $('#cat-table tbody').empty();
-        $('#cat-table').append(generateTable(data));
+        if (data.categories.length > 0)
+          $('.no-result').hide();
+        else
+          $('.no-result').show();
+
+
+        $('#category-list').empty();
+        $('#category-list').append(generateTable(data));
         // $(document).updatenav();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -35,19 +41,22 @@
   function generateTable(data) {
     var _html = "";
     for (let i = 0; i < data.categories.length; i++) {
-      _html += "<tr>\n" +
-        "<td>" + data.categories[i].cg_name + "</td>\n" +
-        "<td>" + data.categories[i].cg_desc + "</td>\n" +
-        "<td class=\"text-end\">" +
-        "<a class=\"ms-3\" href=\"#\" title='Edit' onclick=\"onEdit('" + data.categories[i].cg_id + "')\"><i class=\"bi bi-pencil\"></i></a>" +
-        "<a class=\"ms-3\" href=\"#\" title='Delete' onclick=\"onDelete('" + data.categories[i].cg_id + "')\"><i class=\"bi bi-trash\"></i></a>" +
-        "</td>" +
-        "</tr>";
+      _html += "<div class=\"card mb-3\">\n" +
+        "<div class=\"card-body\">\n" +
+        "<h5 class=\"card-title\">" + data.categories[i].cg_name + "</h5>\n" +
+        "<h6 class=\"card-subtitle mb-2 text-muted\">" +
+        "<span>" + data.categories[i].cg_desc + "</span></h6>\n" +
+
+        "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.categories[i].cg_id + "')\">Edit</a>\n" +
+        "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.categories[i].cg_id + "')\">Delete</a>\n" +
+        "</div>\n" +
+        "</div>\n";
     }
     return _html;
   }
+  
 
-  function onAdd() {
+  function add() {
     $(document).resetError();
     $('#f_cgid').val('');
     $('#f_cgname').val('');
@@ -95,7 +104,7 @@
   }
 
   function onDelete(id) {
-    if (confirm('<?php echo lang('Default.confirm_delete')?>')) {
+    if (confirm('<?php echo lang('Default.confirm_delete') ?>')) {
       var postdata = {
         'id': id
       }
@@ -119,50 +128,52 @@
   }
 </script>
 
+
+
 <div class="mb-3">
-  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='onAdd()' data-bs-target="#edit-modal">Add</button>
+    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
-<table class="table" id="cat-table">
-  <thead>
-    <tr>
-      <th scope="col"><?php echo lang('Default.name') ?></th>
-      <th scope="col"><?php echo lang('Default.description') ?></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+<div class="" id="pages-list"></div>
+<div class="text-center no-result">
+  <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
+  <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
+</div>
+
+<div class="" id="category-list"></div>
 
 <div class="modal" id="edit-modal" tabindex="-1">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><?php echo lang('Default.edit') ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="f_cgid">
-        <div class="mb-2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?php echo lang('Default.edit') ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="f_uid">
+                <div class="mb-2">
           <label for="f_cgname" class="form-label"><?php echo lang('Default.name') ?></label>
           <input type="text" id="f_cgname" class="form-control required" maxlength="50">
-          <div class="required_input">Please enter some text</div>
+          <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
         </div>
         <div class="mb-2">
           <label for="f_cgdesc" class="form-label"><?php echo lang('Default.description') ?></label>
           <textarea id="f_cgdesc" class="form-control required" rows="3" maxlength="250"></textarea>
-          <div class="required_input">Please enter some text</div>
+          <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
-        <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
-      </div>
+               
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
+                <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
-  const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
+    const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
 </script>
+
+
+
 
 <?php $this->endSection() ?>

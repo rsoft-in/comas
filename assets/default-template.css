@@ -88,7 +88,7 @@ div.required_input, div.invalid_email {
     display: none;
 }
 
-.card-subtitle .bi {
+.card-subtitle .bi, .card-text .bi {
     margin-right: 3px;
 }
 .card-subtitle span {

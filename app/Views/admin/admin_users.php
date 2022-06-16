@@ -4,7 +4,7 @@
     $(document).ready(function() {
         getUsers();
     });
-    let sortby = 'user_modified DESC';
+    let sortby = 'user_name';
     let pn = 0;
     let data = [];
 
@@ -21,6 +21,11 @@
             data: "postdata=" + postdata,
             success: function(result) {
                 data = result;
+
+                if (data.users.length > 0)
+                    $('.no-result').hide();
+                else
+                    $('.no-result').show();
                 $('#users-list').empty();
                 $('#users-list').append(generateTable(data));
                 // $(document).updatenav();
@@ -37,8 +42,10 @@
             _html += "<div class=\"card mb-3\">\n" +
                 "<div class=\"card-body\">\n" +
                 "<h5 class=\"card-title\">" + data.users[i].user_fullname + "</h5>\n" +
-                "<h6 class=\"card-subtitle mb-2 text-muted\">" + data.users[i].user_name + "&nbsp;|&nbsp;" + data.users[i].user_modified + "</h6>\n" +
-                "<p class=\"card-text\">" + data.users[i].user_email + "</p>\n" +
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" +
+                "<i class=\"bi bi-collection\"></i><span>" + data.users[i].user_name + "</span>" +
+                "<i class=\"bi bi-calendar4\"></i><span>" + data.users[i].user_modified + "</span></h6>\n" +
+                "<p class=\"card-text\"><i class=\"bi bi-envelope\"></i><span>"+ data.users[i].user_email + "<span></p>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.users[i].user_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.users[i].user_id + "')\">Delete</a>\n" +
                 "</div>\n" +
@@ -125,10 +132,31 @@
             });
         }
     }
+    function onSort(fld) {
+    sortby = fld;
+    getUsers();
+  }
 </script>
 
 <div class="mb-3">
-    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal">Add</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
+    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" onclick="onSort('user_name')"><?php echo lang('Default.sort_by_name') ?></a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('user_email')"><?php echo lang('Default.sort_by_email') ?></a></li>
+      <li><a class="dropdown-item" href="#" onclick="onSort('user_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
+      
+    </ul>
+  </div>
+    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+</div>
+<div class="" id="pages-list"></div>
+<div class="text-center no-result">
+  <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
+  <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
 </div>
 
 <div class="" id="users-list"></div>
@@ -145,22 +173,22 @@
                 <div class="mb-2">
                     <label for="f_uname" class="form-label"><?php echo lang('Default.username') ?></label>
                     <input type="text" id="f_uname" class="form-control required" maxlength="20">
-                    <div class="required_input">Please enter some text</div>
+                    <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
                 </div>
                 <div class="mb-2">
                     <label for="f_upwd" class="form-label"><?php echo lang('Default.password') ?></label>
                     <input type="password" id="f_upwd" class="form-control required" maxlength="15">
-                    <div class="required_input">Please enter some text</div>
+                    <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
                 </div>
                 <div class="mb-2">
                     <label for="f_ufullname" class="form-label"><?php echo lang('Default.fullname') ?></label>
                     <input type="text" id="f_ufullname" class="form-control required" maxlength="50">
-                    <div class="required_input">Please enter some text</div>
+                    <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
                 </div>
                 <div class="mb-2">
                     <label for="f_uemail" class="form-label"><?php echo lang('Default.email') ?></label>
                     <input type="text" id="f_uemail" class="form-control email">
-                    <div class="invalid_email">Invalid Email</div>
+                    <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
                 </div>
                 <div class="mt-3 form-check">
                     <input type="checkbox" class="form-check-input" id="f_uinactive">
