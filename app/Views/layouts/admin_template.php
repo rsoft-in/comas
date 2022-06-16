@@ -42,38 +42,38 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'dashboard' ? 'active' : '') ?>" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
-                                <i class="bi bi-grid"></i>
+                            <a class="nav-link <?= ($menu_id == 'dashboard' ? 'active' : '') ?>" aria-current="page" href="<?php echo base_url() . '/' . index_page() ?>/admin/dashboard">
+                                <i class="bi bi-grid<?= ($menu_id == 'dashboard' ? '-fill' : '') ?>"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'pages' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
-                                <i class="bi bi-file-earmark-richtext"></i>
+                            <a class="nav-link <?= ($menu_id == 'pages' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
+                                <i class="bi bi-file-earmark-richtext<?= ($menu_id == 'pages' ? '-fill' : '') ?>"></i>
                                 Pages
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'posts' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/posts">
-                                <i class="bi bi-chat-right-text"></i>
+                            <a class="nav-link <?= ($menu_id == 'posts' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/posts">
+                                <i class="bi bi-chat-right-text<?= ($menu_id == 'posts' ? '-fill' : '') ?>"></i>
                                 Posts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'users' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/users">
-                                <i class="bi bi-person"></i>
+                            <a class="nav-link <?= ($menu_id == 'users' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/users">
+                                <i class="bi bi-person<?= ($menu_id == 'users' ? '-fill' : '') ?>"></i>
                                 Users
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'categories' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
-                                <i class="bi bi-person"></i>
+                            <a class="nav-link <?= ($menu_id == 'categories' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
+                                <i class="bi bi-collection<?= ($menu_id == 'categories' ? '-fill' : '') ?>"></i>
                                 Categories
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($menu_id == 'settings' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/settings">
-                                <i class="bi bi-gear"></i>
+                            <a class="nav-link <?= ($menu_id == 'settings' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/settings">
+                                <i class="bi bi-gear<?= ($menu_id == 'settings' ? '-fill' : '') ?>"></i>
                                 Settings
                             </a>
                         </li>
