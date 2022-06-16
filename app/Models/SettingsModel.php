@@ -10,17 +10,14 @@ class SettingsModel extends Model
     protected $table = 'settings';
     protected $primaryKey = 'setting_name';
 
-    public function getData($filter, $sortBy, $pageNo, $pageSize)
+    public function getDataByName($setting_name)
     {
         $result = $this->builder()->select('*')
-            ->where('(1=1) ' . $filter)
-            ->orderBy($sortBy)
-            ->limit($pageNo, $pageSize)
+            ->where('setting_name', $setting_name)
             ->get()->getResult();
         return $result;
     }
    
-
     public function addData($data)
     {
         $this->builder()->insert($data);

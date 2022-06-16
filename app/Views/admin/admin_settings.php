@@ -1,13 +1,39 @@
 <?php $this->extend('layouts/admin_template') ?>
 <?php $this->section('content') ?>
 
+<script>
+    $(document).ready(function() {
+        getSetting('site-config');
+    });
 
+    function getSetting(config) {
+        var postdata = {
+            'name': config
+        }
+        postdata = JSON.stringify(postdata);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() . '/' . index_page() ?>/admin/settings/getSetting",
+            data: "postdata=" + postdata,
+            success: function(result) {
+                if (result.length != 0) {
+                    var siteConfig = JSON.parse(result[0].setting_value);
+                    console.log(siteConfig);
+                    $('#site_name').val(siteConfig['site-name']);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+</script>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
             <div class="mb-2">
-                <label for="f_uname" class="form-label"><?php echo lang('Default.name') ?></label>
-                <input type="text" id="f_uname" class="form-control required" maxlength="50">
+                <label for="site_name" class="form-label"><?php echo lang('Default.site_name') ?></label>
+                <input type="text" id="site_name" class="form-control required" maxlength="50">
                 <div class="required_input">Please enter some text</div>
             </div>
         </div>
