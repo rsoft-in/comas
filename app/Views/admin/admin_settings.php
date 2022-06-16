@@ -70,6 +70,17 @@
                 <div class="required_input">Please enter some text</div>
             </div>
         </div>
+        <div class="col">
+                        <div class="mb-2">
+                            <label for="f_pcgid" class="form-label"><?php echo lang('Default.theme') ?></label>
+                            <select id="f_pcgid" class="form-select">
+                                <option value="">Default</option>
+                                <option value="">Modern</option>
+                                <option value="">Classic</option>
+                             
+                            </select>
+                        </div>
+                    </div>
         <div class="col-sm-6">
             <div class="mb-2">
                 <label for="site_theme" class="form-label"><?php echo lang('Default.theme') ?></label>
