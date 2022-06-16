@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    background-color: #fafafa;
+    color: #343434;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+    background-color: #fafafa;
+    color: #ef7c8e;
+    width: 100%;
+    max-width: 1024px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px solid #efefef;
+}
+
+.header h1.logo {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 24px 15px;
+    float: left;
+}
+
+.header h1.logo a {
+    text-decoration: none;
+    color: #ef7c8e;
+}
+
+.header .navbar {
+    position: static;
+    display: block;
+    float: right;
+    margin: 28px 15px;
+    display: block;
+}
+
+.header .navbar-toggle {
+    position: static;
+    float: right;
+    margin: 0;
+    display: none;
+}
+.header .navbar-toggle i {
+    cursor: pointer;
+    padding: 20px;
+}
+
+.header .navbar a {
+    font-size: 1rem;
+    font-weight: 300;
+    text-decoration: none;
+    color: #555;
+    margin-left: 8px;
+}
+
+.header .navbar a:hover,
+.header .navbar a:active {
+    color: #ef7c8e;
+    font-weight: 400;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    -moz-text-decoration-style: dotted;
+    text-decoration-color: #ef7c8e;
+    -moz-text-decoration-color: #ef7c8e;
+}
+
+.header .navbar a.close {
+    display: none;
+    float: right;
+    padding: 10px 15px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: larger;
+}
+
+.main {
+    width: 100%;
+    max-width: 1024px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 800px;
+}
+
+.main .highlights {}
+
+
+
+
+@media screen and (max-width: 480px) {
+    .header {
+        height: 60px;
+    }
+
+    .header h1.logo {
+        font-size: 1rem;
+        margin: 20px 10px;
+        float: left;
+    }
+
+    .header .navbar {
+        position: fixed;
+        display: none;
+        float: none;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        background-color: #fff;
+    }
+
+    .header .navbar a {
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .header .navbar a.close {
+        display: block;
+    }
+
+    .header .navbar-toggle {
+        display: block;
+    }
+}
