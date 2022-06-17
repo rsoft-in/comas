@@ -21,6 +21,6 @@ class Home extends BaseController
             ];
         }
 
-        return view('themes/' . $theme . '_home', $data);
+        return view('themes/' . $theme . '/home', $data);
     }
 }

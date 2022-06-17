@@ -1,8 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+
 body {
     margin: 0;
     background-color: #fafafa;
     color: #343434;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Manjari', sans-serif;;
+}
+
+a {
+    text-decoration: none;
+    color: #ef7c8e;
+}
+
+a:hover {
+    color: #ef7c8e;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    -moz-text-decoration-style: dotted;
+    text-decoration-color: #ef7c8e;
+    -moz-text-decoration-color: #ef7c8e;
 }
 
 .header {
@@ -19,20 +36,21 @@ body {
 .header h1.logo {
     font-size: 1.5rem;
     font-weight: 400;
-    margin: 24px 15px;
+    margin: 22px 15px;
     float: left;
+    font-family: 'Roboto Slab', serif;
 }
 
 .header h1.logo a {
     text-decoration: none;
-    color: #ef7c8e;
+    color: #333;
 }
 
 .header .navbar {
     position: static;
     display: block;
     float: right;
-    margin: 28px 15px;
+    margin: 32px 15px;
     display: block;
 }
 
@@ -49,9 +67,9 @@ body {
 
 .header .navbar a {
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 400;
     text-decoration: none;
-    color: #555;
+    color: #333;
     margin-left: 8px;
 }
 
