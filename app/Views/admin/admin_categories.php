@@ -54,7 +54,7 @@
     }
     return _html;
   }
-  
+
 
   function add() {
     $(document).resetError();
@@ -90,6 +90,7 @@
       url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/" + ($('#f_cgid').val() == '' ? 'addCategory' : 'updateCategory'),
       data: "postdata=" + postdata,
       success: function(result) {
+        console.log(result);
         if (result.indexOf('SUCCESS') >= 0) {
           editModal.hide();
           getCategories();
@@ -131,26 +132,26 @@
 
 
 <div class="mb-3">
-    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
-<div class="" id="pages-list"></div>
+<div class="" id="category-list"></div>
 <div class="text-center no-result">
   <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
   <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
 </div>
 
-<div class="" id="category-list"></div>
+
 
 <div class="modal" id="edit-modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><?php echo lang('Default.edit') ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="f_uid">
-                <div class="mb-2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><?php echo lang('Default.edit') ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="f_cgid">
+        <div class="mb-2">
           <label for="f_cgname" class="form-label"><?php echo lang('Default.name') ?></label>
           <input type="text" id="f_cgname" class="form-control required" maxlength="50">
           <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
@@ -161,16 +162,16 @@
           <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
         </div>
       </div>
-               
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
-                <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
-            </div>
-        </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
+        <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
+      </div>
     </div>
+  </div>
 </div>
 <script>
-    const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
+  const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
 </script>
 
 

@@ -35,6 +35,11 @@ class CommentsModel extends Model
     {
         $this->builder()->where('cmt_id', $data['cmt_id'])->update($data);
     }
+    public function togglePublish($data)
+    {
+        $this->builder()->where('cmt_id', $data['cmt_id'])->update($data);
+    }
+
     public function deleteData($cmt_id)
     {
         $this->builder()->where('cmt_id', $cmt_id)->delete();

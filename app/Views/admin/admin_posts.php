@@ -96,7 +96,10 @@
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">Comments</a>\n" +
-                "<div class=\"float-end\">" + (data.posts[i].post_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
+                "<div class=\"float-end\">" + (data.posts[i].post_published == 1 ?
+
+
+                    "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
                 "</div>\n" +
                 "</div>\n" +
                 "</div>\n";
@@ -218,15 +221,41 @@
                 "<h5 class=\"card-title\">" + data.comments[i].cmt_user_id + "</h5>\n" +
                 "<h6 class=\"card-subtitle mb-2 text-muted\"><i class=\"bi bi-calendar4\"></i><span>" + data.comments[i].cmt_date + "</h6>\n" +
                 "<p class=\"card-text\">" + data.comments[i].cmt_text + "</p>\n" +
-
-                "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
+                "<div class=\"form-check form-switch\">" +
+                "<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"published-" + i + "\" " + (data.comments[i].cmt_published == 1 ? "checked" : "") + " onclick=\"togglePublish(this, \'" + data.comments[i].cmt_id + "\')\">" +
+                "<label class=\"form-check-label\" for=\"published-" + i + "\">" + (data.comments[i].cmt_published == 1 ? "Published" : "Un-published") + "</label>" +
+                "</div>" +
                 "</div>\n" +
                 "</div>\n" +
                 "</div>\n";
-        }
+                // "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<button class=\"btn btn-primary btn-sm\">Un-publish</button>" : " <button class=\"btn btn-primary btn-sm\">Published</button>") +
+            }
         return _html;
     }
 
+    function togglePublish(obj, id) {
+        var selected = ($(obj).is(':checked'));
+        data.comments.find((e) => e.cmt_id == id).cmt_published = selected;
+        $(obj).parent().children('label').html(selected ? 'Published' : 'Un-published');
+        var postdata = {
+            'id': id,
+            'val': selected  
+        }
+        postdata = JSON.stringify(postdata);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() . '/' . index_page() ?>/admin/comments/togglePublish",
+            data: "postdata=" + postdata,
+            success: function(result) {
+                if(result.indexOf('SUCCESS')>=0){
+                    console.log('UPDATED')
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
 
 
     function onSort(fld) {
@@ -234,6 +263,7 @@
         getPosts();
     }
 </script>
+
 
 
 <div class="mb-3">

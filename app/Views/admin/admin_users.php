@@ -153,13 +153,12 @@
   </div>
     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
-<div class="" id="pages-list"></div>
+<div class="" id="users-list"></div>
 <div class="text-center no-result">
   <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
   <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
 </div>
 
-<div class="" id="users-list"></div>
 
 <div class="modal" id="edit-modal" tabindex="-1">
     <div class="modal-dialog">

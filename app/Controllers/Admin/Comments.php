@@ -68,6 +68,19 @@ class Comments extends BaseController
         $commentsModel->updateData($data);
         echo 'SUCCESS';
     }
+
+    public function togglePublish()
+    {
+        $post = $this->request->getPost('postdata');
+        $json = json_decode($post);
+        $data = [
+            'cmt_id' =>  $json->id,
+            'cmt_published' =>  $json->val
+        ];
+        $commentsModel = new CommentsModel;
+        $commentsModel->togglePublish($data);
+        echo 'SUCCESS';
+    }
     public function deleteComments()
     {
         $post = $this->request->getPost('postdata');
