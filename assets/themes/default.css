@@ -5,12 +5,22 @@ body {
     margin: 0;
     background-color: #fafafa;
     color: #343434;
-    font-family: 'Manjari', sans-serif;;
 }
 
 a {
     text-decoration: none;
     color: #ef7c8e;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Slab', serif;
+    margin: 10px 15px;
+    font-weight: 400;
 }
 
 a:hover {
@@ -35,7 +45,7 @@ a:hover {
 
 .header h1.logo {
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 600;
     margin: 22px 15px;
     float: left;
     font-family: 'Roboto Slab', serif;
@@ -60,12 +70,14 @@ a:hover {
     margin: 0;
     display: none;
 }
+
 .header .navbar-toggle i {
     cursor: pointer;
     padding: 20px;
 }
 
 .header .navbar a {
+    font-family: 'Manjari', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-decoration: none;
@@ -102,18 +114,157 @@ a:hover {
     min-height: 800px;
 }
 
-.main .highlights {}
+.column {
+    float: left;
+    width: 33.33%;
+}
 
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
+.card {
+    margin: 10px;
+    border: 1px solid #efefef;
+    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); */
+    transition: 0.3s;
+    height: 425px;
+    position: relative;
+}
 
+.card:hover {
+    border-color: #e0e0e0;
+}
 
-@media screen and (max-width: 480px) {
+.card h1,
+.card h2,
+.card h3 {
+    font-family: 'Manjari', sans-serif;
+    margin: 8px 10px;
+    color: #ef7c8e;
+    font-size: 1.2rem;
+    line-height: 26px;
+}
+
+.card span,
+.card p {
+    margin: 5px 10px;
+    font-family: 'Manjari', sans-serif;
+}
+
+.card .cover {
+    height: 200px;
+    width: 100%;
+}
+
+.card .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card .subtitle {
+    color: #555;
+    margin: 8px 10px;
+    font-family: 'Manjari', sans-serif;
+    text-decoration: underline;
+}
+
+.card .muted {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 8px 10px;
+    font-family: 'Manjari', sans-serif;
+}
+
+.card .footer {
+    position: absolute;
+    bottom: 0;
+    margin: 5px 10px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.list .list-item {
+    border: 1px solid #efefef;
+    margin: 5px 10px;
+    overflow: auto;
+    position: relative;
+}
+
+.list .list-item:hover {
+    border-color: #e0e0e0;
+}
+
+.list .list-item .leading {
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    float: left;
+}
+
+.list .list-item .leading img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.list .list-item .list-content {
+    position: absolute;
+    left: 110px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.list-content h1,
+.list-content h2,
+.list-content h3 {
+    font-family: 'Manjari', sans-serif;
+    margin: 5px 10px 0px 10px;
+    color: #ef7c8e;
+    font-size: 1.2rem;
+    height: 20px;
+    overflow: hidden;
+}
+
+.list-content .subtitle {
+    color: #555;
+    margin: 5px 10px;
+    font-family: 'Manjari', sans-serif;
+    text-decoration: underline;
+}
+
+.list-content .muted {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0px 8px;
+    font-family: 'Manjari', sans-serif;
+}
+
+.list-content p {
+    margin: -5px 10px;
+    font-family: 'Manjari', sans-serif;
+    height: 18px;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 900px) {
+    .column {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
     .header {
         height: 60px;
     }
 
     .header h1.logo {
         font-size: 1rem;
+        font-weight: 400;
         margin: 20px 10px;
         float: left;
     }
@@ -128,6 +279,7 @@ a:hover {
         width: 100%;
         margin: 0;
         background-color: #fff;
+        z-index: 1;
     }
 
     .header .navbar a {
@@ -141,5 +293,9 @@ a:hover {
 
     .header .navbar-toggle {
         display: block;
+    }
+
+    .column {
+        width: 100%;
     }
 }

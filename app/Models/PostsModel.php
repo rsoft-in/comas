@@ -10,13 +10,13 @@ class PostsModel extends Model
     protected $table = 'posts';
     protected $primaryKey = 'post_id';
 
-    public function getData($filter, $sortBy, $pageNo, $pageSize)
+    public function getData($filter, $sortBy, $pageSize, $offSet)
     {
         $result = $this->builder()->select('posts.*, categories.cg_name')
             ->join('categories', 'categories.cg_id = posts.post_cg_id', 'left')
             ->where('(1=1) ' . $filter)
             ->orderBy($sortBy)
-            ->limit($pageNo, $pageSize)
+            ->limit($pageSize, $offSet)
             ->get()->getResult();
         return $result;
     }

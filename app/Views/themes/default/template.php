@@ -33,7 +33,9 @@
         </div>
     </div>
     <div class="main">
-        <div class="highlights"></div>
+        <div class="highlights">
+            <?php $this->renderSection('content') ?>
+        </div>
     </div>
 </body>
 
