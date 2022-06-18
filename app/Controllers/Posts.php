@@ -19,6 +19,4 @@ class Posts extends BaseController
         ];
         return view('admin/admin_posts', $params);
     }
-
-
 }

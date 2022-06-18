@@ -174,8 +174,11 @@ h6 {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     min-height: 200px;
     background-color: #353535;
+    box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
 .footer a,
@@ -197,6 +200,16 @@ h6 {
     content: "";
     display: table;
     clear: both;
+}
+
+.row .col-large {
+    float: left;
+    width: 70%;
+}
+
+.row .col-small {
+    float: left;
+    width: 30%;
 }
 
 .card {
@@ -284,6 +297,10 @@ h6 {
     -moz-text-decoration-color: #ef7c8e;
 }
 
+.list .list-item {
+    padding: 2px 15px;
+}
+
 .divider-left {
     border-left: 1px solid #888;
     float: right;
@@ -299,10 +316,38 @@ h6 {
 @media screen and (max-width: 1024px) {
     .header {
         margin-top: 0px;
+        border-radius: 0px;
     }
 
     .column {
+        width: 50%;
+    }
+
+    .row .col-large {
+        width: 70%;
+    }
+
+    .row .col-small {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .column {
         width: 100%;
+    }
+
+    .row .col-large {
+        width: 100%;
+    }
+
+    .row .col-small {
+        width: 100%;
+    }
+
+    .footer {
+        margin-bottom: 0px;
+        border-radius: 0px;
     }
 }
 
@@ -326,6 +371,7 @@ h6 {
 
     .header {
         margin-top: 0px;
+        border-radius: 0px;
         height: 60px;
     }
 
@@ -360,6 +406,11 @@ h6 {
 
     .header .navbar-toggle {
         display: block;
+    }
+
+    .footer {
+        margin-bottom: 0px;
+        border-radius: 0px;
     }
 
     .column {

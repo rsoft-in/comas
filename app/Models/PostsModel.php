@@ -28,6 +28,14 @@ class PostsModel extends Model
         return $result;
     }
 
+    public function getArchived()
+    {
+        $result = $this->builder()->select('YEAR(post_modified) year, MONTH(post_modified) as month, count(*) as nposts')
+            ->groupBy('1,2')
+            ->get()->getResult();
+        return $result;
+    }
+
     public function addData($data)
     {
         $this->builder()->insert($data);
