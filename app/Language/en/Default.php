@@ -62,4 +62,5 @@ return [
     'sort_by_email' => 'Sort by E-mail',
     'invalid_email' => 'Invalid Email',
     'no_data' => 'No Data',
+    'post_tags' => 'Post Tags',
 ];

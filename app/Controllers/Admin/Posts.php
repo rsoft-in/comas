@@ -48,6 +48,7 @@ class Posts extends BaseController
             'post_published' => $json->p_published,
             'post_feature_img' => $json->p_fimage,
             'post_cg_id' => $json->p_cgid,
+            'post_tags'=>$json->p_tags,
             'post_author_id' => 'admin',
             'post_modified' => $today->toDateTimeString()
         ];
@@ -69,6 +70,7 @@ class Posts extends BaseController
             'post_published' => $json->p_published,
             'post_feature_img' => $json->p_fimage,
             'post_cg_id' => $json->p_cgid,
+            'post_tags'=>$json->p_tags,
             'post_author_id' => 'admin',
             'post_modified' => $today->toDateTimeString()
         ];
