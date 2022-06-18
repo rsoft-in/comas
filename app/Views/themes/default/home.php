@@ -44,7 +44,7 @@ $this->extend('themes/default/template') ?>
             <h2>Recent Posts</h2>
             <div class="list">
                 <?php foreach ($site_posts_recent as $post) { ?>
-                    <div class="list-item">
+                    <div class="item">
                         <div class="card">
                             <div class="card-body">
                                 <div class="cover">
