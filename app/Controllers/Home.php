@@ -23,7 +23,7 @@ class Home extends BaseController
                 'site_isblog' => $json->site_isblog
             ];
             if ($json->site_isblog) {
-                $postsPopular = $postsModel->getData('', 'post_visited DESC, post_modified DESC', 3, 0);
+                $postsPopular = $postsModel->getData('', 'post_visited DESC, post_modified DESC', 2, 0);
                 $data['site_posts_popular'] = $postsPopular;
                 $postsRecent = $postsModel->getData('', 'post_modified DESC', 10, 0);
                 $data['site_posts_recent'] = $postsRecent;

@@ -27,6 +27,7 @@
         <h1 class="logo"><a href="<?= base_url() ?>"><?= $site_name ?></a></h1>
         <div class="navbar-toggle" onclick="openDrawer()"><i class="las la-bars"></i></div>
         <div class="navbar">
+            <div class="mt-2 v-sm"></div>
             <a id="drawer-close" class="close" onclick="closeDrawer();">&times;</a>
             <a href="#">About Us</a>
             <a href="#">Contact</a>
@@ -35,6 +36,21 @@
     <div class="main">
         <div class="highlights">
             <?php $this->renderSection('content') ?>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="row">
+            <div class="column">
+                <div class="section">
+                    <a href="<?= base_url() ?>"><?= $site_name ?></a>
+                </div>
+            </div>
+            <div class="column">
+                <div class="section"></div>
+            </div>
+            <div class="column">
+                <div class="section"></div>
+            </div>
         </div>
     </div>
 </body>
