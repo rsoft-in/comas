@@ -313,6 +313,19 @@ h6 {
     padding-right: 5px;
 }
 
+.article {
+    font-family: 'Manjari', sans-serif;
+    padding: 15px;
+}
+
+.author {
+    font-family: 'Manjari', sans-serif;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    color: #888;
+    padding: 0 15px;
+}
+
 @media screen and (max-width: 1024px) {
     .header {
         margin-top: 0px;

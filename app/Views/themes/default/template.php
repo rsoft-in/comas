@@ -30,8 +30,9 @@
         <div class="navbar">
             <div class="mt-2 v-sm"></div>
             <a id="drawer-close" class="close" onclick="closeDrawer();">&times;</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact</a>
+            <?php foreach ($site_links as $link) { ?>
+                <a href="<?= base_url() . '/' . index_page() ?>/pages/page/<?= $link->page_url_slug ?>"><?= $link->page_title ?></a>
+            <?php } ?>
         </div>
     </div>
     <div class="main">

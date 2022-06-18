@@ -27,6 +27,24 @@ class PagesModel extends Model
             ->countAllResults();
         return $result;
     }
+    public function getLinks()
+    {
+        $result = $this->builder()->select('page_id, page_title, page_url_slug')
+            ->where('page_published = 1 ')
+            ->orderBy('page_order')
+            ->get()->getResult();
+        return $result;
+    }
+
+    public function gePageByUrlSlug($page_url_slug)
+    {
+        $result = $this->builder()->select('pages.*, categories.cg_name')
+            ->join('categories', 'categories.cg_id = pages.page_cg_id', 'left')
+            ->where('page_published = 1')
+            ->where('page_url_slug', $page_url_slug)
+            ->get()->getResult();
+        return $result;
+    }
 
     public function addData($data)
     {
