@@ -115,6 +115,7 @@
         $('#f_ptitle').val('');
         tinymce.get('f-pcontent').setContent('');
         $('#f_pfeatimage').val('');
+        $('#f_p_tags').val('');
         $('#f_pcgid').val('');
         $('#f_ppublished').prop('checked', false);
         $('#f_preview').attr('src', '');
@@ -130,6 +131,7 @@
         $('#f_ptitle').val(row.post_title);
         tinymce.get('f-pcontent').setContent(row.post_content);
         $('#f_pfeatimage').val(row.post_feature_img);
+        $('#f_p_tags').val(row.post_tags);
         $('#f_pcgid').val(row.post_cg_id);
         $('#f_ppublished').prop('checked', row.post_published == '1');
         if (row.post_feature_img != '')
@@ -146,6 +148,7 @@
             'p_title': $('#f_ptitle').val(),
             'p_fimage': $('#f_pfeatimage').val(),
             'p_cgid': $('#f_pcgid').val(),
+            'p_tags': $('#f_p_tags').val(),
             'p_published': $('#f_ppublished').is(":checked")
         }
         postdata = JSON.stringify(postdata);
@@ -333,6 +336,16 @@
                             <label class="form-check-label" for="f_ppublished"><?php echo lang('Default.published') ?></label>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="f_p_tags" class="form-label"><?php echo lang('Default.post_tags') ?></label>
+                            <input type="text" id="f_p_tags" class="form-control required" aria-describedby="passwordHelpBlock" maxlength="250">
+                            <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="row">
                     <div class="col">
