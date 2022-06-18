@@ -28,8 +28,10 @@
         <h1 class="logo"><a href="<?= base_url() ?>"><?= $site_name ?></a></h1>
         <div class="navbar-toggle" onclick="openDrawer()"><i class="las la-bars"></i></div>
         <div class="navbar">
-            <div class="mt-2 v-sm"></div>
-            <a id="drawer-close" class="close" onclick="closeDrawer();">&times;</a>
+            <div class="close">
+                <div class="title">Menu</div>
+                <a class="drawer-close" onclick="closeDrawer();">&times;</a>
+            </div>
             <?php foreach ($site_links as $link) { ?>
                 <a href="<?= base_url() . '/' . index_page() ?>/pages/page/<?= $link->page_url_slug ?>"><?= $link->page_title ?></a>
             <?php } ?>
