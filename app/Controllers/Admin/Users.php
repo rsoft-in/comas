@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Libraries\Encrypter;
 use App\Models\UsersModel;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
@@ -24,21 +25,16 @@ class Users extends BaseController
 
     public function checkUser()
     {
-        $encrypter = \Config\Services::encrypter();
+        $encrypter = new Encrypter();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $usersModel = new UsersModel();
         $users = $usersModel->getByUserName($json->user);
-        $plainText  = 'This is a plain-text message!';
-        $ciphertext = $encrypter->encrypt($plainText);
-
-        // Outputs: This is a plain-text message!
-        echo $encrypter->decrypt($ciphertext);
         if (sizeof($users) == 1) {
             $user = $users[0];
-            // if ($encrypter->encrypt($json->pwd) == $user->user_pwd)
-            //     echo 'true';
-            // else echo 'false';
+            if ($encrypter->encrypt($json->pwd) == $user->user_pwd)
+                echo 'true';
+            else echo 'false';
             // var_dump($user);
             // echo $encrypter->decrypt($user->user_pwd);
         } else {
@@ -59,7 +55,7 @@ class Users extends BaseController
 
     public function addUser()
     {
-        $encrypter = \Config\Services::encrypter();
+        $encrypter = new Encrypter();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
@@ -80,7 +76,7 @@ class Users extends BaseController
 
     public function updateUser()
     {
-        $encrypter = \Config\Services::encrypter();
+        $encrypter = new Encrypter();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
