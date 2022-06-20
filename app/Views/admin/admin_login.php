@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +20,40 @@
 
     <title><?php echo SITE_NAME . ' ' . $page_title ?></title>
 
+    <script>
+        $(document).ready(function() {
+
+        });
+
+        function signIn() {
+            if ($('#f_username').val() == "" || $('#f_userpwd').val() == "") {
+                return;
+            }
+            var postdata = {
+                'user': $('#f_username').val(),
+                'pwd': $('#f_userpwd').val(),
+                'rem': $('#remember-me').is(':checked')
+            }
+            postdata = JSON.stringify(postdata);
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url() . '/' . index_page() ?>/admin/users/checkUser",
+                data: "postdata=" + postdata,
+                success: function(result) {
+                    if (result === 'true')
+                        location.href = "<?= base_url() . '/' . index_page() ?>/admin/dashboard";
+                    else {
+                        console.log(result);
+                        // alert('Invalid login!');
+                    }
+                },
+                error: function(XMLHttpRequest, status, error) {
+                    alert(error);
+                },
+            });
+        }
+    </script>
+
 </head>
 
 <body class="text-center">
@@ -24,7 +61,7 @@
     <main class="form-signin w-100 m-auto">
         <div style="height: 100px;"></div>
         <form>
-            <img class="mb-4" src="<?php echo base_url()?>/assets/comas.png" alt="" width="50" height="50">
+            <img class="mb-4" src="<?php echo base_url() ?>/assets/comas.png" alt="" width="50" height="50">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">
@@ -41,7 +78,7 @@
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary" type="button" onclick="signIn()">Sign in</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021–2022</p>
         </form>
     </main>

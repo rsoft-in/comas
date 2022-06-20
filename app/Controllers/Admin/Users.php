@@ -22,6 +22,30 @@ class Users extends BaseController
         return view('admin/admin_users', $params);
     }
 
+    public function checkUser()
+    {
+        $encrypter = \Config\Services::encrypter();
+        $post = $this->request->getPost('postdata');
+        $json = json_decode($post);
+        $usersModel = new UsersModel();
+        $users = $usersModel->getByUserName($json->user);
+        $plainText  = 'This is a plain-text message!';
+        $ciphertext = $encrypter->encrypt($plainText);
+
+        // Outputs: This is a plain-text message!
+        echo $encrypter->decrypt($ciphertext);
+        if (sizeof($users) == 1) {
+            $user = $users[0];
+            // if ($encrypter->encrypt($json->pwd) == $user->user_pwd)
+            //     echo 'true';
+            // else echo 'false';
+            // var_dump($user);
+            // echo $encrypter->decrypt($user->user_pwd);
+        } else {
+            echo 'Invalid User';
+        }
+    }
+
     public function getUsers()
     {
         $post = $this->request->getPost('postdata');
@@ -35,6 +59,7 @@ class Users extends BaseController
 
     public function addUser()
     {
+        $encrypter = \Config\Services::encrypter();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
@@ -43,7 +68,7 @@ class Users extends BaseController
         $data = [
             'user_id' => $utility->guid(),
             'user_name' => $json->u_name,
-            'user_pwd' => $json->u_pwd,
+            'user_pwd' => $encrypter->encrypt($json->u_pwd),
             'user_fullname' => $json->u_fullname,
             'user_email' => $json->u_email,
             'user_inactive' => $json->u_inactive,
@@ -55,6 +80,7 @@ class Users extends BaseController
 
     public function updateUser()
     {
+        $encrypter = \Config\Services::encrypter();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
@@ -62,12 +88,15 @@ class Users extends BaseController
         $data = [
             'user_id' =>  $json->u_id,
             'user_name' => $json->u_name,
-            'user_pwd' => $json->u_pwd,
+
             'user_fullname' => $json->u_fullname,
             'user_email' => $json->u_email,
             'user_inactive' => $json->u_inactive,
             'user_modified' => $today->toDateTimeString()
         ];
+        if ($json->pwd_new) {
+            $data['user_pwd'] = $encrypter->encrypt($json->u_pwd);
+        }
         $usersModel->updateData($data);
         echo 'SUCCESS';
     }

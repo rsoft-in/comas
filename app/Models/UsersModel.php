@@ -22,8 +22,15 @@ class UsersModel extends Model
     public function getDataCount($filter)
     {
         $result = $this->builder()->select('*')
-            ->where('(1=1) ' . $filter)           
+            ->where('(1=1) ' . $filter)
             ->countAllResults();
+        return $result;
+    }
+    public function getByUserName($user_name)
+    {
+        $result = $this->builder()->select('*')
+            ->where('user_name', $user_name)
+            ->get()->getResult();
         return $result;
     }
 

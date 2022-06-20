@@ -3,10 +3,14 @@
 <script>
     $(document).ready(function() {
         getUsers();
+        $('#f_upwd').change(function(){
+            pwdNew=true;
+        });
     });
     let sortby = 'user_name';
     let pn = 0;
     let data = [];
+    let pwdNew =false;
 
     function getUsers() {
         var postdata = {
@@ -63,6 +67,8 @@
         $('#f_ufullname').val('');
         $('#f_uemail').val('');
         $('#f_uinactive').prop('checked', false);
+        pwdNew=true;
+
     }
 
     function onEdit(id) {
@@ -77,7 +83,9 @@
         $('#f_ufullname').val(row.user_fullname);
         $('#f_uemail').val(row.user_email);
         $('#f_uinactive').prop('checked', row.user_inactive == '1');
+        pwdNew=false;
         editModal.show();
+   
     }
 
     function save() {
@@ -90,7 +98,8 @@
             'u_pwd': $('#f_upwd').val(),
             'u_fullname': $('#f_ufullname').val(),
             'u_email': $('#f_uemail').val(),
-            'u_inactive': $('#f_uinactive').is(":checked")
+            'u_inactive': $('#f_uinactive').is(":checked"),
+            'pwd_new':pwdNew
         }
         postdata = JSON.stringify(postdata);
         $.ajax({
