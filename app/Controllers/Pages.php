@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+use App\Controllers\PublicSiteController;
 use App\Models\CategoriesModel;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\PagesModel;
 use App\Models\PostsModel;
 use App\Models\SettingsModel;
 
-class Pages extends BaseController
+class Pages extends PublicSiteController
 {
     use ResponseTrait;
 
@@ -96,9 +96,8 @@ class Pages extends BaseController
                 'site_name' => $json->site_name,
                 'site_desc' => $json->site_desc,
                 'site_isblog' => $json->site_isblog,
-                'site_show_categories'=>$json->site_show_categories,
-                'site_show_archive'=>$json->site_show_archive,
-
+                'site_show_categories' => $json->site_show_categories,
+                'site_show_archive' => $json->site_show_archive
             ];
         } else {
             $data = [
@@ -106,8 +105,9 @@ class Pages extends BaseController
                 'site_name' => SITE_NAME,
                 'site_desc' => 'Content Management System',
                 'site_isblog' => false,
-                'site_show_categories'=>false,
-                'site_show_archive'=>false,            ];
+                'site_show_categories' => false,
+                'site_show_archive' => false
+            ];
         }
         return $data;
     }
