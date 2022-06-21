@@ -77,14 +77,17 @@ $this->extend('themes/default/template') ?>
             </div>
         </div>
         <div class="col-small">
-            <h2>Categories</h2>
-            <div class="list">
-                <?php foreach ($site_categories as $cat) { ?>
-                    <div class="list-item">
-                        <a href="#"><?= $cat->cg_name ?></a>
-                    </div>
-                <?php } ?>
-            </div>
+           <?php if ($site_show_categories) { ?>
+                <h2>Categories</h2>
+                <div class="list">
+                    <?php foreach ($site_categories as $cat) { ?>
+                        <div class="list-item">
+                            <a href="#"><?= $cat->cg_name ?></a>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <?php if ($site_show_archive) { ?>
             <h2>Archive</h2>
             <div class="list">
                 <?php foreach ($site_archives as $archive) { ?>
@@ -93,6 +96,7 @@ $this->extend('themes/default/template') ?>
                     </div>
                 <?php } ?>
             </div>
+            <?php } ?>
         </div>
     </div>
 
