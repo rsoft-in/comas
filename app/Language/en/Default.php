@@ -63,4 +63,6 @@ return [
     'invalid_email' => 'Invalid Email',
     'no_data' => 'No Data',
     'post_tags' => 'Post Tags',
+    'select_a_page' => 'Select a Page',
+    'static_page' => 'Static Page',
 ];

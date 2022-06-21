@@ -33,6 +33,17 @@ class Pages extends BaseController
         $data['records'] = $pagesModel->getDataCount($filt);
         return $this->respond($data);
     }
+    public function getLinks()
+    {
+        $post = $this->request->getPost('postdata');
+        $postdata = json_decode($post);
+        $pagesModel = new PagesModel();
+
+
+        $pages= $pagesModel->getLinks();
+
+        return $this->respond($pages);
+    }
 
     public function addPage()
     {
