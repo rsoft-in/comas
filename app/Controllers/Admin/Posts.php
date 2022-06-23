@@ -27,7 +27,7 @@ class Posts extends BaseController
         $post = $this->request->getPost('postdata');
         $postdata = json_decode($post);
         $postsModel = new PostsModel();
-        $filt = "";
+        $filt = [];
         $data['posts'] = $postsModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
         $data['records'] = $postsModel->getDataCount($filt);
         return $this->respond($data);

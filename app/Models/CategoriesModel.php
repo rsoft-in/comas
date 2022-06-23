@@ -13,7 +13,7 @@ class CategoriesModel extends Model
     public function getData($filter, $sortBy, $pageNo, $pageSize)
     {
         $result = $this->builder()->select('*')
-            ->where('(1=1) ' . $filter)
+            ->where($filter)
             ->orderBy($sortBy)
             ->limit($pageNo, $pageSize)
             ->get()->getResult();
@@ -22,7 +22,7 @@ class CategoriesModel extends Model
     public function getDataCount($filter)
     {
         $result = $this->builder()->select('*')
-            ->where('(1=1) ' . $filter)           
+            ->where($filter)           
             ->countAllResults();
         return $result;
     }

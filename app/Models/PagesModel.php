@@ -14,7 +14,7 @@ class PagesModel extends Model
     {
         $result = $this->builder()->select('pages.*, categories.cg_name')
             ->join('categories', 'categories.cg_id = pages.page_cg_id', 'left')
-            ->where('(1=1) ' . $filter)
+            ->where($filter)
             ->orderBy($sortBy)
             ->limit($pageNo, $pageSize)
             ->get()->getResult();
@@ -23,7 +23,7 @@ class PagesModel extends Model
     public function getDataCount($filter)
     {
         $result = $this->builder()->select('pages.*')
-            ->where('(1=1) ' . $filter)
+            ->where($filter)
             ->countAllResults();
         return $result;
     }

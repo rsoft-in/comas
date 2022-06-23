@@ -24,12 +24,17 @@ class Comments extends BaseController
 
     public function getComments()
     {
-        $post = $this->request->getPost('postdata');
-        $postdata = json_decode($post);
+        $post = json_decode($this->request->getPost('postdata'));
+        // $postdata = json_decode($post);
         $commentsModel = new CommentsModel();
-        $filt = "";
-        $data['comments'] = $commentsModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
-        $data['records'] = $commentsModel->getDataCount($filt);
+        $filter = [];
+        if (isset($post->qry)) {
+            $filter['cmt_post_id'] = $post->qry;
+        } else {
+            return;
+        }
+        $data['comments'] = $commentsModel->getData($filter, $post->sort, PAGE_SIZE, $post->pn * PAGE_SIZE);
+        $data['records'] = $commentsModel->getDataCount($filter);
         return $this->respond($data);
     }
 

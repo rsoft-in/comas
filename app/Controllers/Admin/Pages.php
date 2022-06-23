@@ -27,8 +27,7 @@ class Pages extends BaseController
         $post = $this->request->getPost('postdata');
         $postdata = json_decode($post);
         $pagesModel = new PagesModel();
-        $filt = "";
-
+        $filt = [];
         $data['pages'] = $pagesModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
         $data['records'] = $pagesModel->getDataCount($filt);
         return $this->respond($data);

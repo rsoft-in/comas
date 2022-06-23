@@ -14,7 +14,7 @@ class PostsModel extends Model
     {
         $result = $this->builder()->select('posts.*, categories.cg_name')
             ->join('categories', 'categories.cg_id = posts.post_cg_id', 'left')
-            ->where('(1=1) ' . $filter)
+            ->where($filter)
             ->orderBy($sortBy)
             ->limit($pageSize, $offSet)
             ->get()->getResult();
@@ -24,7 +24,7 @@ class PostsModel extends Model
     public function getDataCount($filter)
     {
         $result = $this->builder()->select('*')
-            ->where('(1=1) ' . $filter)
+            ->where($filter)
             ->countAllResults();
         return $result;
     }

@@ -195,7 +195,7 @@
     function onComments(id) {
         var postdata = {
             'sort': 'cmt_date DESC',
-            'qry': '',
+            'qry': id,
             'pn': 0
         }
         postdata = JSON.stringify(postdata);
@@ -204,9 +204,11 @@
             url: "<?php echo base_url() . '/' . index_page() ?>/admin/comments/getComments",
             data: "postdata=" + postdata,
             success: function(result) {
-                data = result;
+                console.log(result);
                 $('#comments-list').empty();
-                $('#comments-list').append(generateCommentsTable(data));
+                if (result.comments.length > 0) {
+                    $('#comments-list').append(generateCommentsTable(result));
+                }
                 commentsModal.show();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -231,8 +233,8 @@
                 "</div>\n" +
                 "</div>\n" +
                 "</div>\n";
-                // "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<button class=\"btn btn-primary btn-sm\">Un-publish</button>" : " <button class=\"btn btn-primary btn-sm\">Published</button>") +
-            }
+            // "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<button class=\"btn btn-primary btn-sm\">Un-publish</button>" : " <button class=\"btn btn-primary btn-sm\">Published</button>") +
+        }
         return _html;
     }
 
@@ -242,7 +244,7 @@
         $(obj).parent().children('label').html(selected ? 'Published' : 'Un-published');
         var postdata = {
             'id': id,
-            'val': selected  
+            'val': selected
         }
         postdata = JSON.stringify(postdata);
         $.ajax({
@@ -250,7 +252,7 @@
             url: "<?php echo base_url() . '/' . index_page() ?>/admin/comments/togglePublish",
             data: "postdata=" + postdata,
             success: function(result) {
-                if(result.indexOf('SUCCESS')>=0){
+                if (result.indexOf('SUCCESS') >= 0) {
                     console.log('UPDATED')
                 }
             },
@@ -345,7 +347,7 @@
                             <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col">

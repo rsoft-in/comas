@@ -27,7 +27,7 @@ class Categories extends BaseController
         $post = $this->request->getPost('postdata');
         $postdata = json_decode($post);
         $categoriesModel = new CategoriesModel();
-        $filt = "";
+        $filt = [];
         $data['categories'] = $categoriesModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
         $data['records'] = $categoriesModel->getDataCount($filt);
         return $this->respond($data);
