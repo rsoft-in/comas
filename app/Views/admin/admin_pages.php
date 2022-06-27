@@ -1,4 +1,4 @@
-<?php $this->extend('layouts/admin_template') ?>
+<?php $this->extend('admin/admin_template') ?>
 <?php $this->section('content') ?>
 <script src="https://cdn.tiny.cloud/1/xgecatowhwzibnjrfw4oho6pdpzimfuyolx4oubiaosi9wf7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>

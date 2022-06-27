@@ -97,6 +97,26 @@ class Pages extends PublicSiteController
         }
     }
 
+    public function posts($pageNr = 1)
+    {
+        $pagesModel = new PagesModel();
+        $postsModel = new PostsModel();
+        $categoriesModel = new CategoriesModel();
+        $data = $this->loadSettings();
+        $posts = $postsModel->getData(['post_published' => 1], 'post_modified DESC', PAGE_SIZE, ($pageNr - 1) * PAGE_SIZE);
+        $archived = $postsModel->getArchived();
+        $data['site_archives'] = $archived;
+        $categories = $categoriesModel->getData([], 'cg_name', 5, 0);
+        $data['site_categories'] = $categories;
+        $pageLinks = $pagesModel->getLinks();
+        $data['site_links'] = $pageLinks;
+        $data['posts'] = $posts;
+        $data['current_page'] = $pageNr;
+        $data["next_page"] = (sizeof($posts) == 30 ? $pageNr + 1 : $pageNr);
+
+        return view('themes/' . $data['site-theme'] . '/posts', $data);
+    }
+
     private function loadSettings()
     {
         $settingsModel = new SettingsModel();

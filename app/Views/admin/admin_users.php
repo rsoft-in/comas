@@ -1,4 +1,4 @@
-<?php $this->extend('layouts/admin_template') ?>
+<?php $this->extend('admin/admin_template') ?>
 <?php $this->section('content') ?>
 <script>
     $(document).ready(function() {
