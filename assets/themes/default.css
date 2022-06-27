@@ -201,6 +201,9 @@ h6 {
     background-color: #353535;
     box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    color: #fff;
+    font-family: 'Roboto Slab', serif;
+    font-size: 0.9rem;
 }
 
 .footer a,
@@ -211,6 +214,20 @@ h6 {
 
 .footer .section {
     margin: 10px;
+}
+
+.footer .section .item {
+    padding-bottom: 5px;
+}
+
+.footer-col {
+    float: left;
+    width: 33.3%;
+}
+
+.footer-col .social {
+    float: right;
+    padding: 5px;
 }
 
 .column {
@@ -359,6 +376,10 @@ h6 {
         width: 50%;
     }
 
+    .footer-col {
+        width: 25%;
+    }
+
     .row .col-large {
         width: 70%;
     }
@@ -372,7 +393,10 @@ h6 {
     .column {
         width: 100%;
     }
-
+    .footer-col {
+        float: none;
+        width: 100%;
+    }
     .row .col-large {
         width: 100%;
     }

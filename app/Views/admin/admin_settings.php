@@ -2,10 +2,13 @@
 <?php $this->section('content') ?>
 
 <script>
+    var siteConfig;
+
     $(document).ready(function() {
-        getSetting('site-config');
         getPageLink();
+        getSetting('site-config');
     });
+
     function getPageLink() {
         var postdata = {
             'sort': 'page_title',
@@ -15,12 +18,14 @@
         postdata = JSON.stringify(postdata);
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/getPages",
+            url: "<?php echo base_url() . '/' . index_page() ?>/admin/pages/getLinks",
             data: "postdata=" + postdata,
-            success: function(page) {
-                for (let i = 0; i < page.pages.length; i++) {
-                    $('#site_static_page').append("<option value=\"" + page.pages[i].page_id + "\">" + page.pages[i].page_title + "</option>");
+            success: function(pages) {
+                for (let i = 0; i < pages.length; i++) {
+                    $('#site_static_page').append("<option value=\"" + pages[i].page_url_slug + "\">" + pages[i].page_title + "</option>");
                 }
+                if (siteConfig != null)
+                    $('#site_static_page').val(siteConfig['site_static_page']);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(errorThrown);
@@ -39,7 +44,7 @@
             data: "postdata=" + postdata,
             success: function(result) {
                 if (result.length != 0) {
-                    var siteConfig = JSON.parse(result[0].setting_value);
+                    siteConfig = JSON.parse(result[0].setting_value);
                     console.log(siteConfig);
                     $('#site_name').val(siteConfig['site_name']);
                     $('#site_desc').val(siteConfig['site_desc']);
@@ -102,7 +107,7 @@
             data: "postdata=" + postdata + "&name=site-config",
             success: function(result) {
                 if (result.indexOf('SUCCESS') >= 0) {
-                    console.log("Successfully saved!");
+                    showToast("Successfully saved!");
                 } else {
                     console.log(result);
                 }
@@ -250,25 +255,25 @@
         </div>
     </div>
     <div class="col-sm-6">
-    <div class="mb-2">
-        <label for="site_social_ig_url" class="form-label"><?php echo lang('Default.social_ig_url') ?></label>
-        <input type="text" id="site_social_ig_url" class="form-control" maxlength="250">
+        <div class="mb-2">
+            <label for="site_social_ig_url" class="form-label"><?php echo lang('Default.social_ig_url') ?></label>
+            <input type="text" id="site_social_ig_url" class="form-control" maxlength="250">
         </div>
     </div>
     <div class="col-sm-6">
-                        <div class="mb-2">
-                            <label for="site_static_page" class="form-label"><?php echo lang('Default.static_page') ?></label>
-                            <select id="site_static_page" class="form-select">
-                                <option value=""><?php echo lang('Default.select_a_page') ?></option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-    <div class="mt-3 mb-2 text-end">
-        <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
+        <div class="mb-2">
+            <label for="site_static_page" class="form-label"><?php echo lang('Default.static_page') ?></label>
+            <select id="site_static_page" class="form-select">
+                <option value=""><?php echo lang('Default.select_a_page') ?></option>
+            </select>
+        </div>
     </div>
-   
+</div>
+
+<div class="mt-3 mb-2 text-end">
+    <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
+</div>
+
 </div>
 
 <?php $this->endSection() ?>

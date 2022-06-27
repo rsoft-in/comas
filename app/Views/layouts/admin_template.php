@@ -97,7 +97,23 @@
             </main>
         </div>
     </div>
-
+    <div class="notifier">
+        <div class="alert alert-warning notify-msg" role="alert">
+            Welcome
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            
+        });
+        function showToast(msg) {
+            $('.notify-msg').html(msg);
+            $('.notifier').show();
+            setTimeout(() => {
+                $('.notifier').hide();
+            }, 2000);
+        }
+    </script>
 </body>
 
 </html>

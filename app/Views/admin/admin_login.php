@@ -44,7 +44,7 @@
                         location.href = "<?= base_url() . '/' . index_page() ?>/admin/dashboard";
                     else {
                         console.log(result);
-                        // alert('Invalid login!');
+                        showToast("Invalid login!");
                     }
                 },
                 error: function(XMLHttpRequest, status, error) {

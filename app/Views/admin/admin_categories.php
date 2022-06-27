@@ -92,6 +92,7 @@
       success: function(result) {
         console.log(result);
         if (result.indexOf('SUCCESS') >= 0) {
+          showToast("Successfully saved!");
           editModal.hide();
           getCategories();
         } else {
@@ -116,6 +117,7 @@
         data: "postdata=" + postdata,
         success: function(result) {
           if (result.indexOf('SUCCESS') >= 0) {
+            showToast("Successfully deleted!");
             getCategories();
           } else {
             console.log(result);

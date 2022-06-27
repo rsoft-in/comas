@@ -160,6 +160,7 @@
       data: "postdata=" + postdata + "&ed=" + encodeURIComponent(ed),
       success: function(result) {
         if (result.indexOf('SUCCESS') >= 0) {
+          showToast("Successfully saved!");
           editModal.hide();
           getPages();
         }
@@ -182,6 +183,7 @@
         data: "postdata=" + postdata,
         success: function(result) {
           if (result.indexOf('SUCCESS') >= 0) {
+            showToast("Successfully deleted!");
             getPages();
           } else {
             console.log(result);

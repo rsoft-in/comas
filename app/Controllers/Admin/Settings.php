@@ -57,7 +57,8 @@ class Settings extends BaseController
             'site_show_social_links' => $json->site_show_social_links,
             'site_social_fb_url' => $json->site_social_fb_url,
             'site_social_ig_url' => $json->site_social_ig_url,
-            'site_social_tw_url' => $json->site_social_tw_url
+            'site_social_tw_url' => $json->site_social_tw_url,
+            'site_static_page' => $json->site_static_page
         ];
         $data = [
             'setting_name' => $setting_name,

@@ -82,15 +82,27 @@ body {
     border-top-right-radius: 0;
 }
 
-div.required_input, div.invalid_email {
+div.required_input,
+div.invalid_email {
     font-size: small;
     color: red;
     display: none;
 }
 
-.card-subtitle .bi, .card-text .bi {
+.card-subtitle .bi,
+.card-text .bi {
     margin-right: 3px;
 }
+
 .card-subtitle span {
     margin-right: 15px;
+}
+
+.notifier {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    max-width: 200px;
+    z-index: 1100;
+    display: none;
 }

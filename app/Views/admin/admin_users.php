@@ -108,6 +108,7 @@
             data: "postdata=" + postdata,
             success: function(result) {
                 if (result.indexOf('SUCCESS') >= 0) {
+                    showToast("Successfully saved!");
                     editModal.hide();
                     getUsers();
                 }
@@ -130,6 +131,7 @@
                 data: "postdata=" + postdata,
                 success: function(result) {
                     if (result.indexOf('SUCCESS') >= 0) {
+                        showToast("Successfully deleted!");
                         getUsers();
                     } else {
                         console.log(result);

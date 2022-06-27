@@ -158,6 +158,7 @@
             data: "postdata=" + postdata + "&ed=" + encodeURIComponent(ed),
             success: function(result) {
                 if (result.indexOf('SUCCESS') >= 0) {
+                    showToast("Successfully saved!");
                     editModal.hide();
                     getPosts();
                 }
@@ -180,6 +181,7 @@
                 data: "postdata=" + postdata,
                 success: function(result) {
                     if (result.indexOf('SUCCESS') >= 0) {
+                        showToast("Successfully deleted!");
                         getPosts();
                     } else {
                         console.log(result);

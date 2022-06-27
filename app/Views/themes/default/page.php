@@ -8,7 +8,7 @@ $this->extend('themes/default/template') ?>
     <div class="col-large">
         <div class="m-2">
             <h2><?= $page->page_title ?></h2>
-            <div class="author">
+            <!-- <div class="author">
                 <table>
                     <tr>
                         <td>
@@ -18,7 +18,7 @@ $this->extend('themes/default/template') ?>
                         <td class="text-end"><i class="las la-calendar"></i> <?= Time::parse($page->page_modified)->toLocalizedString('MMM d, yyyy') ?></td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
             <div class="article"><?= $page->page_content ?></div>
         </div>
     </div>

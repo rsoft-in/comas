@@ -31,9 +31,22 @@ class Pages extends PublicSiteController
                 $data['site_categories'] = $categories;
                 $pageLinks = $pagesModel->getLinks();
                 $data['site_links'] = $pageLinks;
+
                 return view('themes/' . $data['site-theme'] . '/home', $data);
             } else {
-                // Show a static page here
+                // site_static_page
+                $page = $pagesModel->gePageByUrlSlug($data['site_static_page']);
+                if (sizeof($page) == 1) {
+                    $archived = $postsModel->getArchived();
+                    $data['site_archives'] = $archived;
+                    $categories = $categoriesModel->getData([], 'cg_name', 5, 0);
+                    $data['site_categories'] = $categories;
+                    $pageLinks = $pagesModel->getLinks();
+                    $data['site_links'] = $pageLinks;
+                    $data['page'] = $page[0];
+
+                    return view('themes/' . $data['site-theme'] . '/home', $data);
+                }
             }
         }
 
@@ -95,18 +108,38 @@ class Pages extends PublicSiteController
                 'site-theme' => strtolower($json->site_theme),
                 'site_name' => $json->site_name,
                 'site_desc' => $json->site_desc,
+                'site_keywords' => $json->site_keywords,
                 'site_isblog' => $json->site_isblog,
                 'site_show_categories' => $json->site_show_categories,
-                'site_show_archive' => $json->site_show_archive
+                'site_show_archive' => $json->site_show_archive,
+                'site_static_page' => $json->site_static_page,
+                'site_show_social_links' => $json->site_show_social_links,
+                'site_social_fb_url' => $json->site_social_fb_url,
+                'site_social_ig_url' => $json->site_social_ig_url,
+                'site_social_tw_url' => $json->site_social_tw_url,
+                'site_static_page' => $json->site_static_page,
+                'site_contact_email' => $json->site_contact_email,
+                'site_contact_phone' => $json->site_contact_phone,
+                'site_contact_mobile' => $json->site_contact_mobile
             ];
         } else {
             $data = [
                 'site-theme' => 'default',
                 'site_name' => SITE_NAME,
                 'site_desc' => 'Content Management System',
+                'site_keywords' => 'cms,blog,website,media',
                 'site_isblog' => false,
                 'site_show_categories' => false,
-                'site_show_archive' => false
+                'site_show_archive' => false,
+                'site_static_page' => '',
+                'site_show_social_links' => false,
+                'site_social_fb_url' => '',
+                'site_social_ig_url' => '',
+                'site_social_tw_url' => '',
+                'site_static_page' => '',
+                'site_contact_email' => '',
+                'site_contact_phone' => '',
+                'site_contact_mobile' => ''
             ];
         }
         return $data;
