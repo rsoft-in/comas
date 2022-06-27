@@ -31,6 +31,7 @@ class Pages extends PublicSiteController
                 $data['site_categories'] = $categories;
                 $pageLinks = $pagesModel->getLinks();
                 $data['site_links'] = $pageLinks;
+                $data['page_title'] = '';
 
                 return view('themes/' . $data['site-theme'] . '/home', $data);
             } else {
@@ -44,6 +45,7 @@ class Pages extends PublicSiteController
                     $pageLinks = $pagesModel->getLinks();
                     $data['site_links'] = $pageLinks;
                     $data['page'] = $page[0];
+                    $data['page_title'] = $page[0]->page_title;
 
                     return view('themes/' . $data['site-theme'] . '/home', $data);
                 }
@@ -68,6 +70,7 @@ class Pages extends PublicSiteController
             $pageLinks = $pagesModel->getLinks();
             $data['site_links'] = $pageLinks;
             $data['page'] = $page[0];
+            $data['page_title'] = $page[0]->page_title;
 
             return view('themes/' . $data['site-theme'] . '/page', $data);
         } else {
@@ -81,6 +84,7 @@ class Pages extends PublicSiteController
         $postsModel = new PostsModel();
         $categoriesModel = new CategoriesModel();
         $data = $this->loadSettings();
+        $postsModel->updateVisited($id);
         $post = $postsModel->getDataById($id);
         if (sizeof($post) == 1) {
             $archived = $postsModel->getArchived();
@@ -90,6 +94,7 @@ class Pages extends PublicSiteController
             $pageLinks = $pagesModel->getLinks();
             $data['site_links'] = $pageLinks;
             $data['post'] = $post[0];
+            $data['page_title'] = $post[0]->post_title;
 
             return view('themes/' . $data['site-theme'] . '/post', $data);
         } else {
@@ -111,6 +116,7 @@ class Pages extends PublicSiteController
         $pageLinks = $pagesModel->getLinks();
         $data['site_links'] = $pageLinks;
         $data['posts'] = $posts;
+        $data['page_title'] = 'Recent Posts';
         $data['current_page'] = $pageNr;
         $data["next_page"] = (sizeof($posts) == 30 ? $pageNr + 1 : $pageNr);
 

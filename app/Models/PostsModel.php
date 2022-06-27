@@ -12,8 +12,10 @@ class PostsModel extends Model
 
     public function getData($filter, $sortBy, $pageSize, $offSet)
     {
-        $result = $this->builder()->select('posts.*, categories.cg_name')
+        $result = $this->builder()->select('posts.*, categories.cg_name, COUNT(comments.cmt_id) as ncomments')
             ->join('categories', 'categories.cg_id = posts.post_cg_id', 'left')
+            ->join('comments', 'comments.cmt_post_id = posts.post_id', 'left')
+            ->groupBy('posts.post_id')
             ->where($filter)
             ->orderBy($sortBy)
             ->limit($pageSize, $offSet)
@@ -39,8 +41,10 @@ class PostsModel extends Model
 
     public function getDataById($post_id)
     {
-        $result = $this->builder()->select('posts.*, categories.cg_name')
+        $result = $this->builder()->select('posts.*, categories.cg_name, COUNT(comments.cmt_id) as ncomments')
             ->join('categories', 'categories.cg_id = posts.post_cg_id', 'left')
+            ->join('comments', 'comments.cmt_post_id = posts.post_id', 'left')
+            ->groupBy('posts.post_id')
             ->where('post_published = 1')
             ->where('post_id', $post_id)
             ->get()->getResult();
@@ -55,6 +59,11 @@ class PostsModel extends Model
     public function updateData($data)
     {
         $this->builder()->where('post_id', $data['post_id'])->update($data);
+    }
+
+    public function updateVisited($post_id)
+    {
+        $this->builder()->where('post_id', $post_id)->increment('post_visited');
     }
 
     public function deleteData($post_id)

@@ -22,13 +22,13 @@ $this->extend('themes/default/template') ?>
                             <table>
                                 <tr>
                                     <td>
-                                        <div class="divider-right"><?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?></div>
-                                        <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id, ['class' => 'ml-1']) ?>
+                                        <?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
+                                        <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                                     </td>
                                     <td>
                                         <div class="text-end">
-                                            <?= anchor('#', "<i class=\"las la-comment\"></i>6", ['class' => 'mr-1']) ?>
-                                            <div class="divider-left"><i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?></div>
+                                            <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
+                                            <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -61,13 +61,13 @@ $this->extend('themes/default/template') ?>
                                     <table>
                                         <tr>
                                             <td>
-                                                <div class="divider-right"><?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?></div>
-                                                <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id, ['class' => 'ml-1']) ?>
+                                                <?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
+                                                <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                                             </td>
                                             <td>
                                                 <div class="text-end">
-                                                    <?= anchor('#', "<i class=\"las la-comment\"></i>6", ['class' => 'mr-1']) ?>
-                                                    <div class="divider-left"><i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?></div>
+                                                    <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
+                                                    <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
                                                 </div>
                                             </td>
                                         </tr>

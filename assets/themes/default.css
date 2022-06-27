@@ -5,12 +5,14 @@ body {
     margin: 0;
     background-color: #fafafa;
     color: #343434;
+    font-family: 'Manjari', sans-serif;
+    font-size: 1rem;
 }
 
 a {
     text-decoration: none;
     color: #ef7c8e;
-    font-family: 'Manjari', sans-serif;
+    padding: 5px 5px;
 }
 
 a:hover {
@@ -33,7 +35,7 @@ h4,
 h5,
 h6 {
     font-family: 'Roboto Slab', serif;
-    margin: 10px 15px;
+    margin: 10px 10px;
     font-weight: 400;
 }
 
@@ -133,12 +135,12 @@ h6 {
 }
 
 .header .navbar a {
-    font-family: 'Manjari', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-decoration: none;
     color: #333;
     margin-left: 8px;
+    padding: 0 3px;
 }
 
 .header .navbar a:hover,
@@ -213,7 +215,7 @@ h6 {
 }
 
 .footer .section {
-    margin: 10px;
+    padding: 10px;
 }
 
 .footer .section .item {
@@ -285,7 +287,7 @@ h6 {
 .card h2,
 .card h3 {
     font-family: 'Manjari', sans-serif;
-    margin: 2px 10px;
+    margin: 2px 5px;
     color: #ef7c8e;
     font-size: 1.2rem;
     font-weight: 600;
@@ -320,21 +322,7 @@ h6 {
     margin-left: 160px;
     margin-right: 20px;
     margin-bottom: 20px;
-    font-size: 0.8rem;
-}
-
-.card .card-footer a {
-    color: #555;
-    text-decoration: underline;
-    text-decoration-color: #555;
-    -moz-text-decoration-color: #555;
-}
-
-.card .card-footer a:hover {
-    color: #ef7c8e;
-    text-decoration: underline;
-    text-decoration-color: #ef7c8e;
-    -moz-text-decoration-color: #ef7c8e;
+    font-size: 0.9rem;
 }
 
 .list .list-item {
@@ -359,9 +347,7 @@ h6 {
 }
 
 .author {
-    font-family: 'Manjari', sans-serif;
     font-size: 0.9rem;
-    text-decoration: underline;
     color: #888;
     padding: 0 15px;
 }
@@ -430,9 +416,11 @@ h6 {
     }
 
     .header {
-        margin-top: 0px;
+        position: fixed;
+        margin-top: -20px;
         border-radius: 0px;
         height: 60px;
+        z-index: 1;
     }
 
     .header h1.logo {
@@ -452,7 +440,7 @@ h6 {
         width: 100%;
         margin: 0;
         background-color: #fff;
-        z-index: 1;
+        z-index: 2;
     }
 
     .header .navbar a {
@@ -467,6 +455,10 @@ h6 {
 
     .header .navbar-toggle {
         display: block;
+    }
+
+    .main {
+        padding-top: 60px;
     }
 
     .footer {
@@ -485,7 +477,7 @@ h6 {
     .card .card-body h1,
     .card .card-body h2,
     .card .card-body h3 {
-        margin: 0px 10px;
+        margin: 2px 2px;
     }
 
     .card .card-body .cover {

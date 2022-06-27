@@ -95,10 +95,8 @@
                 "<p class=\"card-text\">" + data.posts[i].post_author_id + "</p>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n" +
-                "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">Comments</a>\n" +
+                "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">" + data.posts[i].ncomments + " Comments</a>\n" +
                 "<div class=\"float-end\">" + (data.posts[i].post_published == 1 ?
-
-
                     "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
                 "</div>\n" +
                 "</div>\n" +

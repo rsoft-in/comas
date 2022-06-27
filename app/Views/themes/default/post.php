@@ -12,10 +12,12 @@ $this->extend('themes/default/template') ?>
                 <table>
                     <tr>
                         <td>
-                            <div class="divider-right"><a href="#"><i class="las la-layer-group"></i><?= $post->cg_name ?></a></div>
-                            <a href="#" class="ml-1"><i class="las la-user"></i><?= $post->post_author_id ?></a>
+                            <?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) . anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                         </td>
-                        <td class="text-end"><i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?></td>
+                        <td class="text-end">
+                            <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
+                            <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
+                        </td>
                     </tr>
                 </table>
             </div>

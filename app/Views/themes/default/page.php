@@ -8,17 +8,6 @@ $this->extend('themes/default/template') ?>
     <div class="col-large">
         <div class="m-2">
             <h2><?= $page->page_title ?></h2>
-            <!-- <div class="author">
-                <table>
-                    <tr>
-                        <td>
-                            <div class="divider-right"><a href="#"><i class="las la-layer-group"></i><?= $page->cg_name ?></a></div>
-                            <a href="#" class="ml-1"><i class="las la-user"></i><?= $page->page_author_id ?></a>
-                        </td>
-                        <td class="text-end"><i class="las la-calendar"></i> <?= Time::parse($page->page_modified)->toLocalizedString('MMM d, yyyy') ?></td>
-                    </tr>
-                </table>
-            </div> -->
             <div class="article"><?= $page->page_content ?></div>
         </div>
     </div>
