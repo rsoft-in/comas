@@ -45,10 +45,12 @@ $this->extend('themes/default/template') ?>
             <table>
                 <tr>
                     <td style="width: 50%;" class="text-end">
-                        <?= ($current_page > 1 ? anchor('pages/posts/' . ($current_page - 1), "<i class=\"las la-angle-left\"></i> Previous") : '&nbsp;') ?></td>
-                    <td><div class="ml-2 mr-2"></div></td>
+                        <?= ($current_page > 1 ? anchor('pages/category/' . $current_category . '/' . ($current_page - 1), "<i class=\"las la-angle-left\"></i> Previous") : '&nbsp;') ?></td>
+                    <td>
+                        <div class="ml-2 mr-2"></div>
+                    </td>
                     <td style="width: 50%;" class="">
-                        <?= ($current_page < $next_page ? anchor('pages/posts/' . $next_page, "Next <i class=\"las la-angle-right\"></i>") : '&nbsp;') ?></td>
+                        <?= ($current_page < $next_page ? anchor('pages/category/' . $current_category . '/' . $next_page, "Next <i class=\"las la-angle-right\"></i>") : '&nbsp;') ?></td>
                 </tr>
             </table>
         <?php } ?>
@@ -59,7 +61,7 @@ $this->extend('themes/default/template') ?>
             <div class="list">
                 <?php foreach ($site_categories as $cat) { ?>
                     <div class="list-item">
-                    <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
+                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                     </div>
                 <?php } ?>
             </div>

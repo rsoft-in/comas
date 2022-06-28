@@ -72,7 +72,7 @@
                         <div class="list">
                             <?php foreach ($site_categories as $cat) { ?>
                                 <div class="list-item">
-                                    <?= anchor('#', $cat->cg_name) ?>
+                                    <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                                 </div>
                             <?php } ?>
                         </div>

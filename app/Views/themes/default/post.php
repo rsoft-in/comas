@@ -12,7 +12,7 @@ $this->extend('themes/default/template') ?>
                 <table>
                     <tr>
                         <td>
-                            <?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) . anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
+                            <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) . anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                         </td>
                         <td class="text-end">
                             <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
@@ -22,6 +22,9 @@ $this->extend('themes/default/template') ?>
                 </table>
             </div>
             <div class="article"><?= $post->post_content ?></div>
+            <div>
+                <h2><a href="#comment">Comments</a></h2>
+            </div>
         </div>
     </div>
     <div class="col-small">
@@ -29,7 +32,7 @@ $this->extend('themes/default/template') ?>
         <div class="list">
             <?php foreach ($site_categories as $cat) { ?>
                 <div class="list-item">
-                    <a href="#"><?= $cat->cg_name ?></a>
+                    <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                 </div>
             <?php } ?>
         </div>
@@ -41,6 +44,7 @@ $this->extend('themes/default/template') ?>
                 </div>
             <?php } ?>
         </div>
+
     </div>
 </div>
 <?php $this->endSection() ?>

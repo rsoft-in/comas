@@ -22,7 +22,7 @@ $this->extend('themes/default/template') ?>
                             <table>
                                 <tr>
                                     <td>
-                                        <?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
+                                        <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
                                         <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                                     </td>
                                     <td>
@@ -61,12 +61,12 @@ $this->extend('themes/default/template') ?>
                                     <table>
                                         <tr>
                                             <td>
-                                                <?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
+                                                <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
                                                 <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                                             </td>
                                             <td>
                                                 <div class="text-end">
-                                                    <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
+                                                    <?= anchor('pages/post/' . $post->post_id . '#comment', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
                                                     <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
                                                 </div>
                                             </td>
@@ -81,7 +81,7 @@ $this->extend('themes/default/template') ?>
         <?php } else { ?>
             <div class="m-2">
                 <h2><?= $page->page_title ?></h2>
-                
+
                 <div class="article"><?= $page->page_content ?></div>
             </div>
         <?php } ?>
@@ -92,7 +92,7 @@ $this->extend('themes/default/template') ?>
             <div class="list">
                 <?php foreach ($site_categories as $cat) { ?>
                     <div class="list-item">
-                        <?= anchor('#', $cat->cg_name) ?>
+                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                     </div>
                 <?php } ?>
             </div>
