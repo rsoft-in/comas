@@ -87,7 +87,7 @@
     postdata = JSON.stringify(postdata);
     $.ajax({
       type: "POST",
-      url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/" + ($('#f_cgid').val() == '' ? 'addCategory' : 'updateCategory'),
+      url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/update",
       data: "postdata=" + postdata,
       success: function(result) {
         console.log(result);
@@ -113,7 +113,7 @@
       postdata = JSON.stringify(postdata);
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/deleteCategory",
+        url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/delete",
         data: "postdata=" + postdata,
         success: function(result) {
           if (result.indexOf('SUCCESS') >= 0) {

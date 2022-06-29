@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\PublicSiteController;
 use App\Models\CategoriesModel;
+use App\Models\CommentsModel;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\PagesModel;
 use App\Models\PostsModel;
@@ -83,6 +84,7 @@ class Pages extends PublicSiteController
         $pagesModel = new PagesModel();
         $postsModel = new PostsModel();
         $categoriesModel = new CategoriesModel();
+        $commentsModel = new CommentsModel();
         $data = $this->loadSettings();
         $postsModel->updateVisited($id);
         $post = $postsModel->getDataById($id);
@@ -95,6 +97,8 @@ class Pages extends PublicSiteController
             $data['site_links'] = $pageLinks;
             $data['post'] = $post[0];
             $data['page_title'] = $post[0]->post_title;
+            $comments = $commentsModel->getData(['cmt_post_id' => $post[0]->post_id], 'cmt_date DESC', 100, 0);
+            $data['comments'] = $comments;
 
             return view('themes/' . $data['site-theme'] . '/post', $data);
         } else {
@@ -142,7 +146,7 @@ class Pages extends PublicSiteController
         $data['current_category'] = $cg_id;
         $data["next_page"] = (sizeof($posts) == 30 ? $pageNr + 1 : $pageNr);
 
-        return view('themes/' . $data['site-theme'] . '/posts', $data);
+        return view('themes/' . $data['site-theme'] . '/category', $data);
     }
     private function loadSettings()
     {

@@ -33,38 +33,33 @@ class Categories extends BaseController
         return $this->respond($data);
     }
 
-    public function addCategory()
+    public function update()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
         $categoriesModel = new CategoriesModel();
         $utility = new Utility();
+
         $data = [
-            'cg_id' => $utility->guid(),
+            'cg_id' => empty($json->id) ? $utility->guid() : $json->id,
             'cg_name' => $json->name,
             'cg_desc' => $json->desc,
             'cg_modified' => $today->toDateTimeString()
         ];
-        $categoriesModel->addData($data);
-        echo 'SUCCESS';
+        if (empty($json->id)) {
+            $categoriesModel->builder()->insert($data);
+        } else {
+            $categoriesModel->builder()
+                ->where('cg_id', $json->id)->update($data);
+        }
+        if ($categoriesModel->db->affectedRows() > 0)
+            echo 'SUCCESS';
+        else
+            echo 'FAILED';
     }
-    public function updateCategory()
-    {
-        $post = $this->request->getPost('postdata');
-        $json = json_decode($post);
-        $today = new Time('now');
-        $categoriesModel = new CategoriesModel;
-        $data = [
-            'cg_id' =>  $json->id,
-            'cg_name' => $json->name,
-            'cg_desc' => $json->desc,
-            'cg_modified' => $today->toDateTimeString()
-        ];
-        $categoriesModel->updateData($data);
-        echo 'SUCCESS';
-    }
-    public function deleteCategory()
+
+    public function delete()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);

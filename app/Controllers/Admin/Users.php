@@ -84,7 +84,6 @@ class Users extends BaseController
         $data = [
             'user_id' =>  $json->u_id,
             'user_name' => $json->u_name,
-
             'user_fullname' => $json->u_fullname,
             'user_email' => $json->u_email,
             'user_inactive' => $json->u_inactive,

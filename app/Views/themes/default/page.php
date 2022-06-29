@@ -16,7 +16,7 @@ $this->extend('themes/default/template') ?>
         <div class="list">
             <?php foreach ($site_categories as $cat) { ?>
                 <div class="list-item">
-                    <a href="#"><?= $cat->cg_name ?></a>
+                    <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                 </div>
             <?php } ?>
         </div>

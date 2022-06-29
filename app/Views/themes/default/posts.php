@@ -24,13 +24,13 @@ $this->extend('themes/default/template') ?>
                                     <table>
                                         <tr>
                                             <td>
-                                                <div class="divider-right"><?= anchor('#', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?></div>
-                                                <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id, ['class' => 'ml-1']) ?>
+                                                <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
+                                                <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
                                             </td>
                                             <td>
                                                 <div class="text-end">
-                                                    <?= anchor('#', "<i class=\"las la-comment\"></i>6", ['class' => 'mr-1']) ?>
-                                                    <div class="divider-left"><i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?></div>
+                                                    <?= anchor('pages/post/' . $post->post_id . '#comment', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
+                                                    <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -41,16 +41,19 @@ $this->extend('themes/default/template') ?>
                     </div>
                 <?php } ?>
             </div>
-
-            <table>
-                <tr>
-                    <td style="width: 50%;" class="text-end">
-                        <?= ($current_page > 1 ? anchor('pages/posts/' . ($current_page - 1), "<i class=\"las la-angle-left\"></i> Previous") : '&nbsp;') ?></td>
-                    <td><div class="ml-2 mr-2"></div></td>
-                    <td style="width: 50%;" class="">
-                        <?= ($current_page < $next_page ? anchor('pages/posts/' . $next_page, "Next <i class=\"las la-angle-right\"></i>") : '&nbsp;') ?></td>
-                </tr>
-            </table>
+            <?php if (sizeof($posts) > 0) { ?>
+                <table>
+                    <tr>
+                        <td style="width: 50%;" class="text-end">
+                            <?= ($current_page > 1 ? anchor('pages/posts/' . ($current_page - 1), "<i class=\"las la-angle-left\"></i> Previous") : '&nbsp;') ?></td>
+                        <td>
+                            <div class="ml-2 mr-2"></div>
+                        </td>
+                        <td style="width: 50%;" class="">
+                            <?= ($current_page < $next_page ? anchor('pages/posts/' . $next_page, "Next <i class=\"las la-angle-right\"></i>") : '&nbsp;') ?></td>
+                    </tr>
+                </table>
+            <?php } ?>
         <?php } ?>
     </div>
     <div class="col-small">
@@ -59,7 +62,7 @@ $this->extend('themes/default/template') ?>
             <div class="list">
                 <?php foreach ($site_categories as $cat) { ?>
                     <div class="list-item">
-                    <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
+                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                     </div>
                 <?php } ?>
             </div>
