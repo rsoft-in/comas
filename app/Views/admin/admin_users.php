@@ -3,14 +3,14 @@
 <script>
     $(document).ready(function() {
         getUsers();
-        $('#f_upwd').change(function(){
-            pwdNew=true;
+        $('#f_upwd').change(function() {
+            pwdNew = true;
         });
     });
     let sortby = 'user_name';
     let pn = 0;
     let data = [];
-    let pwdNew =false;
+    let pwdNew = false;
 
     function getUsers() {
         var postdata = {
@@ -49,7 +49,7 @@
                 "<h6 class=\"card-subtitle mb-2 text-muted\">" +
                 "<i class=\"bi bi-collection\"></i><span>" + data.users[i].user_name + "</span>" +
                 "<i class=\"bi bi-calendar4\"></i><span>" + data.users[i].user_modified + "</span></h6>\n" +
-                "<p class=\"card-text\"><i class=\"bi bi-envelope\"></i><span>"+ data.users[i].user_email + "<span></p>\n" +
+                "<p class=\"card-text\"><i class=\"bi bi-envelope\"></i><span>" + data.users[i].user_email + "<span></p>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.users[i].user_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.users[i].user_id + "')\">Delete</a>\n" +
                 "</div>\n" +
@@ -66,14 +66,16 @@
         $('#f_upwd').val('');
         $('#f_ufullname').val('');
         $('#f_uemail').val('');
+        $('#f_uabout').val('');
         $('#f_uinactive').prop('checked', false);
-        pwdNew=true;
+        pwdNew = true;
 
     }
 
     function onEdit(id) {
         $(document).resetError();
         var row = data.users.find((e) => {
+            u_about
             return e.user_id == id;
         });
         $('#f_uid').val(row.user_id);
@@ -82,35 +84,38 @@
         $('#f_upwd').val(row.user_pwd);
         $('#f_ufullname').val(row.user_fullname);
         $('#f_uemail').val(row.user_email);
+        $('#f_uabout').val(row.user_about);
         $('#f_uinactive').prop('checked', row.user_inactive == '1');
-        pwdNew=false;
+        pwdNew = false;
         editModal.show();
-   
+
     }
 
     function save() {
-        var valid = $(document).validate();        
+        var valid = $(document).validate();
         if (!valid) return;
-
         var postdata = {
             'u_id': $('#f_uid').val(),
             'u_name': $('#f_uname').val(),
             'u_pwd': $('#f_upwd').val(),
             'u_fullname': $('#f_ufullname').val(),
             'u_email': $('#f_uemail').val(),
+            'u_about': $('#f_uabout').val(),
             'u_inactive': $('#f_uinactive').is(":checked"),
-            'pwd_new':pwdNew
+            'pwd_new': pwdNew
         }
         postdata = JSON.stringify(postdata);
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url() . '/' . index_page() ?>/admin/users/" + ($('#f_uid').val() == '' ? 'addUser' : 'updateUser'),
+            url: "<?php echo base_url() . '/' . index_page() ?>/admin/users/update",
             data: "postdata=" + postdata,
             success: function(result) {
                 if (result.indexOf('SUCCESS') >= 0) {
                     showToast("Successfully saved!");
                     editModal.hide();
                     getUsers();
+                } else {
+                    alert(result);
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -127,7 +132,7 @@
             postdata = JSON.stringify(postdata);
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url() . '/' . index_page() ?>/admin/users/deleteUser",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/users/delete",
                 data: "postdata=" + postdata,
                 success: function(result) {
                     if (result.indexOf('SUCCESS') >= 0) {
@@ -143,31 +148,32 @@
             });
         }
     }
+
     function onSort(fld) {
-    sortby = fld;
-    getUsers();
-  }
+        sortby = fld;
+        getUsers();
+    }
 </script>
 
 <div class="mb-3">
-  <div class="btn-group">
-    <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
-    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-      <span class="visually-hidden">Toggle Dropdown</span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" onclick="onSort('user_name')"><?php echo lang('Default.sort_by_name') ?></a></li>
-      <li><a class="dropdown-item" href="#" onclick="onSort('user_email')"><?php echo lang('Default.sort_by_email') ?></a></li>
-      <li><a class="dropdown-item" href="#" onclick="onSort('user_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
-      
-    </ul>
-  </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
+        <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="onSort('user_name')"><?php echo lang('Default.sort_by_name') ?></a></li>
+            <li><a class="dropdown-item" href="#" onclick="onSort('user_email')"><?php echo lang('Default.sort_by_email') ?></a></li>
+            <li><a class="dropdown-item" href="#" onclick="onSort('user_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
+
+        </ul>
+    </div>
     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
 <div class="" id="users-list"></div>
 <div class="text-center no-result">
-  <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
-  <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
+    <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
+    <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
 </div>
 
 
@@ -199,6 +205,11 @@
                     <label for="f_uemail" class="form-label"><?php echo lang('Default.email') ?></label>
                     <input type="text" id="f_uemail" class="form-control email">
                     <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
+                </div>
+                <div class="mb-2">
+                    <label for="f_uabout" class="form-label"><?php echo lang('Default.about') ?></label>
+                    <input type="text" id="f_uabout" class="form-control" maxlength="250">
+
                 </div>
                 <div class="mt-3 form-check">
                     <input type="checkbox" class="form-check-input" id="f_uinactive">

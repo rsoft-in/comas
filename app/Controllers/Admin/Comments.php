@@ -37,41 +37,32 @@ class Comments extends BaseController
         $data['records'] = $commentsModel->getDataCount($filter);
         return $this->respond($data);
     }
-
-    public function addComments()
+    public function update()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $today = new Time('now');
         $commentsModel = new CommentsModel();
         $utility = new Utility();
+
         $data = [
-            'cmt_id' => $utility->guid(),
+            'cmt_id' => empty($json->id) ? $utility->guid() : $json->id,
             'cmt_post_id' => $json->post_id,
             'cmt_date' => $today->toDateTimeString(),
             'cmt_user_id' => $json->user_id,
             'cmt_text'=> $json->text,
             'cmt_published' =>  $json->published
         ];
-        $commentsModel->addData($data);
-        echo 'SUCCESS';
-    }
-    public function updateComments()
-    {
-        $post = $this->request->getPost('postdata');
-        $json = json_decode($post);
-        $today = new Time('now');
-        $commentsModel = new CommentsModel;
-        $data = [
-            'cmt_id' =>  $json->id,
-            'cmt_post_id' => $json->post_id,
-            'cmt_date' =>$today->toDateTimeString(),
-            'cmt_user_id' => $json->user_id,
-            'cmt_text'=> $json->text,
-            'cmt_published' =>  $json->published
-        ];
-        $commentsModel->updateData($data);
-        echo 'SUCCESS';
+        if (empty($json->id)) {
+            $commentsModel->builder()->insert($data);
+        } else {
+            $commentsModel->builder()
+                ->where('cmt_id', $json->id)->update($data);
+        }
+        if ($commentsModel->db->affectedRows() > 0)
+            echo 'SUCCESS';
+        else
+            echo 'FAILED';
     }
 
     public function togglePublish()
@@ -86,7 +77,7 @@ class Comments extends BaseController
         $commentsModel->togglePublish($data);
         echo 'SUCCESS';
     }
-    public function deleteComments()
+    public function delete()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);

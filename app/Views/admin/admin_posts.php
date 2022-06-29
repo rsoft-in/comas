@@ -152,7 +152,7 @@
         postdata = JSON.stringify(postdata);
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url() . '/' . index_page() ?>/admin/posts/" + ($('#f_pid').val() == '' ? 'addPost' : 'updatePost'),
+            url: "<?php echo base_url() . '/' . index_page() ?>/admin/posts/update",
             data: "postdata=" + postdata + "&ed=" + encodeURIComponent(ed),
             success: function(result) {
                 if (result.indexOf('SUCCESS') >= 0) {
@@ -175,7 +175,7 @@
             postdata = JSON.stringify(postdata);
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url() . '/' . index_page() ?>/admin/posts/deletePost",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/posts/delete",
                 data: "postdata=" + postdata,
                 success: function(result) {
                     if (result.indexOf('SUCCESS') >= 0) {

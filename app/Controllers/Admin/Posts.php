@@ -32,17 +32,17 @@ class Posts extends BaseController
         $data['records'] = $postsModel->getDataCount($filt);
         return $this->respond($data);
     }
-
-    public function addPost()
+    public function update()
     {
         $post = $this->request->getPost('postdata');
-        $html = $this->request->getPost('ed');
         $json = json_decode($post);
+        $html = $this->request->getPost('ed');
         $today = new Time('now');
         $postsModel = new PostsModel();
         $utility = new Utility();
+
         $data = [
-            'post_id' => $utility->guid(),
+            'post_id' => empty($json->id) ? $utility->guid() : $json->id,
             'post_title' => $json->p_title,
             'post_content' => $html,
             'post_published' => $json->p_published,
@@ -52,33 +52,19 @@ class Posts extends BaseController
             'post_author_id' => 'admin',
             'post_modified' => $today->toDateTimeString()
         ];
-        $postsModel->addData($data);
-        echo 'SUCCESS';
+        if (empty($json->id)) {
+            $postsModel->builder()->insert($data);
+        } else {
+            $postsModel->builder()
+                ->where('post_id', $json->id)->update($data);
+        }
+        if ($postsModel->db->affectedRows() > 0)
+            echo 'SUCCESS';
+        else
+            echo 'FAILED';
     }
     
-    public function updatePost()
-    {
-        $post = $this->request->getPost('postdata');
-        $html = $this->request->getPost('ed');
-        $json = json_decode($post);
-        $today = new Time('now');
-        $postsModel = new PostsModel;
-        $data = [
-            'post_id' =>  $json->p_id,
-            'post_title' => $json->p_title,
-            'post_content' => $html,
-            'post_published' => $json->p_published,
-            'post_feature_img' => $json->p_fimage,
-            'post_cg_id' => $json->p_cgid,
-            'post_tags'=>$json->p_tags,
-            'post_author_id' => 'admin',
-            'post_modified' => $today->toDateTimeString()
-        ];
-        $postsModel->updateData($data);
-        echo 'SUCCESS';
-    }
-    
-    public function deletePost()
+    public function delete()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);

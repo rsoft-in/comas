@@ -53,7 +53,7 @@ class Users extends BaseController
         return $this->respond($data);
     }
 
-    public function addUser()
+    public function update()
     {
         $encrypter = new Encrypter();
         $post = $this->request->getPost('postdata');
@@ -61,42 +61,30 @@ class Users extends BaseController
         $today = new Time('now');
         $usersModel = new UsersModel();
         $utility = new Utility();
+
         $data = [
-            'user_id' => $utility->guid(),
+            'user_id' => empty($json->u_id) ? $utility->guid() : $json->u_id,
             'user_name' => $json->u_name,
             'user_pwd' => $encrypter->encrypt($json->u_pwd),
             'user_fullname' => $json->u_fullname,
             'user_email' => $json->u_email,
+            'user_about' => $json->u_about,
             'user_inactive' => $json->u_inactive,
             'user_modified' => $today->toDateTimeString()
         ];
-        $usersModel->addData($data);
-        echo 'SUCCESS';
-    }
-
-    public function updateUser()
-    {
-        $encrypter = new Encrypter();
-        $post = $this->request->getPost('postdata');
-        $json = json_decode($post);
-        $today = new Time('now');
-        $usersModel = new UsersModel;
-        $data = [
-            'user_id' =>  $json->u_id,
-            'user_name' => $json->u_name,
-            'user_fullname' => $json->u_fullname,
-            'user_email' => $json->u_email,
-            'user_inactive' => $json->u_inactive,
-            'user_modified' => $today->toDateTimeString()
-        ];
-        if ($json->pwd_new) {
-            $data['user_pwd'] = $encrypter->encrypt($json->u_pwd);
+        if (empty($json->u_id)) {
+            $usersModel->builder()->insert($data);
+        } else {
+            $usersModel->builder()
+                ->where('user_id', $json->u_id)->update($data);
         }
-        $usersModel->updateData($data);
-        echo 'SUCCESS';
+        if ($usersModel->db->affectedRows() > 0)
+            echo 'SUCCESS';
+        else
+            echo 'FAILED';
     }
 
-    public function deleteUser()
+    public function delete()
     {
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
