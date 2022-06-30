@@ -42,7 +42,7 @@ class Posts extends BaseController
         $utility = new Utility();
 
         $data = [
-            'post_id' => empty($json->id) ? $utility->guid() : $json->id,
+            'post_id' => empty($json->p_id) ? $utility->guid() : $json->p_id,
             'post_title' => $json->p_title,
             'post_content' => $html,
             'post_published' => $json->p_published,
@@ -52,11 +52,11 @@ class Posts extends BaseController
             'post_author_id' => 'admin',
             'post_modified' => $today->toDateTimeString()
         ];
-        if (empty($json->id)) {
+        if (empty($json->p_id)) {
             $postsModel->builder()->insert($data);
         } else {
             $postsModel->builder()
-                ->where('post_id', $json->id)->update($data);
+                ->where('post_id', $json->p_id)->update($data);
         }
         if ($postsModel->db->affectedRows() > 0)
             echo 'SUCCESS';

@@ -53,7 +53,7 @@ class Pages extends BaseController
         $utility = new Utility();
 
         $data = [
-            'page_id' => empty($json->id) ? $utility->guid() : $json->id,
+            'page_id' => empty($json->p_id) ? $utility->guid() : $json->p_id,
             'page_title' => $json->p_title,
             'page_content' => $html,
             'page_url_slug' => $json->p_urlslug,
@@ -64,11 +64,11 @@ class Pages extends BaseController
             'page_cg_id' => $json->p_cgid ?? '',
             'page_modified' => $today->toDateTimeString()
         ];
-        if (empty($json->id)) {
+        if (empty($json->p_id)) {
             $pagesModel->builder()->insert($data);
         } else {
             $pagesModel->builder()
-                ->where('page_id', $json->id)->update($data);
+                ->where('page_id', $json->p_id)->update($data);
         }
         if ($pagesModel->db->affectedRows() > 0)
             echo 'SUCCESS';
