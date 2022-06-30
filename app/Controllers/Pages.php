@@ -3,12 +3,14 @@
 namespace App\Controllers;
 
 use App\Controllers\PublicSiteController;
+use App\Libraries\Utility;
 use App\Models\CategoriesModel;
 use App\Models\CommentsModel;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\PagesModel;
 use App\Models\PostsModel;
 use App\Models\SettingsModel;
+use CodeIgniter\I18n\Time;
 
 class Pages extends PublicSiteController
 {
@@ -97,7 +99,10 @@ class Pages extends PublicSiteController
             $data['site_links'] = $pageLinks;
             $data['post'] = $post[0];
             $data['page_title'] = $post[0]->post_title;
-            $comments = $commentsModel->getData(['cmt_post_id' => $post[0]->post_id], 'cmt_date DESC', 100, 0);
+            $comments = $commentsModel->getData([
+                'cmt_post_id' => $post[0]->post_id,
+                'cmt_published' => 1
+            ], 'cmt_date DESC', 100, 0);
             $data['comments'] = $comments;
 
             return view('themes/' . $data['site-theme'] . '/post', $data);
@@ -194,5 +199,31 @@ class Pages extends PublicSiteController
             ];
         }
         return $data;
+    }
+
+    public function addComment()
+    {
+        $post = json_decode($this->request->getPost('postdata'));
+        $comment = $this->request->getPost('ed');
+        $today = new Time('now');
+        $commentsModel = new CommentsModel();
+        $utility = new Utility();
+        $settingsModel = new SettingsModel();
+        $siteConfig = $settingsModel->getDataByName('site-config');
+        $config = json_decode($siteConfig[0]->setting_value);
+
+        $data = [
+            'cmt_id' => $utility->guid(),
+            'cmt_post_id' => $post->pid,
+            'cmt_date' => $today->toDateTimeString(),
+            'cmt_user_id' => $post->user,
+            'cmt_text' => $comment,
+            'cmt_published' => ($config->site_allow_comments_moderation ? 0 : 1)
+        ];
+        $commentsModel->builder()->insert($data);
+        if ($commentsModel->db->affectedRows() > 0)
+            echo 'SUCCESS';
+        else
+            echo 'FAILED';
     }
 }

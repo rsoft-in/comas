@@ -27,7 +27,7 @@ $this->extend('themes/default/template') ?>
                                     </td>
                                     <td>
                                         <div class="text-end">
-                                            <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
+                                        <?= anchor('pages/post/' . $post->post_id . '#comment', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
                                             <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
                                         </div>
                                     </td>

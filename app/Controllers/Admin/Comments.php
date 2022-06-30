@@ -37,6 +37,7 @@ class Comments extends BaseController
         $data['records'] = $commentsModel->getDataCount($filter);
         return $this->respond($data);
     }
+    
     public function update()
     {
         $post = $this->request->getPost('postdata');
@@ -50,7 +51,7 @@ class Comments extends BaseController
             'cmt_post_id' => $json->post_id,
             'cmt_date' => $today->toDateTimeString(),
             'cmt_user_id' => $json->user_id,
-            'cmt_text'=> $json->text,
+            'cmt_text' => $json->text,
             'cmt_published' =>  $json->published
         ];
         if (empty($json->id)) {
@@ -77,6 +78,7 @@ class Comments extends BaseController
         $commentsModel->togglePublish($data);
         echo 'SUCCESS';
     }
+    
     public function delete()
     {
         $post = $this->request->getPost('postdata');

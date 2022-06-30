@@ -31,6 +31,7 @@
     let sortby = 'post_title';
     let pn = 0;
     let data = [];
+    let comments = [];
 
     function getCategories() {
         var postdata = {
@@ -207,6 +208,7 @@
                 console.log(result);
                 $('#comments-list').empty();
                 if (result.comments.length > 0) {
+                    comments = result.comments;
                     $('#comments-list').append(generateCommentsTable(result));
                 }
                 commentsModal.show();
@@ -240,7 +242,7 @@
 
     function togglePublish(obj, id) {
         var selected = ($(obj).is(':checked'));
-        data.comments.find((e) => e.cmt_id == id).cmt_published = selected;
+        comments.find((e) => e.cmt_id == id).cmt_published = selected;
         $(obj).parent().children('label').html(selected ? 'Published' : 'Un-published');
         var postdata = {
             'id': id,

@@ -8,11 +8,41 @@ $this->extend('themes/default/template') ?>
 <script>
     function submitComment() {
         var editor = tinymce.get('comment-box');
+        var user = $('#comment-user').val().replace(/[^a-zA-Z0-9 ]/g, "");
         var words = editor.plugins.wordcount.body.getWordCount();
+        if (user.length == 0) {
+            alert('Please enter your name!');
+            return;
+        }
+        if (editor.getContent().length == 0) {
+            alert('Please do not leave the comments empty!');
+            return;
+        }
+
         if (words > 100) {
             alert('Please write comments under 100 words only');
         } else {
-
+            var ed = editor.getContent();
+            var postdata = {
+                'pid': '<?= $post->post_id ?>',
+                'user': $('#comment-user').val().replace(/[^a-zA-Z0-9 ]/g, "")
+            }
+            postdata = JSON.stringify(postdata);
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() . '/' . index_page() ?>/pages/addComment",
+                data: "postdata=" + postdata + "&ed=" + encodeURIComponent(editor.getContent()),
+                success: function(result) {
+                    if (result.indexOf('SUCCESS') >= 0) {
+                        alert('Thank you for your valuable feedback!');
+                        editModal.hide();
+                        getPosts();
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         }
     }
 </script>
@@ -35,7 +65,10 @@ $this->extend('themes/default/template') ?>
             </div>
             <div class="article"><?= $post->post_content ?></div>
             <div>
-                <h3><a href="#comment">Comments</a></h3>
+                <h3 id="comment"><a>Comments</a></h3>
+                <div>
+                    <input type="text" id="comment-user" placeholder="Your name" maxlength="40">
+                </div>
                 <div>
                     <textarea id="comment-box"></textarea>
                 </div>

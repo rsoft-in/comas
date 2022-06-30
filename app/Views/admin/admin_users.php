@@ -75,7 +75,6 @@
     function onEdit(id) {
         $(document).resetError();
         var row = data.users.find((e) => {
-            u_about
             return e.user_id == id;
         });
         $('#f_uid').val(row.user_id);
