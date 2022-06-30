@@ -35,7 +35,7 @@ class PublicSiteController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['date', 'html', 'text'];
+    protected $helpers = ['date', 'html', 'text', 'cookie'];
 
     /**
      * Constructor.

@@ -15,6 +15,10 @@ class Comments extends BaseController
 
     public function index()
     {
+        if (!$this->isLoggedIn()) {
+            return redirect()->to(base_url() . '/' . index_page() . '/admin/login');
+        }
+
         $params = [
             'page_title' => lang('Default.comments'),
             'menu_id' => 'comments'

@@ -10,12 +10,14 @@ use App\Libraries\Utility;
 
 class Settings extends BaseController
 {
-
-
     use ResponseTrait;
 
     public function index()
     {
+        if (!$this->isLoggedIn()) {
+            return redirect()->to(base_url() . '/' . index_page() . '/admin/login');
+        }
+
         $params = [
             'page_title' => lang('Default.settings'),
             'menu_id' => 'settings'

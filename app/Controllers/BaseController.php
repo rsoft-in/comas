@@ -50,4 +50,10 @@ class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         date_default_timezone_set('Asia/Kolkata');
     }
+
+    public function isLoggedIn()
+    {
+        $session = session();
+        return $session->has('comas_logged');
+    }
 }

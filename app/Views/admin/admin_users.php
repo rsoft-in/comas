@@ -68,7 +68,7 @@
         $('#f_ufullname').val('');
         $('#f_uemail').val('');
         tinymce.get('f_uabout').setContent('');
-        
+
         $('#f_uinactive').prop('checked', false);
         pwdNew = true;
 
@@ -179,7 +179,7 @@
 
 
 <div class="modal" id="edit-modal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><?php echo lang('Default.edit') ?></h5>
@@ -208,11 +208,7 @@
                     <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
                 </div>
                 <div class="mb-2">
-                <textarea id="f_uabout">
-
-</textarea>
-                  
-
+                    <textarea id="f_uabout"></textarea>
                 </div>
                 <div class="mt-3 form-check">
                     <input type="checkbox" class="form-check-input" id="f_uinactive">
@@ -232,7 +228,7 @@
         selector: 'textarea#f_uabout',
         statusbar: false,
         menubar: false,
-        height: 200,
+        height: 300,
         plugins: 'wordcount',
         toolbar: 'undo redo bold italic alignleft aligncenter alignright outdent indent wordcount',
     });

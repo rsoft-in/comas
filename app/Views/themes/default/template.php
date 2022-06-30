@@ -76,6 +76,9 @@
                                     <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
                                 </div>
                             <?php } ?>
+                            <div class="list-item">
+                                <?= anchor('admin/login', 'Members') ?>
+                            </div>
                         </div>
                     <?php } ?>
                 </div>

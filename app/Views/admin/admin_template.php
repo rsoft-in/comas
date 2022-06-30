@@ -14,6 +14,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="<?php echo base_url() ?>/scripts/helper.js"></script>
+    <script src="<?php echo base_url() ?>/scripts/default.js"></script>
 
     <title><?php echo SITE_NAME . ' ' . $page_title ?></title>
 
@@ -78,7 +79,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="<?= base_url() . '/' . index_page()?>/admin/login/signout">
                                 <i class="bi bi-box-arrow-left"></i>
                                 Sign Out
                             </a>
@@ -106,13 +107,7 @@
         $(document).ready(function() {
             
         });
-        function showToast(msg) {
-            $('.notify-msg').html(msg);
-            $('.notifier').show();
-            setTimeout(() => {
-                $('.notifier').hide();
-            }, 2000);
-        }
+        
     </script>
 </body>
 

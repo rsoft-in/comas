@@ -16,6 +16,10 @@ class Users extends BaseController
 
     public function index()
     {
+        if (!$this->isLoggedIn()) {
+            return redirect()->to(base_url() . '/' . index_page() . '/admin/login');
+        }
+
         $params = [
             'page_title' => lang('Default.users'),
             'menu_id' => 'users'
@@ -23,24 +27,7 @@ class Users extends BaseController
         return view('admin/admin_users', $params);
     }
 
-    public function checkUser()
-    {
-        $encrypter = new Encrypter();
-        $post = $this->request->getPost('postdata');
-        $json = json_decode($post);
-        $usersModel = new UsersModel();
-        $users = $usersModel->getByUserName($json->user);
-        if (sizeof($users) == 1) {
-            $user = $users[0];
-            if ($encrypter->encrypt($json->pwd) == $user->user_pwd)
-                echo 'true';
-            else echo 'false';
-            // var_dump($user);
-            // echo $encrypter->decrypt($user->user_pwd);
-        } else {
-            echo 'Invalid User';
-        }
-    }
+    
 
     public function getUsers()
     {
