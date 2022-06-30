@@ -57,6 +57,7 @@ class Users extends BaseController
     {
         $encrypter = new Encrypter();
         $post = $this->request->getPost('postdata');
+        $about = $this->request->getPost('ed');
         $json = json_decode($post);
         $today = new Time('now');
         $usersModel = new UsersModel();
@@ -68,7 +69,7 @@ class Users extends BaseController
             'user_pwd' => $encrypter->encrypt($json->u_pwd),
             'user_fullname' => $json->u_fullname,
             'user_email' => $json->u_email,
-            'user_about' => $json->u_about,
+            'user_about' => $about,
             'user_inactive' => $json->u_inactive,
             'user_modified' => $today->toDateTimeString()
         ];

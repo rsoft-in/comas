@@ -1,5 +1,6 @@
 <?php $this->extend('admin/admin_template') ?>
 <?php $this->section('content') ?>
+<script src="https://cdn.tiny.cloud/1/xgecatowhwzibnjrfw4oho6pdpzimfuyolx4oubiaosi9wf7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     $(document).ready(function() {
         getUsers();
@@ -66,7 +67,8 @@
         $('#f_upwd').val('');
         $('#f_ufullname').val('');
         $('#f_uemail').val('');
-        $('#f_uabout').val('');
+        tinymce.get('f_uabout').setContent('');
+        
         $('#f_uinactive').prop('checked', false);
         pwdNew = true;
 
@@ -83,7 +85,7 @@
         $('#f_upwd').val(row.user_pwd);
         $('#f_ufullname').val(row.user_fullname);
         $('#f_uemail').val(row.user_email);
-        $('#f_uabout').val(row.user_about);
+        tinymce.get('f_uabout').setContent(row.user_about);
         $('#f_uinactive').prop('checked', row.user_inactive == '1');
         pwdNew = false;
         editModal.show();
@@ -93,13 +95,13 @@
     function save() {
         var valid = $(document).validate();
         if (!valid) return;
+        var ed = tinymce.get('f_uabout').getContent();
         var postdata = {
             'u_id': $('#f_uid').val(),
             'u_name': $('#f_uname').val(),
             'u_pwd': $('#f_upwd').val(),
             'u_fullname': $('#f_ufullname').val(),
             'u_email': $('#f_uemail').val(),
-            'u_about': $('#f_uabout').val(),
             'u_inactive': $('#f_uinactive').is(":checked"),
             'pwd_new': pwdNew
         }
@@ -107,7 +109,7 @@
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() . '/' . index_page() ?>/admin/users/update",
-            data: "postdata=" + postdata,
+            data: "postdata=" + postdata + "&ed=" + encodeURIComponent(ed),
             success: function(result) {
                 if (result.indexOf('SUCCESS') >= 0) {
                     showToast("Successfully saved!");
@@ -206,8 +208,10 @@
                     <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
                 </div>
                 <div class="mb-2">
-                    <label for="f_uabout" class="form-label"><?php echo lang('Default.about') ?></label>
-                    <input type="text" id="f_uabout" class="form-control" maxlength="250">
+                <textarea id="f_uabout">
+
+</textarea>
+                  
 
                 </div>
                 <div class="mt-3 form-check">
@@ -224,6 +228,14 @@
 </div>
 <script>
     const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
+    tinymce.init({
+        selector: 'textarea#f_uabout',
+        statusbar: false,
+        menubar: false,
+        height: 200,
+        plugins: 'wordcount',
+        toolbar: 'undo redo bold italic alignleft aligncenter alignright outdent indent wordcount',
+    });
 </script>
 
 <?php $this->endSection() ?>
