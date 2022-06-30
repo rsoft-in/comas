@@ -28,6 +28,7 @@
         });
 
     });
+    
     let sortby = 'post_title';
     let pn = 0;
     let data = [];
@@ -93,7 +94,7 @@
                 "<i class=\"bi bi-collection\"></i><span>" + data.posts[i].cg_name + "</span>" +
                 "<i class=\"bi bi-calendar4\"></i><span>" + data.posts[i].post_modified + "</span>" +
                 "<i class=\"bi bi-eye\"></i><span>" + data.posts[i].post_visited + "</span></h6>\n" +
-                "<p class=\"card-text\">" + data.posts[i].post_author_id + "</p>\n" +
+                "<p class=\"card-text\"><i class=\"bi bi-person\"></i>" + data.posts[i].user_fullname + "</p>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">" + data.posts[i].ncomments + " Comments</a>\n" +
@@ -105,8 +106,6 @@
         }
         return _html;
     }
-
-
 
     function add() {
         $(document).resetError();
@@ -235,7 +234,6 @@
                 "</div>\n" +
                 "</div>\n" +
                 "</div>\n";
-            // "<div class=\"float-end\">" + (data.comments[i].cmt_published == 1 ? "<button class=\"btn btn-primary btn-sm\">Un-publish</button>" : " <button class=\"btn btn-primary btn-sm\">Published</button>") +
         }
         return _html;
     }
@@ -264,14 +262,11 @@
         });
     }
 
-
     function onSort(fld) {
         sortby = fld;
         getPosts();
     }
 </script>
-
-
 
 <div class="mb-3">
     <div class="btn-group">
@@ -289,13 +284,12 @@
     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
 
-
 <div class="" id="posts-list"></div>
+
 <div class="text-center no-result">
     <img src="<?= base_url() ?>/assets/no-result.jpg" alt="" style="width: 150px;">
     <p class="fs-5"><?php echo lang('Default.no_data') ?></p>
 </div>
-
 
 <div class="modal" id="edit-modal" tabindex="-1">
     <div class="modal-dialog modal-xl">
@@ -345,8 +339,7 @@
                     <div class="col">
                         <div class="mb-2">
                             <label for="f_p_tags" class="form-label"><?php echo lang('Default.post_tags') ?></label>
-                            <input type="text" id="f_p_tags" class="form-control required" aria-describedby="passwordHelpBlock" maxlength="250">
-                            <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                            <input type="text" id="f_p_tags" class="form-control" aria-describedby="passwordHelpBlock" maxlength="250">
                         </div>
                     </div>
 
@@ -359,9 +352,7 @@
                     <div class="col">
                     </div>
                 </div>
-                <textarea id="f-pcontent">
-
-        </textarea>
+                <textarea id="f-pcontent"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
@@ -380,18 +371,13 @@
             </div>
             <div class="modal-body">
                 <div class="" id="comments-list"></div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
-                
             </div>
         </div>
     </div>
 </div>
-
-
-
 
 <script>
     tinymce.init({
@@ -404,9 +390,5 @@
     const editModal = new bootstrap.Modal(document.getElementById('edit-modal'), {});
     const commentsModal = new bootstrap.Modal(document.getElementById('comments-modal'), {});
 </script>
-
-
-
-
 
 <?php $this->endSection() ?>

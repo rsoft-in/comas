@@ -38,6 +38,7 @@ class Posts extends BaseController
     }
     public function update()
     {
+        $session = session();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $html = $this->request->getPost('ed');
@@ -53,7 +54,7 @@ class Posts extends BaseController
             'post_feature_img' => $json->p_fimage,
             'post_cg_id' => $json->p_cgid,
             'post_tags'=>$json->p_tags,
-            'post_author_id' => 'admin',
+            'post_author_id' => $_SESSION['user_id'],
             'post_modified' => $today->toDateTimeString()
         ];
         if (empty($json->p_id)) {

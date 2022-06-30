@@ -12,8 +12,9 @@ class PagesModel extends Model
 
     public function getData($filter, $sortBy, $pageNo, $pageSize)
     {
-        $result = $this->builder()->select('pages.*, categories.cg_name')
+        $result = $this->builder()->select('pages.*, categories.cg_name, users.user_fullname')
             ->join('categories', 'categories.cg_id = pages.page_cg_id', 'left')
+            ->join('users', 'users.user_id = pages.page_author_id', 'left')
             ->where($filter)
             ->orderBy($sortBy)
             ->limit($pageNo, $pageSize)

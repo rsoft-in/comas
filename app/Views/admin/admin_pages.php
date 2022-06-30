@@ -96,7 +96,7 @@
         "<i class=\"bi bi-collection\"></i><span>" + data.pages[i].cg_name + "</span>" +
         "<i class=\"bi bi-calendar4\"></i><span>" + data.pages[i].page_modified + "</span>" +
         "<i class=\"bi bi-sort-up\"></i><span>" + data.pages[i].page_order + "</span></h6>\n" +
-        "<p class=\"card-text\">" + data.pages[i].page_author_id + "</p>\n" +
+        "<p class=\"card-text\"><i class=\"bi bi-person\"></i>" + data.pages[i].user_fullname + "</p>\n" +
         "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.pages[i].page_id + "')\">Edit</a>\n" +
         "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.pages[i].page_id + "')\">Delete</a>\n" +
         "<div class=\"float-end\">" + (data.pages[i].page_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +

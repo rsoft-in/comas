@@ -54,7 +54,7 @@ $this->extend('themes/default/template') ?>
                 <table>
                     <tr>
                         <td>
-                            <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) . anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
+                            <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) . anchor('#', "<i class=\"las la-user\"></i>" . $post->user_fullname) ?>
                         </td>
                         <td class="text-end">
                             <?= anchor('#', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>

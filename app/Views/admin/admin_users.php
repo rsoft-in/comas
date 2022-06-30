@@ -14,7 +14,7 @@
             formData.append("userfile", fileToUpload);
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/uploadImage",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/profileImage",
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -23,7 +23,6 @@
                     $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + data);
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    hideProgress();
                     alert(errorThrown);
                 }
             });
@@ -67,8 +66,8 @@
         for (let i = 0; i < data.users.length; i++) {
             _html += "<div class=\"card mb-3\">\n" +
                 "<div class=\"card-body\">\n" +
-                "<h5 class=\"card-title\">" + data.users[i].user_fullname + "</h5>\n" +
-                "<h6 class=\"card-subtitle mb-2 text-muted\">" +
+                "<h5 class=\"card-title\"><img style=\"width: 30px; height: 30px; border-radius: 15px\" src=\"<?= base_url()?>/writable/uploads/" + data.users[i].user_image + "\"> " + data.users[i].user_fullname + "</h5>\n" +
+                "<h6 class=\"card-subtitle mt-2 mb-2 text-muted\">" +
                 "<i class=\"bi bi-collection\"></i><span>" + data.users[i].user_name + "</span>" +
                 "<i class=\"bi bi-calendar4\"></i><span>" + data.users[i].user_modified + "</span></h6>\n" +
                 "<p class=\"card-text\"><i class=\"bi bi-envelope\"></i><span>" + data.users[i].user_email + "<span></p>\n" +
@@ -93,7 +92,6 @@
 
         $('#f_uinactive').prop('checked', false);
         pwdNew = true;
-
     }
 
     function onEdit(id) {
@@ -108,6 +106,7 @@
         $('#f_ufullname').val(row.user_fullname);
         $('#f_uemail').val(row.user_email);
         $('#f_usrimage').val(row.user_image);
+        $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + row.user_image);
         tinymce.get('f_uabout').setContent(row.user_about);
         $('#f_uinactive').prop('checked', row.user_inactive == '1');
         pwdNew = false;
@@ -252,7 +251,9 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <img src="" id="f_preview" alt="" style="width: 100%; max-width: 200px;">
+                        <div class="mb-1">
+                            <img src="" id="f_preview" alt="" style="width: 100px; height: 100px; border-radius: 50px;">
+                        </div>
                     </div>
                 </div>
                 <div class="mb-2">

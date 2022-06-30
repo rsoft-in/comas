@@ -12,9 +12,10 @@ class PostsModel extends Model
 
     public function getData($filter, $sortBy, $pageSize, $offSet)
     {
-        $result = $this->builder()->select('posts.*, categories.cg_name, COUNT(comments.cmt_id) as ncomments')
+        $result = $this->builder()->select('posts.*, categories.cg_name, COUNT(comments.cmt_id) as ncomments, users.user_fullname')
             ->join('categories', 'categories.cg_id = posts.post_cg_id', 'left')
             ->join('comments', 'comments.cmt_post_id = posts.post_id', 'left')
+            ->join('users', 'users.user_id = posts.post_author_id', 'left')
             ->groupBy('posts.post_id')
             ->where($filter)
             ->orderBy($sortBy)
@@ -41,9 +42,10 @@ class PostsModel extends Model
 
     public function getDataById($post_id)
     {
-        $result = $this->builder()->select('posts.*, categories.cg_name, COUNT(comments.cmt_id) as ncomments')
+        $result = $this->builder()->select('posts.*, categories.cg_name, COUNT(comments.cmt_id) as ncomments, users.user_fullname')
             ->join('categories', 'categories.cg_id = posts.post_cg_id', 'left')
             ->join('comments', 'comments.cmt_post_id = posts.post_id', 'left')
+            ->join('users', 'users.user_id = posts.post_author_id', 'left')
             ->groupBy('posts.post_id')
             ->where('post_published = 1')
             ->where('post_id', $post_id)

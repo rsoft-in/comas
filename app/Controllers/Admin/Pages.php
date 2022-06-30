@@ -49,6 +49,7 @@ class Pages extends BaseController
     }
     public function update()
     {
+        $session = session();
         $post = $this->request->getPost('postdata');
         $json = json_decode($post);
         $html = $this->request->getPost('ed');
@@ -64,7 +65,7 @@ class Pages extends BaseController
             'page_order' => $json->p_order,
             'page_feat_image' => $json->p_fimage,
             'page_published' => $json->p_published,
-            'page_author_id' => 'admin',
+            'page_author_id' => $_SESSION['user_id'],
             'page_cg_id' => $json->p_cgid ?? '',
             'page_modified' => $today->toDateTimeString()
         ];

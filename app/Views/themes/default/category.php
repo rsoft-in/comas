@@ -7,7 +7,7 @@ $this->extend('themes/default/template') ?>
 <div class="row">
     <div class="col-large">
         <?php if ($site_isblog) { ?>
-            <h2>Recent Posts</h2>
+            <h2><?= $page_title?></h2>
             <div class="list">
                 <?php foreach ($posts as $post) { ?>
                     <div class="item">
@@ -25,7 +25,7 @@ $this->extend('themes/default/template') ?>
                                         <tr>
                                             <td>
                                                 <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
-                                                <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->post_author_id) ?>
+                                                <?= anchor('#', "<i class=\"las la-user\"></i>" . $post->user_fullname) ?>
                                             </td>
                                             <td>
                                                 <div class="text-end">
