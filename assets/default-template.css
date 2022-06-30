@@ -7,6 +7,9 @@
     min-height: 400px;
 }
 
+html {
+    font-size: 0.875rem !important;
+}
 
 body {
     font-size: .875rem;
