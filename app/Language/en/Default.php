@@ -66,4 +66,5 @@ return [
     'select_a_page' => 'Select a Page',
     'static_page' => 'Static Page',
     'about' => 'About',
+    'profile_image' => 'Profile Image',
 ];

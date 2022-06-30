@@ -384,7 +384,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo lang('Default.close') ?></button>
-                <button type="button" class="btn btn-primary" onclick="save();"><?php echo lang('Default.save') ?></button>
+                
             </div>
         </div>
     </div>

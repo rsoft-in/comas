@@ -7,6 +7,27 @@
         $('#f_upwd').change(function() {
             pwdNew = true;
         });
+        $('#f_uimage').change(function() {
+            var inputFile = $('input[name=f_uimage]');
+            var fileToUpload = inputFile[0].files[0];
+            var formData = new FormData();
+            formData.append("userfile", fileToUpload);
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/uploadImage",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('#f_usrimage').val(data);
+                    $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    hideProgress();
+                    alert(errorThrown);
+                }
+            });
+        });
     });
     let sortby = 'user_name';
     let pn = 0;
@@ -66,6 +87,7 @@
         $('#f_uname').prop('disabled', false);
         $('#f_upwd').val('');
         $('#f_ufullname').val('');
+        $('#f_usrimage').val('');
         $('#f_uemail').val('');
         tinymce.get('f_uabout').setContent('');
 
@@ -85,6 +107,7 @@
         $('#f_upwd').val(row.user_pwd);
         $('#f_ufullname').val(row.user_fullname);
         $('#f_uemail').val(row.user_email);
+        $('#f_usrimage').val(row.user_image);
         tinymce.get('f_uabout').setContent(row.user_about);
         $('#f_uinactive').prop('checked', row.user_inactive == '1');
         pwdNew = false;
@@ -102,6 +125,7 @@
             'u_pwd': $('#f_upwd').val(),
             'u_fullname': $('#f_ufullname').val(),
             'u_email': $('#f_uemail').val(),
+            'u_image': $('#f_usrimage').val(),
             'u_inactive': $('#f_uinactive').is(":checked"),
             'pwd_new': pwdNew
         }
@@ -187,25 +211,49 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="f_uid">
-                <div class="mb-2">
-                    <label for="f_uname" class="form-label"><?php echo lang('Default.username') ?></label>
-                    <input type="text" id="f_uname" class="form-control required" maxlength="20">
-                    <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                <input type="hidden" id="f_usrimage">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="f_uname" class="form-label"><?php echo lang('Default.username') ?></label>
+                            <input type="text" id="f_uname" class="form-control required" maxlength="20">
+                            <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="f_upwd" class="form-label"><?php echo lang('Default.password') ?></label>
+                            <input type="password" id="f_upwd" class="form-control required" maxlength="15">
+                            <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-2">
-                    <label for="f_upwd" class="form-label"><?php echo lang('Default.password') ?></label>
-                    <input type="password" id="f_upwd" class="form-control required" maxlength="15">
-                    <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="f_ufullname" class="form-label"><?php echo lang('Default.fullname') ?></label>
+                            <input type="text" id="f_ufullname" class="form-control required" maxlength="50">
+                            <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="f_uemail" class="form-label"><?php echo lang('Default.email') ?></label>
+                            <input type="text" id="f_uemail" class="form-control email">
+                            <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-2">
-                    <label for="f_ufullname" class="form-label"><?php echo lang('Default.fullname') ?></label>
-                    <input type="text" id="f_ufullname" class="form-control required" maxlength="50">
-                    <div class="required_input"><?php echo lang('Default.enter_some_text') ?></div>
-                </div>
-                <div class="mb-2">
-                    <label for="f_uemail" class="form-label"><?php echo lang('Default.email') ?></label>
-                    <input type="text" id="f_uemail" class="form-control email">
-                    <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="f_uimage" class="form-label"><?php echo lang('Default.profile_image') ?></label>
+                            <input class="form-control" type="file" name="f_uimage" id="f_uimage">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <img src="" id="f_preview" alt="" style="width: 100%; max-width: 200px;">
+                    </div>
                 </div>
                 <div class="mb-2">
                     <textarea id="f_uabout"></textarea>

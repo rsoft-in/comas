@@ -55,6 +55,7 @@ class Users extends BaseController
             'user_name' => $json->u_name,
             'user_pwd' => $encrypter->encrypt($json->u_pwd),
             'user_fullname' => $json->u_fullname,
+            'user_image' => $json->u_image,
             'user_email' => $json->u_email,
             'user_about' => $about,
             'user_inactive' => $json->u_inactive,
