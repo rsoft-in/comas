@@ -27,8 +27,13 @@
             });
         });
 
+        $('#search-qry').change(function() {
+            pn = 0;
+            getPosts();
+            
+        });
     });
-    
+
     let sortby = 'post_title';
     let pn = 0;
     let data = [];
@@ -41,6 +46,7 @@
             'pn': pn
         }
         postdata = JSON.stringify(postdata);
+        console.log(postdata);
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() . '/' . index_page() ?>/admin/categories/getCategories",
@@ -59,7 +65,7 @@
     function getPosts() {
         var postdata = {
             'sort': sortby,
-            'qry': '',
+            'qry': $('#search-qry').val(),
             'pn': pn
         }
         postdata = JSON.stringify(postdata);
@@ -269,19 +275,26 @@
 </script>
 
 <div class="mb-3">
-    <div class="btn-group">
-        <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
-        <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="visually-hidden">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="onSort('post_title')"><?php echo lang('Default.sort_by_title') ?></a></li>
-            <li><a class="dropdown-item" href="#" onclick="onSort('post_content')"><?php echo lang('Default.sort_by_content') ?></a></li>
-            <li><a class="dropdown-item" href="#" onclick="onSort('post_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
+    <div class="row">
+        <div class="col">
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary"><?php echo lang('Default.sort_by') ?></button>
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="onSort('post_title')"><?php echo lang('Default.sort_by_title') ?></a></li>
+                    <li><a class="dropdown-item" href="#" onclick="onSort('post_content')"><?php echo lang('Default.sort_by_content') ?></a></li>
+                    <li><a class="dropdown-item" href="#" onclick="onSort('post_modified DESC')"><?php echo lang('Default.latest_first') ?></a></li>
 
-        </ul>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+        </div>
+        <div class="col">
+            <input type="text" id="search-qry" class="form-control" placeholder="Search">
+        </div>
     </div>
-    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
 </div>
 
 <div class="" id="posts-list"></div>

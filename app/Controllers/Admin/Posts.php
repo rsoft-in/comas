@@ -28,14 +28,17 @@ class Posts extends BaseController
 
     public function getPosts()
     {
-        $post = $this->request->getPost('postdata');
-        $postdata = json_decode($post);
+        $post = json_decode($this->request->getPost('postdata'));
         $postsModel = new PostsModel();
         $filt = [];
-        $data['posts'] = $postsModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
+        if (isset($post->qry)) {
+            $filt = "post_title LIKE '%" . $post->qry . "%' OR post_content LIKE '%" . $post->qry . "%' OR post_tags LIKE '%" . $post->qry . "%'";
+        }
+        $data['posts'] = $postsModel->getData($filt, $post->sort, PAGE_SIZE, $post->pn * PAGE_SIZE);
         $data['records'] = $postsModel->getDataCount($filt);
         return $this->respond($data);
     }
+
     public function update()
     {
         $session = session();
