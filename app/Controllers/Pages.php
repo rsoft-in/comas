@@ -193,6 +193,7 @@ class Pages extends PublicSiteController
                 'site_desc' => $json->site_desc,
                 'site_keywords' => $json->site_keywords,
                 'site_isblog' => $json->site_isblog,
+                'site_logo' => $json->site_logo,
                 'site_show_categories' => $json->site_show_categories,
                 'site_show_archive' => $json->site_show_archive,
                 'site_static_page' => $json->site_static_page,
@@ -203,7 +204,9 @@ class Pages extends PublicSiteController
                 'site_static_page' => $json->site_static_page,
                 'site_contact_email' => $json->site_contact_email,
                 'site_contact_phone' => $json->site_contact_phone,
-                'site_contact_mobile' => $json->site_contact_mobile
+                'site_contact_mobile' => $json->site_contact_mobile,
+                'site_show_logo_only' => $json->site_show_logo_only,
+                'site_show_name_only' => $json->site_show_name_only
             ];
         } else {
             $data = [
@@ -212,6 +215,7 @@ class Pages extends PublicSiteController
                 'site_desc' => 'Content Management System',
                 'site_keywords' => 'cms,blog,website,media',
                 'site_isblog' => false,
+                'site_logo' => '',
                 'site_show_categories' => false,
                 'site_show_archive' => false,
                 'site_static_page' => '',
@@ -222,7 +226,9 @@ class Pages extends PublicSiteController
                 'site_static_page' => '',
                 'site_contact_email' => '',
                 'site_contact_phone' => '',
-                'site_contact_mobile' => ''
+                'site_contact_mobile' => '',
+                'site_show_logo_only' => false,
+                'site_show_name_only' => false
             ];
         }
         return $data;

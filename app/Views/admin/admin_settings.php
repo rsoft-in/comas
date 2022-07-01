@@ -7,6 +7,26 @@
     $(document).ready(function() {
         getPageLink();
         getSetting('site-config');
+        $('#f_logo').change(function() {
+            var inputFile = $('input[name=f_logo]');
+            var fileToUpload = inputFile[0].files[0];
+            var formData = new FormData();
+            formData.append("userfile", fileToUpload);
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/logoUpload",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('#site_logo').val(data);
+                    $('#f_logo_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
     });
 
     function getPageLink() {
@@ -66,6 +86,7 @@
                     $('#site_social_ig_url').val(siteConfig['site_social_ig_url']);
                     $('#site_social_tw_url').val(siteConfig['site_social_tw_url']);
                     $('#site_static_page').val(siteConfig['site_static_page']);
+                    $('#f_logo_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + siteConfig['site_logo']);
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -180,8 +201,7 @@
         </div>
         <div class="col-sm-6">
             <label for="site_contact_mobile" class="form-label"><?php echo lang('Default.contact_mobile') ?></label>
-            <input type="number" id="site_contact_mobile" class="form-control required" maxlength="15">
-            <div class="required_input">Please enter some text</div>
+            <input type="number" id="site_contact_mobile" class="form-control" maxlength="15">
         </div>
     </div>
     <div class="row">
@@ -253,19 +273,34 @@
 
             </div>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="mb-2">
-            <label for="site_social_ig_url" class="form-label"><?php echo lang('Default.social_ig_url') ?></label>
-            <input type="text" id="site_social_ig_url" class="form-control" maxlength="250">
+        <div class="col-sm-6">
+            <div class="mb-2">
+                <label for="site_social_ig_url" class="form-label"><?php echo lang('Default.social_ig_url') ?></label>
+                <input type="text" id="site_social_ig_url" class="form-control" maxlength="250">
+            </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="mb-2">
-            <label for="site_static_page" class="form-label"><?php echo lang('Default.static_page') ?></label>
-            <select id="site_static_page" class="form-select">
-                <option value=""><?php echo lang('Default.select_a_page') ?></option>
-            </select>
+    <div class="row mt-3">
+        <div class="col-sm-6">
+            <div class="mb-2">
+                <label for="site_static_page" class="form-label"><?php echo lang('Default.static_page') ?></label>
+                <select id="site_static_page" class="form-select">
+                    <option value=""><?php echo lang('Default.select_a_page') ?></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6">
+            <div class="mb-3">
+                <label for="f_logo" class="form-label"><?php echo lang('Default.logo') ?></label>
+                <input class="form-control" type="file" name="f_logo" id="f_logo">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="mb-3">
+                <img src="" id="f_logo_preview" alt="" style="width: 100px; height: 100px; border-radius: 50px;">
+            </div>
         </div>
     </div>
 </div>

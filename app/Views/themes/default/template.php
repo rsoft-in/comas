@@ -27,7 +27,14 @@
 
 <body>
     <div class="header">
-        <h1 class="logo"><a href="<?= base_url() ?>"><?= $site_name ?></a></h1>
+        <h1 class="logo">
+            <?php if ($site_show_logo_only && !empty($site_logo)) { ?>
+                <a href="<?= base_url() ?>"><?= img(base_url() . '/writable/uploads/' . $site_logo, false) ?></a>
+            <?php } ?>
+            <?php if ($site_show_name_only) { ?>
+                <a href="<?= base_url() ?>"><?= $site_name ?></a>
+            <?php } ?>
+        </h1>
         <div class="navbar-toggle" onclick="openDrawer()"><i class="las la-bars"></i></div>
         <div class="navbar">
             <div class="close">

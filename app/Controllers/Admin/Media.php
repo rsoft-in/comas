@@ -42,7 +42,7 @@ class Media extends BaseController
             'userfile' => [
                 'uploaded[userfile]',
                 'mime_in[userfile, image/jpg,image/jpeg,image/gif,image/png]',
-                'max_size[userfile, 4098]',
+                'max_size[userfile, 1024]',
             ],
         ]);
         if ($isValid) {
@@ -52,6 +52,28 @@ class Media extends BaseController
             $image->withFile(WRITEPATH . 'uploads/' . $file_name)
                 ->fit(100, 100, 'center')
                 ->save(WRITEPATH . 'uploads/' . str_replace('.' . $file->getClientExtension(), '_thumb.' . $file->getClientExtension(), $file_name));
+            echo $file_name;
+        }
+    }
+
+    public function logoUpload()
+    {
+        $image = \Config\Services::image();
+        $now = new Time();
+        $isValid = $this->validate([
+            'userfile' => [
+                'uploaded[userfile]',
+                'mime_in[userfile, image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[userfile, 1024]',
+            ],
+        ]);
+        if ($isValid) {
+            $file = $this->request->getFile('userfile');
+            $file_name = 'logo.' . $file->getClientExtension();
+            $file->move(WRITEPATH . 'uploads', $file_name, true);
+            $image->withFile(WRITEPATH . 'uploads/' . $file_name)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . 'uploads/' . 'logo.' . $file->getClientExtension());
             echo $file_name;
         }
     }

@@ -4,6 +4,11 @@ use CodeIgniter\I18n\Time;
 
 $this->extend('themes/default/template') ?>
 <?php $this->section('content') ?>
+<?php if (!empty($page->page_feat_image)) { ?>
+    <div class="cover-img">
+        <?= img(base_url() . '/writable/uploads/' . $page->page_feat_image, false, ['alt' => $page->page_title]) ?>
+    </div>
+<?php } ?>
 <div class="row">
     <div class="col-large">
         <div class="m-2">
