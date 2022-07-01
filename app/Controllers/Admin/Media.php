@@ -25,7 +25,7 @@ class Media extends BaseController
         $now = new Time();
         if ($isValid) {
             $file = $this->request->getFile('userfile');
-            $file_name = 'post' . $now->toLocalizedString('yyyyMMddHHmm') . '.' . $file->getExtension();
+            $file_name = 'post' . $now->toLocalizedString('yyyyMMddHHmm') . '.' . $file->getClientExtension();
             $file->move(WRITEPATH . 'uploads', $file_name);
             $image->withFile(WRITEPATH . 'uploads/' . $file_name)
                 ->withResource()
@@ -47,7 +47,7 @@ class Media extends BaseController
         ]);
         if ($isValid) {
             $file = $this->request->getFile('userfile');
-            $file_name = 'profile' . $now->toLocalizedString('yyyyMMddHHmm') . '.' . $file->getExtension();
+            $file_name = 'profile' . $now->toLocalizedString('yyyyMMddHHmm') . '.' . $file->getClientExtension();
             $file->move(WRITEPATH . 'uploads', $file_name, true);
             $image->withFile(WRITEPATH . 'uploads/' . $file_name)
                 ->fit(100, 100, 'center')
