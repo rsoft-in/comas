@@ -6,8 +6,15 @@ $this->extend('themes/default/template') ?>
 <?php $this->section('content') ?>
 <div class="row">
     <div class="col-large">
-
-        <h2>Recent Posts</h2>
+        <div class="row">
+            <h1>
+                <?= anchor('#', img(base_url() . '/writable/uploads/' . $user->user_image, false, ['title' => $user->user_fullname, 'style' => 'width: 50px; height: 50px; border-radius: 25px; vertical-align: middle;'])) ?>
+                <?= $user->user_fullname ?></h1>
+        </div>
+        <div class="row p-2">
+            <?= $user->user_about ?>
+        </div>
+        <hr>
         <div class="list">
             <?php foreach ($posts as $post) { ?>
                 <div class="item">
@@ -41,19 +48,7 @@ $this->extend('themes/default/template') ?>
                 </div>
             <?php } ?>
         </div>
-        <?php if (sizeof($posts) > 0) { ?>
-            <table>
-                <tr>
-                    <td style="width: 50%;" class="text-end">
-                        <?= ($current_page > 1 ? anchor('pages/posts/' . ($current_page - 1), "<i class=\"las la-angle-left\"></i> Previous") : '&nbsp;') ?></td>
-                    <td>
-                        <div class="ml-2 mr-2"></div>
-                    </td>
-                    <td style="width: 50%;" class="">
-                        <?= ($current_page < $next_page ? anchor('pages/posts/' . $next_page, "Next <i class=\"las la-angle-right\"></i>") : '&nbsp;') ?></td>
-                </tr>
-            </table>
-        <?php } ?>
+
 
     </div>
     <div class="col-small">

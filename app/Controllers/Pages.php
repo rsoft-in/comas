@@ -10,6 +10,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\PagesModel;
 use App\Models\PostsModel;
 use App\Models\SettingsModel;
+use App\Models\UsersModel;
 use CodeIgniter\I18n\Time;
 
 class Pages extends PublicSiteController
@@ -152,6 +153,32 @@ class Pages extends PublicSiteController
         $data["next_page"] = (sizeof($posts) == 30 ? $pageNr + 1 : $pageNr);
 
         return view('themes/' . $data['site-theme'] . '/category', $data);
+    }
+    public function user($user_id = '')
+    {
+        $pagesModel = new PagesModel();
+        $postsModel = new PostsModel();
+        $categoriesModel = new CategoriesModel();
+        $usersModel = new UsersModel();
+        $data = $this->loadSettings();
+
+        $archived = $postsModel->getArchived();
+        $data['site_archives'] = $archived;
+
+        $categories = $categoriesModel->getData([], 'cg_name', 5, 0);
+        $data['site_categories'] = $categories;
+
+        $pageLinks = $pagesModel->getLinks();
+        $data['site_links'] = $pageLinks;
+
+        $posts = $postsModel->getData(['post_published' => 1, 'post_author_id' => $user_id], 'post_modified DESC', PAGE_SIZE, 0);
+        $data['posts'] = $posts;
+
+        $user = $usersModel->builder()->where(['user_id' => $user_id])->get()->getResult();
+        $data['page_title'] = $user[0]->user_fullname;
+        $data['user'] = $user[0];
+
+        return view('themes/' . $data['site-theme'] . '/user', $data);
     }
     private function loadSettings()
     {

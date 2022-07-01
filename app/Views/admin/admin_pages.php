@@ -26,7 +26,6 @@
           $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-          hideProgress();
           alert(errorThrown);
         }
       });
