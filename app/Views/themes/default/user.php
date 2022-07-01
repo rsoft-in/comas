@@ -53,7 +53,7 @@ $this->extend('themes/default/template') ?>
     </div>
     <div class="col-small">
         <?php if ($site_show_categories) { ?>
-            <h2>Categories</h2>
+            <h2><?= lang('Default.categories')?></h2>
             <div class="list">
                 <?php foreach ($site_categories as $cat) { ?>
                     <div class="list-item">
@@ -63,7 +63,7 @@ $this->extend('themes/default/template') ?>
             </div>
         <?php } ?>
         <?php if ($site_show_archive) { ?>
-            <h2>Archive</h2>
+            <h2><?= lang('Default.archive')?></h2>
             <div class="list">
                 <?php foreach ($site_archives as $archive) { ?>
                     <div class="list-item">

@@ -67,4 +67,5 @@ return [
     'static_page' => 'Static Page',
     'about' => 'About',
     'profile_image' => 'Profile Image',
+    'archive' => 'Archive'
 ];
