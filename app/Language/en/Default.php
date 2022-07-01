@@ -68,5 +68,6 @@ return [
     'about' => 'About',
     'profile_image' => 'Profile Image',
     'archive' => 'Archive',
-    'logo' => 'Logo'
+    'logo' => 'Logo',
+    'members' => 'Members'
 ];

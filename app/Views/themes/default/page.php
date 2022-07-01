@@ -17,22 +17,36 @@ $this->extend('themes/default/template') ?>
         </div>
     </div>
     <div class="col-small">
-        <h2>Categories</h2>
-        <div class="list">
-            <?php foreach ($site_categories as $cat) { ?>
-                <div class="list-item">
-                    <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
-                </div>
-            <?php } ?>
-        </div>
-        <h2>Archive</h2>
-        <div class="list">
-            <?php foreach ($site_archives as $archive) { ?>
-                <div class="list-item">
-                    <a href="#"><?= Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy') . ' (' . $archive->nposts . ')' ?></a>
-                </div>
-            <?php } ?>
-        </div>
+        <?php if ($site_show_categories) { ?>
+            <h2><?= lang('Default.categories') ?></h2>
+            <div class="list">
+                <?php foreach ($site_categories as $cat) { ?>
+                    <div class="list-item">
+                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <?php if ($site_show_archive) { ?>
+            <h2><?= lang('Default.archive') ?></h2>
+            <div class="list">
+                <?php foreach ($site_archives as $archive) { ?>
+                    <div class="list-item">
+                        <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy') . ' (' . $archive->nposts . ')') ?>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <?php if ($site_show_archive) { ?>
+            <h2><?= lang('Default.members') ?></h2>
+            <div class="list">
+                <?php foreach ($users as $user) { ?>
+                    <div class="list-item mb-1">
+                        <?= anchor('pages/user/' . $user->user_id, img(base_url() . '/writable/uploads/' . $user->user_image, false, ['style' => 'width: 26px; height: 26px; border-radius: 13px; vertical-align: middle;']) . " " . $user->user_fullname) ?>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
     </div>
 </div>
 <?php $this->endSection() ?>

@@ -11,7 +11,7 @@ $this->extend('themes/default/template') ?>
                 <?= anchor('#', img(base_url() . '/writable/uploads/' . $user->user_image, false, ['title' => $user->user_fullname, 'style' => 'width: 50px; height: 50px; border-radius: 25px; vertical-align: middle;'])) ?>
                 <?= $user->user_fullname ?></h1>
         </div>
-        <div class="row p-2">
+        <div class="row p-2 m-2">
             <?= $user->user_about ?>
         </div>
         <hr>
@@ -51,7 +51,7 @@ $this->extend('themes/default/template') ?>
     </div>
     <div class="col-small">
         <?php if ($site_show_categories) { ?>
-            <h2><?= lang('Default.categories')?></h2>
+            <h2><?= lang('Default.categories') ?></h2>
             <div class="list">
                 <?php foreach ($site_categories as $cat) { ?>
                     <div class="list-item">
@@ -61,11 +61,21 @@ $this->extend('themes/default/template') ?>
             </div>
         <?php } ?>
         <?php if ($site_show_archive) { ?>
-            <h2><?= lang('Default.archive')?></h2>
+            <h2><?= lang('Default.archive') ?></h2>
             <div class="list">
                 <?php foreach ($site_archives as $archive) { ?>
                     <div class="list-item">
                         <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy') . ' (' . $archive->nposts . ')') ?>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <?php if ($site_show_archive) { ?>
+            <h2><?= lang('Default.members') ?></h2>
+            <div class="list">
+                <?php foreach ($users as $user) { ?>
+                    <div class="list-item mb-1">
+                        <?= anchor('pages/user/' . $user->user_id, img(base_url() . '/writable/uploads/' . $user->user_image, false, ['style' => 'width: 26px; height: 26px; border-radius: 13px; vertical-align: middle;']) . " " . $user->user_fullname) ?>
                     </div>
                 <?php } ?>
             </div>

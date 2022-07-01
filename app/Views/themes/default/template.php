@@ -55,7 +55,8 @@
         <div class="row">
             <div class="footer-col">
                 <div class="section">
-                    <a href="<?= base_url() ?>"><?= $site_name ?></a>
+                    <a href="<?= base_url() ?>">
+                        <i class="las la-home"></i> <?= $site_name ?></a>
                     <div class="mt-2"></div>
                     <?php if (!empty($site_contact_email)) { ?>
                         <div class="item">

@@ -78,10 +78,12 @@ $this->extend('themes/default/template') ?>
                     </div>
                 <?php } ?>
             </div>
+            <div class="mt-2 mb-2 text-end">
+                <h3><?= anchor('pages/posts', 'More...')?></h3>
+            </div>
         <?php } else { ?>
             <div class="m-2">
                 <h2><?= $page->page_title ?></h2>
-
                 <div class="article"><?= $page->page_content ?></div>
             </div>
         <?php } ?>
@@ -103,6 +105,16 @@ $this->extend('themes/default/template') ?>
                 <?php foreach ($site_archives as $archive) { ?>
                     <div class="list-item">
                         <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy') . ' (' . $archive->nposts . ')') ?>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <?php if ($site_show_archive) { ?>
+            <h2><?= lang('Default.members')?></h2>
+            <div class="list">
+                <?php foreach ($users as $user) { ?>
+                    <div class="list-item mb-1">
+                        <?= anchor('pages/user/' . $user->user_id, img(base_url() . '/writable/uploads/' . $user->user_image, false, ['style' => 'width: 26px; height: 26px; border-radius: 13px; vertical-align: middle;']) . " " . $user->user_fullname ) ?>
                     </div>
                 <?php } ?>
             </div>

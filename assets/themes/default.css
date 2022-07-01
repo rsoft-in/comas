@@ -12,7 +12,6 @@ body {
 a {
     text-decoration: none;
     color: #ef7c8e;
-    padding: 5px 5px;
 }
 
 a:hover {
@@ -275,8 +274,13 @@ hr {
 
 .footer-col .social {
     float: right;
-    padding: 5px;
+    padding: 8px 12px;
     font-size: 1.5rem;
+}
+
+.footer-col .social:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
 }
 
 .column {
@@ -321,6 +325,10 @@ hr {
     width: 120px;
     height: 120px;
     float: left;
+}
+
+.card .card-body .cover a {
+    padding: 0;
 }
 
 .card .card-body .content {

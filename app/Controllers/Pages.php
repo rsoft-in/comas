@@ -139,6 +139,7 @@ class Pages extends PublicSiteController
         $postsModel = new PostsModel();
         $categoriesModel = new CategoriesModel();
         $pagesModel = new PagesModel();
+        $usersModel = new UsersModel();
 
         $data = null;
         $siteConfig = $settingsModel->getDataByName('site-config');
@@ -190,10 +191,15 @@ class Pages extends PublicSiteController
         }
         $archived = $postsModel->getArchived();
         $data['site_archives'] = $archived;
+        
         $categories = $categoriesModel->getData([], 'cg_name', 5, 0);
         $data['site_categories'] = $categories;
+        
         $pageLinks = $pagesModel->getLinks();
         $data['site_links'] = $pageLinks;
+
+        $users = $usersModel->getData(['user_inactive' => 0, 'user_name !=' => 'admin'], 'user_modified DESC', 5, 0);
+        $data['users'] = $users;
 
         return $data;
     }
