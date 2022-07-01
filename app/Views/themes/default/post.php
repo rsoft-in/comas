@@ -46,6 +46,12 @@ $this->extend('themes/default/template') ?>
         }
     }
 </script>
+<?php if (!empty($post->post_feature_img)) { ?>
+    <div class="cover-img">
+        <?= img(base_url() . '/writable/uploads/' . $post->post_feature_img, false, ['alt' => $post->post_title]) ?>
+    </div>
+<?php } ?>
+
 <div class="row">
     <div class="col-large">
         <div class="m-2">
@@ -57,7 +63,7 @@ $this->extend('themes/default/template') ?>
                             <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) . anchor('#', "<i class=\"las la-user\"></i>" . $post->user_fullname) ?>
                         </td>
                         <td class="text-end">
-                            <a href="#comment"><i class="las la-comment"></i> <?= $post->ncomments?></a>
+                            <a href="#comment"><i class="las la-comment"></i> <?= $post->ncomments ?></a>
                             <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
                         </td>
                     </tr>
@@ -97,7 +103,7 @@ $this->extend('themes/default/template') ?>
         </div>
     </div>
     <div class="col-small">
-        <h2><?= lang('Default.categories')?></h2>
+        <h2><?= lang('Default.categories') ?></h2>
         <div class="list">
             <?php foreach ($site_categories as $cat) { ?>
                 <div class="list-item">
@@ -105,7 +111,7 @@ $this->extend('themes/default/template') ?>
                 </div>
             <?php } ?>
         </div>
-        <h2><?= lang('Default.archive')?></h2>
+        <h2><?= lang('Default.archive') ?></h2>
         <div class="list">
             <?php foreach ($site_archives as $archive) { ?>
                 <div class="list-item">

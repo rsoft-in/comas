@@ -48,8 +48,6 @@ $this->extend('themes/default/template') ?>
                 </div>
             <?php } ?>
         </div>
-
-
     </div>
     <div class="col-small">
         <?php if ($site_show_categories) { ?>
@@ -74,6 +72,4 @@ $this->extend('themes/default/template') ?>
         <?php } ?>
     </div>
 </div>
-
-
 <?php $this->endSection() ?>
