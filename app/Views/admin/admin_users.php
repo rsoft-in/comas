@@ -4,9 +4,7 @@
 <script>
     $(document).ready(function() {
         getUsers();
-        $('#f_upwd').change(function() {
-            pwdNew = true;
-        });
+
         $('#f_uimage').change(function() {
             var inputFile = $('input[name=f_uimage]');
             var fileToUpload = inputFile[0].files[0];
@@ -31,7 +29,6 @@
     let sortby = 'user_name';
     let pn = 0;
     let data = [];
-    let pwdNew = false;
 
     function getUsers() {
         var postdata = {
@@ -46,7 +43,6 @@
             data: "postdata=" + postdata,
             success: function(result) {
                 data = result;
-
                 if (data.users.length > 0)
                     $('.no-result').hide();
                 else
@@ -66,15 +62,24 @@
         for (let i = 0; i < data.users.length; i++) {
             _html += "<div class=\"card mb-3\">\n" +
                 "<div class=\"card-body\">\n" +
-                "<h5 class=\"card-title\"><img style=\"width: 30px; height: 30px; border-radius: 15px\" src=\"<?= base_url()?>/writable/uploads/" + data.users[i].user_image + "\"> " + data.users[i].user_fullname + "</h5>\n" +
+                "<h5 class=\"card-title\"><img style=\"width: 30px; height: 30px; border-radius: 15px\" src=\"<?= base_url() ?>/writable/uploads/" + data.users[i].user_image + "\"> " + data.users[i].user_fullname + "</h5>\n" +
                 "<h6 class=\"card-subtitle mt-2 mb-2 text-muted\">" +
                 "<i class=\"bi bi-collection\"></i><span>" + data.users[i].user_name + "</span>" +
                 "<i class=\"bi bi-calendar4\"></i><span>" + data.users[i].user_modified + "</span></h6>\n" +
-                "<p class=\"card-text\"><i class=\"bi bi-envelope\"></i><span>" + data.users[i].user_email + "<span></p>\n" +
+                (data.users[i].user_email != '' ?
+                    "<p class=\"card-text\"><i class=\"bi bi-envelope\"></i><span>" + data.users[i].user_email + "<span></p>\n" : '') +
+                "<p class=\"card-text\">" +
+                "<i class=\"bi bi-shield-lock\"></i><span>" + userRole(data.users[i].user_level) + "<span>" +
+                <?php if ($_SESSION['user_level'] == 5) { ?> "<span> (" + data.users[i].user_pwd + ")</span>"
+                <?php } else { ?>
+                        "<span></span>"
+                <?php } ?> +
+            "</p>\n" +
+            (data.users[i].user_level < 5 || <?= $_SESSION['user_level'] == 5 ? 'true' : 'false' ?> ?
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.users[i].user_id + "')\">Edit</a>\n" +
-                "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.users[i].user_id + "')\">Delete</a>\n" +
-                "</div>\n" +
-                "</div>\n";
+                "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.users[i].user_id + "')\">Delete</a>\n" : "") +
+            "</div>\n" +
+            "</div>\n";
         }
         return _html;
     }
@@ -87,11 +92,11 @@
         $('#f_upwd').val('');
         $('#f_ufullname').val('');
         $('#f_usrimage').val('');
+        $('#f_preview').attr('src', '');
         $('#f_uemail').val('');
+        $('#f_ulevel').val('0');
         tinymce.get('f_uabout').setContent('');
-
         $('#f_uinactive').prop('checked', false);
-        pwdNew = true;
     }
 
     function onEdit(id) {
@@ -109,7 +114,7 @@
         $('#f_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + row.user_image);
         tinymce.get('f_uabout').setContent(row.user_about);
         $('#f_uinactive').prop('checked', row.user_inactive == '1');
-        pwdNew = false;
+        $('#f_ulevel').val(row.user_level);
         editModal.show();
 
     }
@@ -126,7 +131,7 @@
             'u_email': $('#f_uemail').val(),
             'u_image': $('#f_usrimage').val(),
             'u_inactive': $('#f_uinactive').is(":checked"),
-            'pwd_new': pwdNew
+            'u_level': $('#f_ulevel').val()
         }
         postdata = JSON.stringify(postdata);
         $.ajax({
@@ -242,6 +247,22 @@
                             <div class="invalid_email"><?php echo lang('Default.invalid_email') ?></div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="f_ulevel" class="form-label"><?php echo lang('Default.user_role') ?></label>
+                            <select id="f_ulevel" class="form-select">
+                                <option value="0">No Access</option>
+                                <option value="1">Moderator</option>
+                                <option value="2">Editor</option>
+                                <option value="3">Administrator</option>
+                                <option value="5" <?= $_SESSION['user_level'] == 5 ? "" : "disabled" ?>>Super Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="row">
                     <div class="col-6">

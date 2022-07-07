@@ -23,7 +23,10 @@ class Categories extends BaseController
             'page_title' => lang('Default.categories'),
             'menu_id' => 'categories'
         ];
-        return view('admin/admin_categories', $params);
+        if ($_SESSION['user_level'] >= 3)
+            return view('admin/admin_categories', $params);
+        else
+            return view('unauthorized_access');
     }
 
     public function getCategories()

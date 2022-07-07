@@ -22,7 +22,10 @@ class Settings extends BaseController
             'page_title' => lang('Default.settings'),
             'menu_id' => 'settings'
         ];
-        return view('admin/admin_settings', $params);
+        if ($_SESSION['user_level'] == 5)
+            return view('admin/admin_settings', $params);
+        else
+            return view('unauthorized_access');
     }
 
     public function getSetting()

@@ -69,5 +69,6 @@ return [
     'profile_image' => 'Profile Image',
     'archive' => 'Archive',
     'logo' => 'Logo',
-    'members' => 'Members'
+    'members' => 'Members',
+    'user_role' => 'User Role',
 ];

@@ -60,26 +60,30 @@
                                 Posts
                             </a>
                         </li>
+                        <?php if ($_SESSION['user_level'] >= 3) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($menu_id == 'users' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/users">
+                                    <i class="bi bi-person<?= ($menu_id == 'users' ? '-fill' : '') ?>"></i>
+                                    Users
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($menu_id == 'categories' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
+                                    <i class="bi bi-collection<?= ($menu_id == 'categories' ? '-fill' : '') ?>"></i>
+                                    Categories
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($_SESSION['user_level'] == 5) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($menu_id == 'settings' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/settings">
+                                    <i class="bi bi-gear<?= ($menu_id == 'settings' ? '-fill' : '') ?>"></i>
+                                    Settings
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link <?= ($menu_id == 'users' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/users">
-                                <i class="bi bi-person<?= ($menu_id == 'users' ? '-fill' : '') ?>"></i>
-                                Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($menu_id == 'categories' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/categories">
-                                <i class="bi bi-collection<?= ($menu_id == 'categories' ? '-fill' : '') ?>"></i>
-                                Categories
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($menu_id == 'settings' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/settings">
-                                <i class="bi bi-gear<?= ($menu_id == 'settings' ? '-fill' : '') ?>"></i>
-                                Settings
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url() . '/' . index_page()?>/admin/login/signout">
+                            <a class="nav-link" href="<?= base_url() . '/' . index_page() ?>/admin/login/signout">
                                 <i class="bi bi-box-arrow-left"></i>
                                 Sign Out
                             </a>
@@ -105,9 +109,8 @@
     </div>
     <script>
         $(document).ready(function() {
-            
+
         });
-        
     </script>
 </body>
 

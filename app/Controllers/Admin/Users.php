@@ -24,48 +24,53 @@ class Users extends BaseController
             'page_title' => lang('Default.users'),
             'menu_id' => 'users'
         ];
-        return view('admin/admin_users', $params);
+        if ($_SESSION['user_level'] >= 3)
+            return view('admin/admin_users', $params);
+        else
+            return view('unauthorized_access');
     }
-
-    
 
     public function getUsers()
     {
         $post = $this->request->getPost('postdata');
         $postdata = json_decode($post);
+        $encrypter = new Encrypter();
         $usersModel = new UsersModel();
         $filt = [];
         $data['users'] = $usersModel->getData($filt, $postdata->sort, PAGE_SIZE, $postdata->pn * PAGE_SIZE);
         $data['records'] = $usersModel->getDataCount($filt);
+        for ($i=0; $i < sizeof($data['users']); $i++) { 
+            $data['users'][$i]->user_pwd = $encrypter->decrypt($data['users'][$i]->user_pwd);
+        }
         return $this->respond($data);
     }
 
     public function update()
     {
         $encrypter = new Encrypter();
-        $post = $this->request->getPost('postdata');
+        $post = json_decode($this->request->getPost('postdata'));
         $about = $this->request->getPost('ed');
-        $json = json_decode($post);
         $today = new Time('now');
         $usersModel = new UsersModel();
         $utility = new Utility();
 
         $data = [
-            'user_id' => empty($json->u_id) ? $utility->guid() : $json->u_id,
-            'user_name' => $json->u_name,
-            'user_pwd' => $encrypter->encrypt($json->u_pwd),
-            'user_fullname' => $json->u_fullname,
-            'user_image' => $json->u_image,
-            'user_email' => $json->u_email,
+            'user_id' => empty($post->u_id) ? $utility->guid() : $post->u_id,
+            'user_name' => $post->u_name,
+            'user_pwd' => $encrypter->encrypt($post->u_pwd),
+            'user_fullname' => $post->u_fullname,
+            'user_image' => $post->u_image,
+            'user_email' => $post->u_email,
             'user_about' => $about,
-            'user_inactive' => $json->u_inactive,
+            'user_level' => $post->u_level,
+            'user_inactive' => $post->u_inactive,
             'user_modified' => $today->toDateTimeString()
         ];
-        if (empty($json->u_id)) {
+        if (empty($post->u_id)) {
             $usersModel->builder()->insert($data);
         } else {
             $usersModel->builder()
-                ->where('user_id', $json->u_id)->update($data);
+                ->where('user_id', $post->u_id)->update($data);
         }
         if ($usersModel->db->affectedRows() > 0)
             echo 'SUCCESS';

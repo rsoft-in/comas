@@ -53,6 +53,7 @@ class Login extends PublicSiteController
                     'user_id' => $user->user_id,
                     'user_name' => $user->user_name,
                     'user_fullname' => $user->user_fullname,
+                    'user_level' => $user->user_level
                 ];
                 $session->set($sessionData);
                 if ($post->rem)
