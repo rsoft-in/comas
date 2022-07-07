@@ -8,7 +8,9 @@
             <div class="card-body">
                 <h5 class="card-title">Create and Manage Site Pages</h5>
                 <p class="card-text fw-light"><?= $page_count ?> Pages</p>
-                <a href="<?= base_url() . '/' . index_page() ?>/admin/pages" class="btn btn-primary">Open</a>
+                <?php if ($_SESSION['user_level'] >= 1) { ?>
+                    <a href="<?= base_url() . '/' . index_page() ?>/admin/pages" class="btn btn-primary">Open</a>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -18,7 +20,9 @@
             <div class="card-body">
                 <h5 class="card-title">Create and Manage Posts</h5>
                 <p class="card-text fw-light"><?= $post_count ?> Posts</p>
-                <a href="<?= base_url() . '/' . index_page() ?>/admin/posts" class="btn btn-primary">Open</a>
+                <?php if ($_SESSION['user_level'] >= 1) { ?>
+                    <a href="<?= base_url() . '/' . index_page() ?>/admin/posts" class="btn btn-primary">Open</a>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -28,7 +32,9 @@
             <div class="card-body">
                 <h5 class="card-title">Create and Manage Users</h5>
                 <p class="card-text fw-light"><?= $user_count ?> Users</p>
-                <a href="<?= base_url() . '/' . index_page() ?>/admin/users" class="btn btn-primary">Open</a>
+                <?php if ($_SESSION['user_level'] >= 1) { ?>
+                    <a href="<?= base_url() . '/' . index_page() ?>/admin/users" class="btn btn-primary">Open</a>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -38,7 +44,9 @@
             <div class="card-body">
                 <h5 class="card-title">Publish and Manage Comments</h5>
                 <p class="card-text fw-light"><?= $comment_count ?> Unpublished Comments</p>
-                <a href="<?= base_url() . '/' . index_page() ?>/admin/posts" class="btn btn-primary">Open</a>
+                <?php if ($_SESSION['user_level'] >= 1) { ?>
+                    <a href="<?= base_url() . '/' . index_page() ?>/admin/posts" class="btn btn-primary">Open</a>
+                <?php } ?>
             </div>
         </div>
     </div>

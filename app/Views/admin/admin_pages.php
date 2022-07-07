@@ -96,12 +96,16 @@
         "<i class=\"bi bi-calendar4\"></i><span>" + data.pages[i].page_modified + "</span>" +
         "<i class=\"bi bi-sort-up\"></i><span>" + data.pages[i].page_order + "</span></h6>\n" +
         "<p class=\"card-text\"><i class=\"bi bi-person\"></i>" + data.pages[i].user_fullname + "</p>\n" +
-        "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.pages[i].page_id + "')\">Edit</a>\n" +
-        "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.pages[i].page_id + "')\">Delete</a>\n" +
-        "<div class=\"float-end\">" + (data.pages[i].page_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
-        "</div>\n" +
-        "</div>\n" +
-        "</div>\n";
+        <?php if ($_SESSION['user_level'] >= 2) { ?> "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.pages[i].page_id + "')\">Edit</a>\n" +
+          "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.pages[i].page_id + "')\">Delete</a>\n"
+    <?php } else { ?>
+        "<span></span>"
+    <?php } ?>
+      +
+      "<div class=\"float-end\">" + (data.pages[i].page_published == 1 ? "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
+      "</div>\n" +
+      "</div>\n" +
+      "</div>\n";
     }
     return _html;
   }
@@ -203,8 +207,8 @@
 
 <div class="mb-3">
   <div class="btn-group">
-    <button type="button" class="btn btn-secondary btn-sm"><?php echo lang('Default.sort_by') ?></button>
-    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn btn-secondary"><?php echo lang('Default.sort_by') ?></button>
+    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
       <span class="visually-hidden">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu">
@@ -214,7 +218,9 @@
       <li><a class="dropdown-item" href="#" onclick="onSort('page_order')"><?php echo lang('Default.sort_by_page_order') ?></a></li>
     </ul>
   </div>
-  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+  <?php if ($_SESSION['user_level'] >= 2) { ?>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+  <?php } ?>
 </div>
 
 <div class="" id="pages-list"></div>

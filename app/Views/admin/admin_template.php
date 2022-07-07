@@ -48,18 +48,20 @@
                                 Dashboard
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($menu_id == 'pages' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
-                                <i class="bi bi-file-earmark-richtext<?= ($menu_id == 'pages' ? '-fill' : '') ?>"></i>
-                                Pages
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($menu_id == 'posts' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/posts">
-                                <i class="bi bi-chat-right-text<?= ($menu_id == 'posts' ? '-fill' : '') ?>"></i>
-                                Posts
-                            </a>
-                        </li>
+                        <?php if ($_SESSION['user_level'] >= 1) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($menu_id == 'pages' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/pages">
+                                    <i class="bi bi-file-earmark-richtext<?= ($menu_id == 'pages' ? '-fill' : '') ?>"></i>
+                                    Pages
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($menu_id == 'posts' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/posts">
+                                    <i class="bi bi-chat-right-text<?= ($menu_id == 'posts' ? '-fill' : '') ?>"></i>
+                                    Posts
+                                </a>
+                            </li>
+                        <?php } ?>
                         <?php if ($_SESSION['user_level'] >= 3) { ?>
                             <li class="nav-item">
                                 <a class="nav-link <?= ($menu_id == 'users' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/users">

@@ -23,7 +23,10 @@ class Pages extends BaseController
             'page_title' => lang('Default.pages'),
             'menu_id' => 'pages'
         ];
-        return view('admin/admin_pages', $params);
+        if ($_SESSION['user_level'] >= 1)
+            return view('admin/admin_pages', $params);
+        else
+            return view('unauthorized_access');
     }
 
     public function getPages()
@@ -43,7 +46,7 @@ class Pages extends BaseController
         $pagesModel = new PagesModel();
 
 
-        $pages= $pagesModel->getLinks();
+        $pages = $pagesModel->getLinks();
 
         return $this->respond($pages);
     }

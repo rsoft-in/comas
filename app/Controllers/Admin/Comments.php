@@ -19,11 +19,7 @@ class Comments extends BaseController
             return redirect()->to(base_url() . '/' . index_page() . '/admin/login');
         }
 
-        $params = [
-            'page_title' => lang('Default.comments'),
-            'menu_id' => 'comments'
-        ];
-        return view('admin/admin_categories', $params);
+        return view('unauthorized_access');
     }
 
     public function getComments()

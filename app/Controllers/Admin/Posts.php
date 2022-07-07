@@ -23,7 +23,10 @@ class Posts extends BaseController
             'page_title' => lang('Default.posts'),
             'menu_id' => 'posts'
         ];
-        return view('admin/admin_posts', $params);
+        if ($_SESSION['user_level'] >= 1)
+            return view('admin/admin_posts', $params);
+        else
+            return view('unauthorized_access');
     }
 
     public function getPosts()
@@ -56,7 +59,7 @@ class Posts extends BaseController
             'post_published' => $json->p_published,
             'post_feature_img' => $json->p_fimage,
             'post_cg_id' => $json->p_cgid,
-            'post_tags'=>$json->p_tags,
+            'post_tags' => $json->p_tags,
             'post_author_id' => $_SESSION['user_id'],
             'post_modified' => $today->toDateTimeString()
         ];
@@ -71,7 +74,7 @@ class Posts extends BaseController
         else
             echo 'FAILED';
     }
-    
+
     public function delete()
     {
         $post = $this->request->getPost('postdata');

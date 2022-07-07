@@ -30,7 +30,7 @@
         $('#search-qry').change(function() {
             pn = 0;
             getPosts();
-            
+
         });
     });
 
@@ -101,14 +101,18 @@
                 "<i class=\"bi bi-calendar4\"></i><span>" + data.posts[i].post_modified + "</span>" +
                 "<i class=\"bi bi-eye\"></i><span>" + data.posts[i].post_visited + "</span></h6>\n" +
                 "<p class=\"card-text\"><i class=\"bi bi-person\"></i>" + data.posts[i].user_fullname + "</p>\n" +
-                "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
-                "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n" +
-                "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">" + data.posts[i].ncomments + " Comments</a>\n" +
-                "<div class=\"float-end\">" + (data.posts[i].post_published == 1 ?
-                    "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
-                "</div>\n" +
-                "</div>\n" +
-                "</div>\n";
+                <?php if ($_SESSION['user_level'] >= 2) { ?> "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.posts[i].post_id + "')\">Edit</a>\n" +
+                    "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.posts[i].post_id + "')\">Delete</a>\n"
+        <?php } else { ?>
+                "<span></span>"
+        <?php } ?>
+            +
+            "<a href=\"#\" class=\"card-link\" onclick=\"onComments('" + data.posts[i].post_id + "')\">" + data.posts[i].ncomments + " Comments</a>\n" +
+            "<div class=\"float-end\">" + (data.posts[i].post_published == 1 ?
+                "<span class=\"m badge text-bg-success\">Published</span>" : " <span class=\"badge text-bg-danger\">Unpublished</span>") +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n";
         }
         return _html;
     }
@@ -289,7 +293,9 @@
 
                 </ul>
             </div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+            <?php if ($_SESSION['user_level'] >= 2) { ?>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick='add()' data-bs-target="#edit-modal"><?php echo lang('Default.add') ?></button>
+            <?php } ?>
         </div>
         <div class="col">
             <input type="text" id="search-qry" class="form-control" placeholder="Search">
