@@ -4,37 +4,28 @@ use CodeIgniter\I18n\Time;
 
 $this->extend('themes/default/template') ?>
 <?php $this->section('content') ?>
+<div class="mt-4">&nbsp;</div>
 <div class="row">
-    <div class="col-large">
+    <div class="col-md-8">
         <?php if ($site_isblog) { ?>
-            <h2><?= $page_title?></h2>
-            <div class="list">
+            <h3><?= $page_title ?></h3>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php foreach ($posts as $post) { ?>
-                    <div class="item">
-                        <div class="card">
+                    <div class="col">
+                        <div id="card<?= $ctr ?>" class="card shadow">
+                            <?= anchor('pages/post/' . $post->post_id, img(empty($post->post_feature_img) ?  'assets/placeholder.png' : 'writable/uploads/' . $post->post_feature_img, false, ['title' => $post->post_title, 'class' => 'card-img-top', 'style' => 'height: 150px; object-fit: cover;']))  ?>
                             <div class="card-body">
-                                <div class="cover">
-                                    <?= anchor('pages/post/' . $post->post_id, img(empty($post->post_feature_img) ?  'assets/placeholder.png' : 'writable/uploads/' . $post->post_feature_img, false, ['title' => $post->post_title]))  ?>
-                                </div>
-                                <div class="content">
-                                    <h3><?= anchor('pages/post/' . $post->post_id, $post->post_title) ?></h3>
+                                <h5 class="card-title"><?= anchor('pages/post/' . $post->post_id, $post->post_title) ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"bi bi-collection\"></i>" . $post->cg_name) ?>
+                                    <?= anchor('pages/user/' . $post->post_author_id, "<i class=\"bi bi-person\"></i>" . $post->user_fullname) ?>
+                                    <?= anchor('pages/post/' . $post->post_id . '#comment', "<i class=\"bi bi-chat-left-text\"></i>" . $post->ncomments) ?>
+                                </h6>
+                                <div class="card-text">
                                     <div class="post"><?= word_limiter($post->post_content, 10) ?></div>
                                 </div>
-                                <div class="card-footer">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
-                                                <?= anchor('pages/user/' . $post->post_author_id, "<i class=\"las la-user\"></i>" . $post->user_fullname) ?>
-                                            </td>
-                                            <td>
-                                                <div class="text-end">
-                                                    <?= anchor('pages/post/' . $post->post_id . '#comment', "<i class=\"las la-comment\"></i>" . $post->ncomments) ?>
-                                                    <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <div class="text-end text-muted">
+                                    <small><i class="bi bi-calendar-event"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?></small>
                                 </div>
                             </div>
                         </div>
@@ -42,40 +33,51 @@ $this->extend('themes/default/template') ?>
                 <?php } ?>
             </div>
             <?php if (sizeof($posts) > 0) { ?>
-                <table>
+                <table class="table table-borderless mt-3">
                     <tr>
                         <td style="width: 50%;" class="text-end">
-                            <?= ($current_page > 1 ? anchor('pages/category/' . $current_category . '/' . ($current_page - 1), "<i class=\"las la-angle-left\"></i> Previous") : '&nbsp;') ?></td>
+                            <?= ($current_page > 1 ? anchor('pages/category/' . $current_category . '/' . ($current_page - 1), "<i class=\"bi bi-arrow-left-square\"></i> Previous") : '&nbsp;') ?></td>
                         <td>
-                            <div class="ml-2 mr-2"></div>
+                            <div class="ms-2 me-2"></div>
                         </td>
-                        <td style="width: 50%;" class="">
-                            <?= ($current_page < $next_page ? anchor('pages/category/' . $current_category . '/' . $next_page, "Next <i class=\"las la-angle-right\"></i>") : '&nbsp;') ?></td>
+                        <td style="width: 50%;">
+                            <?= ($current_page < $next_page ? anchor('pages/category/' . $current_category . '/' . $next_page, "Next <i class=\"bi bi-arrow-right-square\"></i>") : '&nbsp;') ?></td>
                     </tr>
                 </table>
             <?php } ?>
         <?php } ?>
     </div>
-    <div class="col-small">
+    <div class="col-md-4">
         <?php if ($site_show_categories) { ?>
-            <h2><?= lang('Default.categories')?></h2>
-            <div class="list">
+            <h4><?= lang('Default.categories') ?></h4>
+            <ul class="list-group mb-3">
                 <?php foreach ($site_categories as $cat) { ?>
-                    <div class="list-item">
-                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
-                    </div>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name, ['class' => 'nav-link']) ?>
+                    </li>
                 <?php } ?>
-            </div>
+            </ul>
         <?php } ?>
         <?php if ($site_show_archive) { ?>
-            <h2><?= lang('Default.archive')?></h2>
-            <div class="list">
+            <h4><?= lang('Default.archive') ?></h4>
+            <ul class="list-group mb-3">
                 <?php foreach ($site_archives as $archive) { ?>
-                    <div class="list-item">
-                        <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy') . ' (' . $archive->nposts . ')') ?>
-                    </div>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy'), ['class' => 'nav-link']) ?>
+                        <span class="badge bg-secondary rounded-pill"><?= $archive->nposts ?></span>
+                    </li>
                 <?php } ?>
-            </div>
+            </ul>
+        <?php } ?>
+        <?php if ($site_show_archive) { ?>
+            <h4><?= lang('Default.members') ?></h4>
+            <ul class="list-group mb-3">
+                <?php foreach ($users as $user) { ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= anchor('pages/user/' . $user->user_id, img(base_url() . '/writable/uploads/' . $user->user_image, false, ['style' => 'width: 26px; height: 26px; border-radius: 13px; vertical-align: middle;']) . " " . $user->user_fullname, ['class' => 'nav-link']) ?>
+                    </li>
+                <?php } ?>
+            </ul>
         <?php } ?>
     </div>
 </div>

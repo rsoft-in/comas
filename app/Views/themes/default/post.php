@@ -46,96 +46,93 @@ $this->extend('themes/default/template') ?>
         }
     }
 </script>
+<div class="mt-4">&nbsp;</div>
 <?php if (!empty($post->post_feature_img)) { ?>
-    <div class="cover-img">
-        <?= img(base_url() . '/writable/uploads/' . $post->post_feature_img, false, ['alt' => $post->post_title]) ?>
+    <div class="mb-3">
+        <?= img(base_url() . '/writable/uploads/' . $post->post_feature_img, false, ['alt' => $post->post_title, 'style' => 'width: 100%; height: 300px; object-fit: cover;']) ?>
     </div>
 <?php } ?>
 
 <div class="row">
-    <div class="col-large">
+    <div class="col-md-8">
         <div class="m-2">
-            <h2><?= $post->post_title ?></h2>
-            <div class="author">
-                <table>
-                    <tr>
-                        <td>
-                            <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name) ?>
-                            <?= anchor('pages/user/' . $post->post_author_id, "<i class=\"las la-user\"></i>" . $post->user_fullname) ?>
-                        </td>
-                        <td class="text-end">
-                            <a href="#comment"><i class="las la-comment"></i> <?= $post->ncomments ?></a>
-                            <i class="las la-calendar"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <h2 class="post"><?= $post->post_title ?></h2>
+            <nav class="nav">
+                <?= anchor('pages/category/' . $post->post_cg_id . '/1', "<i class=\"las la-layer-group\"></i>" . $post->cg_name, ['class' => 'nav-link']) ?>
+                <?= anchor('pages/user/' . $post->post_author_id, "<i class=\"las la-user\"></i>" . $post->user_fullname, ['class' => 'nav-link']) ?>
+                <a href="#comment" class="nav-link"><i class="bi bi-chat-left-text"></i> <?= $post->ncomments ?></a>
+                <a class="nav-link disabled"><i class="bi bi-calendar-event"></i> <?= Time::parse($post->post_modified)->toLocalizedString('MMM d, yyyy') ?></a>
+            </nav>
             <div class="article"><?= $post->post_content ?></div>
-            <div>
-                <h3 id="comment"><a>Comments</a></h3>
-                <div>
-                    <input type="text" id="comment-user" placeholder="Your name" maxlength="40">
+            <div class="mt-5">
+                <h4 id="comment"><a>Comments</a></h4>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="comment-user" placeholder="Your name" maxlength="40">
                 </div>
                 <div>
                     <textarea id="comment-box"></textarea>
                 </div>
-                <table>
+                <table class="table">
                     <tr>
                         <td>
                             <div class="mt-2">
-                                <button id="submit-comment" type="button" onclick="submitComment();">Submit</button>
+                                <button id="submit-comment" type="button" class="btn btn-secondary" onclick="submitComment();">Submit</button>
                             </div>
                         </td>
                         <td>
-                            <div class="text-end muted" style="padding: 5px;">(Not more than 100 words.)</div>
+                            <div class="text-end text-muted"><small>(Not more than 100 words.)</small></div>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="list mt-2">
+            <div class="list-group mt-2">
                 <?php foreach ($comments as $cmt) { ?>
-                    <div class="p-2" style="border-top: 1px solid #e5e5e5;">
-                        <div class="p-1"><strong><?= $cmt->cmt_user_id ?></strong> | <span class="muted"><?= Time::parse($cmt->cmt_date)->toLocalizedString('MMM d, yyyy') ?></span></div>
-                        <div class="p-1"><?= $cmt->cmt_text ?></div>
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><?= $cmt->cmt_user_id ?></h5>
+                            <small><?= Time::parse($cmt->cmt_date)->toLocalizedString('MMM d, yyyy') ?></small>
+                        </div>
+                        <p class="mb-1"><?= $cmt->cmt_text ?></p>
                     </div>
-
                 <?php } ?>
             </div>
         </div>
     </div>
-    <div class="col-small">
+    <div class="col-md-4">
         <?php if ($site_show_categories) { ?>
-            <h2><?= lang('Default.categories') ?></h2>
-            <div class="list">
+            <h4><?= lang('Default.categories') ?></h4>
+            <ul class="list-group mb-3">
                 <?php foreach ($site_categories as $cat) { ?>
-                    <div class="list-item">
-                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name) ?>
-                    </div>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= anchor('pages/category/' . $cat->cg_id . '/1', $cat->cg_name, ['class' => 'nav-link']) ?>
+                    </li>
                 <?php } ?>
-            </div>
+            </ul>
         <?php } ?>
         <?php if ($site_show_archive) { ?>
-            <h2><?= lang('Default.archive') ?></h2>
-            <div class="list">
+            <h4><?= lang('Default.archive') ?></h4>
+            <ul class="list-group mb-3">
                 <?php foreach ($site_archives as $archive) { ?>
-                    <div class="list-item">
-                        <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy') . ' (' . $archive->nposts . ')') ?>
-                    </div>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy'), ['class' => 'nav-link']) ?>
+                        <span class="badge bg-secondary rounded-pill"><?= $archive->nposts ?></span>
+                    </li>
                 <?php } ?>
-            </div>
+            </ul>
         <?php } ?>
         <?php if ($site_show_archive) { ?>
-            <h2><?= lang('Default.members') ?></h2>
-            <div class="list">
+            <h4><?= lang('Default.members') ?></h4>
+            <ul class="list-group mb-3">
                 <?php foreach ($users as $user) { ?>
-                    <div class="list-item mb-1">
-                        <?= anchor('pages/user/' . $user->user_id, img(base_url() . '/writable/uploads/' . $user->user_image, false, ['style' => 'width: 26px; height: 26px; border-radius: 13px; vertical-align: middle;']) . " " . $user->user_fullname) ?>
-                    </div>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= anchor('pages/user/' . $user->user_id, img(base_url() . '/writable/uploads/' . $user->user_image, false, ['style' => 'width: 26px; height: 26px; border-radius: 13px; vertical-align: middle;']) . " " . $user->user_fullname, ['class' => 'nav-link']) ?>
+                    </li>
                 <?php } ?>
-            </div>
+            </ul>
         <?php } ?>
     </div>
 </div>
+
 <script>
     tinymce.init({
         selector: 'textarea#comment-box',

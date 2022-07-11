@@ -61,6 +61,12 @@
                                     Posts
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($menu_id == 'gallery' ? 'active' : '') ?>" href="<?php echo base_url() . '/' . index_page() ?>/admin/gallery">
+                                    <i class="bi bi-image<?= ($menu_id == 'gallery' ? '-fill' : '') ?>"></i>
+                                    Gallery
+                                </a>
+                            </li>
                         <?php } ?>
                         <?php if ($_SESSION['user_level'] >= 3) { ?>
                             <li class="nav-item">

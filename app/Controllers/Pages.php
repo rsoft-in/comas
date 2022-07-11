@@ -24,7 +24,7 @@ class Pages extends PublicSiteController
         $data = $this->loadSettings();
         if ($data != null) {
             if ($data['site_isblog']) {
-                $postsPopular = $postsModel->getData(['post_published' => 1], 'post_visited DESC, post_modified DESC', 2, 0);
+                $postsPopular = $postsModel->getData(['post_published' => 1], 'post_visited DESC, post_modified DESC', 5, 0);
                 $data['site_posts_popular'] = $postsPopular;
                 $postsRecent = $postsModel->getData(['post_published' => 1], 'post_modified DESC', 10, 0);
                 $data['site_posts_recent'] = $postsRecent;

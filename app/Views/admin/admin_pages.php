@@ -17,7 +17,7 @@
       formData.append("userfile", fileToUpload);
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/uploadImage",
+        url: "<?php echo base_url() . '/' . index_page() ?>/admin/gallery/uploadImage",
         data: formData,
         processData: false,
         contentType: false,

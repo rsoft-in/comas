@@ -12,7 +12,7 @@
             formData.append("userfile", fileToUpload);
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/profileImage",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/gallery/profileImage",
                 data: formData,
                 processData: false,
                 contentType: false,

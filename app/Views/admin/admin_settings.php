@@ -14,11 +14,12 @@
             formData.append("userfile", fileToUpload);
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url() . '/' . index_page() ?>/admin/media/logoUpload",
+                url: "<?php echo base_url() . '/' . index_page() ?>/admin/gallery/logoUpload",
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function(data) {
+                    alert(data);
                     $('#site_logo').val(data);
                     $('#f_logo_preview').attr('src', '<?= base_url() ?>/writable/uploads/' + data);
                 },

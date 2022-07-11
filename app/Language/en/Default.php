@@ -71,4 +71,7 @@ return [
     'logo' => 'Logo',
     'members' => 'Members',
     'user_role' => 'User Role',
+    'media' => 'Media',
+    'gallery' => 'Gallery',
+    'add_to_gallery' => 'Add Image to Gallery'
 ];
