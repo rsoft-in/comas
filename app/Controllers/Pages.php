@@ -6,6 +6,7 @@ use App\Controllers\PublicSiteController;
 use App\Libraries\Utility;
 use App\Models\CategoriesModel;
 use App\Models\CommentsModel;
+use App\Models\GalleryModel;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\PagesModel;
 use App\Models\PostsModel;
@@ -54,6 +55,15 @@ class Pages extends PublicSiteController
         if (sizeof($page) == 1) {
             $data['page'] = $page[0];
             $data['page_title'] = $page[0]->page_title;
+            $data['page_gallery'] = [];
+            if (strpos($page[0]->page_content, "[GALLERY-") >= 0) {
+                $gallery_id = substr($page[0]->page_content, 9, 36);
+                $galleryModel = new GalleryModel();
+                $gallery = $galleryModel->builder()->select('*')
+                    ->where('gallery_id', $gallery_id)
+                    ->get()->getResult();
+                $data['page_gallery'] = $gallery;
+            }
 
             return view('themes/' . $data['site-theme'] . '/page', $data);
         } else {
@@ -191,10 +201,10 @@ class Pages extends PublicSiteController
         }
         $archived = $postsModel->getArchived();
         $data['site_archives'] = $archived;
-        
+
         $categories = $categoriesModel->getData([], 'cg_name', 5, 0);
         $data['site_categories'] = $categories;
-        
+
         $pageLinks = $pagesModel->getLinks();
         $data['site_links'] = $pageLinks;
 

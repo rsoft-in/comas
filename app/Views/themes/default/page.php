@@ -15,7 +15,28 @@ $this->extend('themes/default/template') ?>
     <div class="col-md-8">
         <div class="m-2">
             <h2><?= $page->page_title ?></h2>
-            <div class="article"><?= $page->page_content ?></div>
+            <?php if (sizeof($page_gallery) == 0) { ?>
+                <div class="article"><?= $page->page_content ?></div>
+            <?php } else { ?>
+                <?php foreach ($page_gallery as $gallery) {
+                    $items = json_decode($gallery->gallery_items);
+                ?>
+                    <div class="row">
+                        <?php foreach ($items as $item) { ?>
+                            <div class="col-md-3">
+                                <a href="<?= base_url() . '/writable/uploads/gallery/' . $item->image ?>" target="_blank">
+                                    <div class="card">
+                                        <?= img(base_url() . '/writable/uploads/gallery/' . $item->image, false, ['alt' => $item->desc, 'style' => 'height: 180px; object-fit: cover;']) ?>
+                                        <div class="card-body">
+                                            <p class="card-text"><?= $item->desc ?></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php } ?>
+                    </div>
+            <?php }
+            } ?>
         </div>
     </div>
     <div class="col-md-4">
@@ -35,7 +56,7 @@ $this->extend('themes/default/template') ?>
                 <?php foreach ($site_archives as $archive) { ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <?= anchor('#', Time::createFromDate($archive->year, $archive->month, 1)->toLocalizedString('MMM yyyy'), ['class' => 'nav-link']) ?>
-                        <span class="badge bg-secondary rounded-pill"><?= $archive->nposts?></span>
+                        <span class="badge bg-secondary rounded-pill"><?= $archive->nposts ?></span>
                     </li>
                 <?php } ?>
             </ul>

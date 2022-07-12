@@ -26,6 +26,7 @@
                     signIn();
                 }
             });
+            $('#f_username').focus();
         });
 
         function signIn() {

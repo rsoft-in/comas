@@ -72,7 +72,7 @@
             $('#image-list').append("<tr><td class='my-3'>" +
                 "<img src='<?= base_url() . '/writable/uploads/gallery/' ?>" + images[i].image + "' style='width: 100px;'>" +
                 "</td><td>" +
-                "<input type='text' class='image-desc' value='" + images[i].desc + "' id='image-" + i + "'>" +
+                "<input type='text' class='image-desc form-control' value='" + images[i].desc + "' id='image-" + i + "'>" +
                 "</td>" +
                 "</tr>");
         }
@@ -86,9 +86,9 @@
                 "<h5 class=\"card-title\">" + data.galleries[i].gallery_name + "</h5>\n" +
                 "<h6 class=\"card-subtitle mb-2 text-muted\">" +
                 "<span>" + data.galleries[i].gallery_desc + "</span></h6>\n" +
-
                 "<a href=\"#\" class=\"card-link\" onclick=\"onEdit('" + data.galleries[i].gallery_id + "')\">Edit</a>\n" +
                 "<a href=\"#\" class=\"card-link\" onclick=\"onDelete('" + data.galleries[i].gallery_id + "')\">Delete</a>\n" +
+                "<a href=\"#\" class=\"card-link\" onclick=\"getGCode('" + data.galleries[i].gallery_id + "')\">Get Code</a>\n" +
                 "</div>\n" +
                 "</div>\n";
         }
@@ -176,6 +176,10 @@
                 }
             });
         }
+    }
+
+    function getGCode(id) {
+        alert("[GALLERY-" + id + "]");
     }
 </script>
 <div class="mb-3">

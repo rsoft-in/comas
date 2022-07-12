@@ -147,6 +147,9 @@
     var valid = $(document).validate();
     if (!valid) return;
     var ed = tinymce.get('f-page-editor').getContent();
+    if (ed.indexOf("[GALLERY-") >= 0) {
+      ed = tinymce.get('f-page-editor').getContent({ format: 'text' });
+    }
     var postdata = {
       'p_id': $('#f_pid').val(),
       'p_title': $('#f_ptitle').val(),
